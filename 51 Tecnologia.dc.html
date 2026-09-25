@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
+<link rel="stylesheet" href="css/produtos.css">
 <link rel="stylesheet" href="css/51-tecnologia.css">
 </helmet>
 <div class="page">
@@ -49,7 +50,7 @@
             <div class="suggest suggest--inline">
               <sc-for list="{{suggestions}}" as="s" hint-placeholder-count="0">
                 <button onMouseDown="{{s.onPick}}" class="suggest__item">
-                  <span class="suggest__thumb" style="background:{{s.tint}}">{{s.ghost}}</span>
+                  <span class="suggest__thumb" data-product="{{s.id}}">{{s.ghost}}</span>
                   <span class="suggest__text"><span class="suggest__name">{{s.name}}</span><span class="suggest__cat">{{s.catName}}</span></span>
                   <span class="suggest__price">{{s.priceTxt}}</span>
                 </button>
@@ -85,7 +86,7 @@
           <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span class="header-action__label">Favoritos</span></sc-if>
           <sc-if value="{{hasFavs}}" hint-placeholder-val="{{false}}"><span class="fav-badge">{{favCount}}</span></sc-if>
         </button>
-        <button onClick="{{openCart}}" aria-label="Carrinho" class="cart-btn" style="transform:scale({{cartScale}})">
+        <button onClick="{{openCart}}" aria-label="Carrinho" class="cart-btn {{cartBtnCls}}">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path></svg>
           <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span class="cart-btn__label">Carrinho</span></sc-if>
           <span class="count-badge">{{cartCount}}</span>
@@ -120,7 +121,7 @@
     <sc-if value="{{showNav}}" hint-placeholder-val="{{true}}">
       <nav class="main-nav">
         <sc-for list="{{navItems}}" as="n" hint-placeholder-count="9">
-          <button onClick="{{n.onClick}}" class="main-nav__link" style="--nav-color:{{n.color}};--nav-line:{{n.line}}">{{n.label}}<sc-if value="{{n.hot}}" hint-placeholder-val="{{false}}"><span class="main-nav__dot"></span></sc-if></button>
+          <button onClick="{{n.onClick}}" class="main-nav__link {{n.cls}}">{{n.label}}<sc-if value="{{n.hot}}" hint-placeholder-val="{{false}}"><span class="main-nav__dot"></span></sc-if></button>
         </sc-for>
       </nav>
     </sc-if>
@@ -138,8 +139,8 @@
           <div class="hero__color-label">Cor: <span class="hero__color-name">{{heroColorName}}</span></div>
           <div class="hero__swatches">
             <sc-for list="{{heroColors}}" as="c" hint-placeholder-count="3">
-              <button onClick="{{c.onPick}}" class="hero__swatch" style="border-color:{{c.ring}};background:{{c.bg}}">
-                <span class="hero__swatch-dot" style="background:{{c.hex}}"></span>{{c.name}}
+              <button onClick="{{c.onPick}}" class="hero__swatch {{c.cls}}">
+                <span class="hero__swatch-dot" data-color="{{c.id}}"></span>{{c.name}}
               </button>
             </sc-for>
           </div>
@@ -152,17 +153,17 @@
       </div>
       <!-- Foto: uma camada por cor, com efeito 3D e flutuação -->
       <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" class="hero__stage">
-        <div class="hero__halo" style="background:{{heroHex}}"></div>
+        <div class="hero__halo" data-color="{{heroColor}}"></div>
         <div data-tilt-shadow="" class="hero__shadow"><div class="hero__shadow-blob"></div></div>
         <div class="hero__float">
           <div data-tilt="" class="hero__tilt">
-            <div class="hero__layer" style="opacity:{{heroOpMarrom}};transform:scale({{heroScMarrom}});pointer-events:{{heroPeMarrom}}">
+            <div class="hero__layer {{heroLayer.marrom}}">
               <image-slot id="hero-jbl-marrom" src="images/jbl-marrom-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Marrom (PNG sem fundo)"></image-slot>
             </div>
-            <div class="hero__layer" style="opacity:{{heroOpLaranja}};transform:scale({{heroScLaranja}});pointer-events:{{heroPeLaranja}}">
+            <div class="hero__layer {{heroLayer.laranja}}">
               <image-slot id="hero-jbl-laranja" src="images/jbl-laranja-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Laranja (PNG sem fundo)"></image-slot>
             </div>
-            <div class="hero__layer" style="opacity:{{heroOpPreto}};transform:scale({{heroScPreto}});pointer-events:{{heroPePreto}}">
+            <div class="hero__layer {{heroLayer.preto}}">
               <image-slot id="hero-jbl-preto" src="images/jbl-preto-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Preto (PNG sem fundo)"></image-slot>
             </div>
           </div>
@@ -180,18 +181,18 @@
       </div>
       <p class="section-intro">Sete categorias, uma curadoria enxuta: só produtos que valem a pena.</p>
     </div>
-    <div class="categories__grid" style="grid-template-columns:repeat({{catCols}},minmax(0,1fr))">
+    <div class="categories__grid">
       <sc-for list="{{categories}}" as="c" hint-placeholder-count="7">
-        <div onClick="{{c.onClick}}" class="cat-card" style="grid-column:span {{c.span}};background:{{c.bg}};color:{{c.fg}}">
-          <div aria-hidden="true" class="cat-card__ghost" style="color:{{c.ghostColor}}">{{c.ghost}}</div>
+        <div onClick="{{c.onClick}}" class="cat-card" data-cat="{{c.id}}">
+          <div aria-hidden="true" class="cat-card__ghost">{{c.ghost}}</div>
           <div class="cat-card__body">
-            <div class="cat-card__count" style="color:{{c.muted}}">{{c.countTxt}}</div>
+            <div class="cat-card__count">{{c.countTxt}}</div>
             <h3 class="cat-card__name">{{c.name}}</h3>
-            <p class="cat-card__desc" style="color:{{c.muted}}">{{c.desc}}</p>
+            <p class="cat-card__desc">{{c.desc}}</p>
           </div>
           <div class="cat-card__footer">
-            <span class="cat-card__cta" style="background:{{c.btnBg}};color:{{c.btnFg}}">Ver produtos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
-            <span class="cat-card__brands" style="color:{{c.muted}}">{{c.productsTxt}}</span>
+            <span class="cat-card__cta">Ver produtos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+            <span class="cat-card__brands">{{c.productsTxt}}</span>
           </div>
         </div>
       </sc-for>
@@ -207,16 +208,16 @@
       </div>
       <button onClick="{{goAll}}" class="btn-outline">Ver todos os produtos</button>
     </div>
-    <div class="product-grid" style="grid-template-columns:repeat({{prodCols}},minmax(0,1fr))">
+    <div class="product-grid product-grid--main">
       <!-- Spotlight: TV 85" ocupando 2 colunas -->
-      <div class="spotlight" style="grid-column:span {{spotSpan}}">
+      <div class="spotlight">
         <div aria-hidden="true" class="spotlight__ghost">85”</div>
         <div class="spotlight__badges">
           <span class="spotlight__badge spotlight__badge--red">TELA GIGANTE</span>
           <span class="spotlight__badge spotlight__badge--soft">{{spot.discTxt}}</span>
         </div>
         <div onClick="{{spot.onOpen}}" class="spotlight__media">
-          <sc-if value="{{spot.hasImg}}" hint-placeholder-val="{{false}}"><div role="img" aria-label="{{spot.name}}" class="spotlight__img" style="background-image:url({{spot.img}})"></div></sc-if>
+          <sc-if value="{{spot.hasImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" src="{{spot.img}}" alt="{{spot.name}}" class="spotlight__img"></sc-if>
           <sc-if value="{{spot.noImg}}" hint-placeholder-val="{{true}}">
             <div class="spotlight__placeholder">FOTO DO PRODUTO</div>
           </sc-if>
@@ -230,7 +231,7 @@
           </div>
           <div class="spotlight__actions">
             <button onClick="{{spot.onOpen}}" class="spotlight__details">Detalhes</button>
-            <button onClick="{{spot.onAdd}}" class="spotlight__add" style="background:{{spot.spotAddBg}}">{{spot.addLabel}}</button>
+            <button onClick="{{spot.onAdd}}" class="spotlight__add {{spot.addCls}}">{{spot.addLabel}}</button>
           </div>
         </div>
       </div>
@@ -287,7 +288,7 @@
       </div>
       <p class="section-intro">{{offerCount}} produtos com desconto, em até 10x sem juros.</p>
     </div>
-    <div class="product-grid" style="grid-template-columns:repeat({{prodCols}},minmax(0,1fr))">
+    <div class="product-grid product-grid--main">
       <sc-for list="{{offers}}" as="p" hint-placeholder-count="4">
         <dc-import name="ProductCard" p="{{p}}" hint-size="100%,480px"></dc-import>
       </sc-for>
@@ -324,7 +325,7 @@
     <div class="catalog__layout">
       <!-- Filtros -->
       <sc-if value="{{showFilters}}" hint-placeholder-val="{{true}}">
-        <aside class="filters" style="max-width:{{asideMax}};position:{{asidePos}}">
+        <aside class="filters">
           <div class="filters__head">
             <span class="filters__title">Filtros</span>
             <button onClick="{{clearFilters}}" class="filters__clear">Limpar</button>
@@ -333,7 +334,7 @@
             <div class="filter-label filter-label--spaced">CATEGORIA</div>
             <sc-for list="{{catFilters}}" as="f" hint-placeholder-count="7">
               <button onClick="{{f.onToggle}}" class="check-row">
-                <span class="check-row__box" style="border-color:{{f.boxBorder}};background:{{f.boxBg}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+                <span class="check-row__box {{f.cls}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
                 <span class="check-row__label">{{f.label}}</span><span class="check-row__count">{{f.count}}</span>
               </button>
             </sc-for>
@@ -342,7 +343,7 @@
             <div class="filter-label">MARCA</div>
             <div class="chip-list">
               <sc-for list="{{brandFilters}}" as="b" hint-placeholder-count="8">
-                <button onClick="{{b.onToggle}}" class="chip chip--animated" style="border-color:{{b.border}};background:{{b.bg}};color:{{b.fg}}">{{b.label}}</button>
+                <button onClick="{{b.onToggle}}" class="chip chip--animated {{b.cls}}">{{b.label}}</button>
               </sc-for>
             </div>
           </div>
@@ -355,7 +356,7 @@
             <div class="filter-label">AVALIAÇÃO</div>
             <div class="chip-list">
               <sc-for list="{{ratingFilters}}" as="r" hint-placeholder-count="3">
-                <button onClick="{{r.onPick}}" class="chip" style="border-color:{{r.border}};background:{{r.bg}};color:{{r.fg}}">{{r.label}}</button>
+                <button onClick="{{r.onPick}}" class="chip {{r.cls}}">{{r.label}}</button>
               </sc-for>
             </div>
           </div>
@@ -365,7 +366,7 @@
       <div class="catalog__results">
         <div class="catalog__count">{{resultLabel}}</div>
         <sc-if value="{{hasResults}}" hint-placeholder-val="{{true}}">
-          <div class="product-grid" style="grid-template-columns:repeat({{allCols}},minmax(0,1fr))">
+          <div class="product-grid product-grid--catalog">
             <sc-for list="{{results}}" as="p" hint-placeholder-count="6">
               <dc-import name="ProductCard" p="{{p}}" hint-size="100%,460px"></dc-import>
             </sc-for>
@@ -435,10 +436,10 @@
   </footer>
 
   <!-- ================= GAVETAS: fundo escuro, menu mobile, carrinho, favoritos ================= -->
-  <div onClick="{{closeAll}}" class="overlay" style="opacity:{{overlayOpacity}};pointer-events:{{overlayPE}}"></div>
+  <div onClick="{{closeAll}}" class="overlay {{overlayCls}}"></div>
 
   <!-- Menu mobile -->
-  <aside aria-label="Menu" class="drawer drawer--left" style="transform:translateX({{menuX}});visibility:{{menuVis}}">
+  <aside aria-label="Menu" class="drawer drawer--left {{menuDrawerCls}}">
     <div class="drawer__head drawer__head--menu">
       <span class="drawer-logo">5<span class="logo-mark__one">1</span> <span class="drawer-logo__word">TECNOLOGIA</span></span>
       <button onClick="{{closeAll}}" aria-label="Fechar menu" class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
@@ -458,7 +459,7 @@
   </aside>
 
   <!-- Carrinho -->
-  <aside aria-label="Carrinho" class="drawer drawer--right" style="transform:translateX({{cartX}});visibility:{{cartVis}}">
+  <aside aria-label="Carrinho" class="drawer drawer--right {{cartDrawerCls}}">
     <div class="drawer__head">
       <div class="drawer__title-row"><span class="drawer__title">Seu carrinho</span><span class="drawer__count">{{cartCountTxt}}</span></div>
       <button onClick="{{closeAll}}" aria-label="Fechar carrinho" class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
@@ -483,16 +484,16 @@
       <div class="cart-list">
         <sc-for list="{{cartItems}}" as="it" hint-placeholder-count="0">
           <div class="line-item">
-            <div class="line-item__thumb" style="background:{{it.tint}}">
-              <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><div class="line-item__img" style="background-image:url({{it.img}});mix-blend-mode:{{it.imgBlend}}"></div></sc-if>
-              <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span class="line-item__ghost" style="color:{{it.ghostColor}}">{{it.ghost}}</span></sc-if>
+            <div class="line-item__thumb" data-product="{{it.id}}" data-color="{{it.colorId}}">
+              <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" src="{{it.img}}" alt="" class="line-item__img {{it.imgCls}}"></sc-if>
+              <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span class="line-item__ghost" data-color="{{it.colorId}}">{{it.ghost}}</span></sc-if>
             </div>
             <div class="line-item__info">
               <div class="line-item__top">
                 <span class="line-item__name">{{it.name}}</span>
                 <button onClick="{{it.onRemove}}" aria-label="Remover" class="line-item__remove"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b6b6f" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg></button>
               </div>
-              <sc-if value="{{it.hasColor}}" hint-placeholder-val="{{false}}"><span class="line-item__color"><span class="line-item__dot" style="background:{{it.colorHex}}"></span>{{it.colorName}}</span></sc-if>
+              <sc-if value="{{it.hasColor}}" hint-placeholder-val="{{false}}"><span class="line-item__color"><span class="line-item__dot" data-color="{{it.colorId}}"></span>{{it.colorName}}</span></sc-if>
               <div class="line-item__bottom">
                 <div class="qty">
                   <button onClick="{{it.onMinus}}" aria-label="Diminuir" class="qty__btn">−</button>
@@ -517,7 +518,7 @@
   </aside>
 
   <!-- Favoritos -->
-  <aside aria-label="Favoritos" class="drawer drawer--right" style="transform:translateX({{favX}});visibility:{{favVis}}">
+  <aside aria-label="Favoritos" class="drawer drawer--right {{favDrawerCls}}">
     <div class="drawer__head">
       <div class="drawer__title-row"><span class="drawer__title">Favoritos</span><span class="drawer__count">{{favCount}}</span></div>
       <button onClick="{{closeAll}}" aria-label="Fechar favoritos" class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
@@ -532,15 +533,15 @@
       </sc-if>
       <sc-for list="{{favItems}}" as="it" hint-placeholder-count="0">
         <div class="line-item">
-          <div onClick="{{it.onOpen}}" class="line-item__thumb line-item__thumb--link" style="background:{{it.tint}}">
-            <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><div class="line-item__img" style="background-image:url({{it.img}});mix-blend-mode:{{it.imgBlend}}"></div></sc-if>
-            <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span class="line-item__ghost" style="color:{{it.ghostColor}}">{{it.ghost}}</span></sc-if>
+          <div onClick="{{it.onOpen}}" class="line-item__thumb line-item__thumb--link" data-product="{{it.id}}" data-color="{{it.colorId}}">
+            <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" src="{{it.img}}" alt="" class="line-item__img {{it.imgCls}}"></sc-if>
+            <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span class="line-item__ghost">{{it.ghost}}</span></sc-if>
           </div>
           <div class="line-item__info">
             <span class="line-item__name">{{it.name}}</span>
             <span class="line-item__amount">{{it.priceTxt}}</span>
             <div class="line-item__actions">
-              <button onClick="{{it.onAdd}}" class="fav-add" style="background:{{it.addBg}}">{{it.addLabel}}</button>
+              <button onClick="{{it.onAdd}}" class="fav-add {{it.addCls}}">{{it.addLabel}}</button>
               <button onClick="{{it.onFav}}" class="fav-remove">Remover</button>
             </div>
           </div>
@@ -551,18 +552,18 @@
 
   <!-- ================= MODAL DE PRODUTO ================= -->
   <sc-if value="{{hasModal}}" hint-placeholder-val="{{false}}">
-    <div onClick="{{closeModal}}" class="modal-backdrop" style="opacity:{{modalOpacity}}">
-      <div onClick="{{stop}}" role="dialog" aria-modal="true" aria-label="{{m.name}}" class="modal" style="max-height:{{modalMaxH}};height:{{modalH}};border-radius:{{modalRadius}};transform:translateY({{modalY}})">
+    <div onClick="{{closeModal}}" class="modal-backdrop {{modalCls}}">
+      <div onClick="{{stop}}" role="dialog" aria-modal="true" aria-label="{{m.name}}" class="modal {{modalCls}}">
         <button onClick="{{closeModal}}" aria-label="Fechar" class="modal__close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
         <div class="modal__grid">
           <!-- Foto -->
           <div class="modal__media-col">
-            <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" class="modal__media" style="background:{{m.tint}}">
-              <div class="modal__fade" style="opacity:{{modalImgOpacity}};transform:scale({{modalImgScale}})">
-                <sc-if value="{{m.showImg}}" hint-placeholder-val="{{false}}"><div data-tilt="" role="img" aria-label="{{m.name}}" class="modal__img" style="background-image:url({{m.mainImg}});mix-blend-mode:{{m.imgBlend}};filter:{{m.imgFilter}}"></div></sc-if>
+            <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" class="modal__media" data-product="{{m.id}}" data-color="{{m.colorId}}">
+              <div class="modal__fade {{modalFadeCls}}">
+                <sc-if value="{{m.showImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" data-tilt="" src="{{m.mainImg}}" alt="{{m.name}}" class="modal__img {{m.imgCls}}"></sc-if>
                 <sc-if value="{{m.showPh}}" hint-placeholder-val="{{true}}">
                   <div class="modal__ph">
-                    <span class="modal__ph-ghost" style="color:{{m.ghostColor}}">{{m.ghost}}</span>
+                    <span class="modal__ph-ghost" data-color="{{m.colorId}}">{{m.ghost}}</span>
                     <span class="modal__ph-label">{{m.viewLabel}}</span>
                   </div>
                 </sc-if>
@@ -575,7 +576,7 @@
             <div class="modal__kicker">{{m.brand}} · {{m.catName}} · {{m.sub}}</div>
             <h2 class="modal__title">{{m.name}}</h2>
             <div class="modal__rating">
-              <span class="modal__stars">★★★★★<span class="modal__stars-fill" style="width:{{m.starPct}}">★★★★★</span></span>
+              <span class="modal__stars">★★★★★<span class="modal__stars-fill" data-stars="{{m.stars}}">★★★★★</span></span>
               <span>{{m.ratingTxt}}</span>
             </div>
             <div class="modal__pricebox">
@@ -590,7 +591,7 @@
                 <div class="modal__label">COR: <span class="modal__color-name">{{m.colorNameUpper}}</span></div>
                 <div class="modal__swatches">
                   <sc-for list="{{m.colors}}" as="c" hint-placeholder-count="3">
-                    <button onClick="{{c.onPick}}" class="modal__swatch" style="border-color:{{c.ring}}"><span class="modal__swatch-dot" style="background:{{c.hex}}"></span>{{c.upper}}</button>
+                    <button onClick="{{c.onPick}}" class="modal__swatch {{c.cls}}"><span class="modal__swatch-dot" data-color="{{c.id}}"></span>{{c.upper}}</button>
                   </sc-for>
                 </div>
               </div>
@@ -601,11 +602,11 @@
                 <span class="qty__value">{{m.qty}}</span>
                 <button onClick="{{mPlus}}" aria-label="Aumentar quantidade" class="qty__btn">+</button>
               </div>
-              <button onClick="{{m.onFav}}" aria-label="Favoritar" class="modal__fav"><svg width="20" height="20" viewBox="0 0 24 24" fill="{{m.heartFill}}" stroke="{{m.heartStroke}}" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg></button>
+              <button onClick="{{m.onFav}}" aria-label="Favoritar" class="modal__fav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linejoin="round" class="modal__heart {{m.favCls}}"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg></button>
             </div>
             <div class="modal__ctas">
               <button onClick="{{mBuy}}" class="modal__cta modal__cta--buy">Comprar agora</button>
-              <button onClick="{{mAdd}}" class="modal__cta modal__cta--add" style="background:{{mAddBg}}">{{mAddLabel}}</button>
+              <button onClick="{{mAdd}}" class="modal__cta modal__cta--add {{mAddCls}}">{{mAddLabel}}</button>
             </div>
             <div class="modal__features">
               <div class="modal__label">CARACTERÍSTICAS</div>
@@ -623,7 +624,7 @@
   </sc-if>
 
   <!-- ================= TOAST (avisos rápidos) ================= -->
-  <div role="status" class="toast" style="transform:translate(-50%,{{toastY}});opacity:{{toastOpacity}}">
+  <div role="status" class="toast {{toastCls}}">
     <span class="toast__icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
     <span class="toast__text">{{toastText}}</span>
   </div>
@@ -633,6 +634,7 @@
 class Component extends DCLogic {
   // ===================================================================
   //  DADOS DA LOJA
+  //  (cores de produtos e categorias ficam no CSS: css/produtos.css e css/51-tecnologia.css)
   // ===================================================================
 
   // ---------- Preços — valores de exemplo (MOCK) ----------
@@ -654,54 +656,56 @@ class Component extends DCLogic {
   // Parcelamento sem juros exibido nos cards, no modal e no carrinho.
   static PARCELAS = 10;
 
-  // ---------- Categorias (cores dos cards da seção "Categorias") ----------
+  // ---------- Categorias ----------
+  // ghost: palavra gigante de fundo do card. Cores: .cat-card[data-cat="..."] em css/51-tecnologia.css.
   static CATS = [
-    { id: 'audio', name: 'Áudio', desc: 'Caixas de som potentes e fones premium.', ghost: 'SOM', bg: '#141414', fg: '#ffffff', muted: 'rgba(255,255,255,.66)', ghostColor: 'rgba(255,255,255,.07)', btnBg: '#E1261C', btnFg: '#ffffff' },
-    { id: 'tvs', name: 'TVs', desc: 'Telas de 32" a 85" para cada ambiente.', ghost: 'TELA', bg: '#EFEFED', fg: '#111111', muted: '#5f5f63', ghostColor: 'rgba(0,0,0,.05)', btnBg: '#111111', btnFg: '#ffffff' },
-    { id: 'computadores', name: 'Computadores', desc: 'All-in-one com design e desempenho.', ghost: 'DESKTOP', bg: '#DCD3F2', fg: '#1B1530', muted: '#4a4163', ghostColor: 'rgba(27,21,48,.07)', btnBg: '#ffffff', btnFg: '#1B1530' },
-    { id: 'casa', name: 'Casa Inteligente', desc: 'Robôs que limpam enquanto você vive.', ghost: 'SMART', bg: '#E1261C', fg: '#ffffff', muted: 'rgba(255,255,255,.88)', ghostColor: 'rgba(255,255,255,.12)', btnBg: '#ffffff', btnFg: '#C81E15' },
-    { id: 'eletro', name: 'Eletrodomésticos', desc: 'Praticidade na cozinha, todos os dias.', ghost: 'COZINHA', bg: '#F1E9DE', fg: '#2A1F14', muted: '#6a5a48', ghostColor: 'rgba(42,31,20,.06)', btnBg: '#2A1F14', btnFg: '#ffffff' },
-    { id: 'clima', name: 'Climatização', desc: 'Conforto térmico com eficiência Inverter.', ghost: 'CLIMA', bg: '#DDE9EF', fg: '#0F2530', muted: '#45606c', ghostColor: 'rgba(15,37,48,.06)', btnBg: '#0F2530', btnFg: '#ffffff' },
-    { id: 'internet', name: 'Internet e Conectividade', desc: 'Internet via satélite de alta velocidade, onde você estiver.', ghost: 'CONEXÃO', bg: '#26262A', fg: '#ffffff', muted: 'rgba(255,255,255,.66)', ghostColor: 'rgba(255,255,255,.05)', btnBg: '#ffffff', btnFg: '#111111' },
+    { id: 'audio', name: 'Áudio', desc: 'Caixas de som potentes e fones premium.', ghost: 'SOM' },
+    { id: 'tvs', name: 'TVs', desc: 'Telas de 32" a 85" para cada ambiente.', ghost: 'TELA' },
+    { id: 'computadores', name: 'Computadores', desc: 'All-in-one com design e desempenho.', ghost: 'DESKTOP' },
+    { id: 'casa', name: 'Casa Inteligente', desc: 'Robôs que limpam enquanto você vive.', ghost: 'SMART' },
+    { id: 'eletro', name: 'Eletrodomésticos', desc: 'Praticidade na cozinha, todos os dias.', ghost: 'COZINHA' },
+    { id: 'clima', name: 'Climatização', desc: 'Conforto térmico com eficiência Inverter.', ghost: 'CLIMA' },
+    { id: 'internet', name: 'Internet e Conectividade', desc: 'Internet via satélite de alta velocidade, onde você estiver.', ghost: 'CONEXÃO' },
   ];
 
   // ---------- Produtos ----------
   // img: foto (PNG sem fundo recomendado). imgs: fotos por cor. colors: variações de cor.
   // featured: aparece em "Destaques". spotlight: card grande (TV 85"). stock 'baixo': "Poucas unidades".
+  // blend: foto com fundo branco (mistura com o fundo). Cor de fundo da foto: css/produtos.css.
   static PRODUTOS = [
-    { id: 'jbl-boombox-4', name: 'JBL Boombox 4', brand: 'JBL', cat: 'audio', sub: 'Caixas de som', ghost: 'BOOMBOX', rating: 4.9, reviews: 214, recent: 1, featured: true, stock: 'baixo', tint: '#F1F1F0', img: '',
-      colors: [ { id: 'marrom', name: 'Marrom', hex: '#6B4A36', soft: '#EFE8E2' }, { id: 'laranja', name: 'Laranja', hex: '#E8742A', soft: '#FBECE0' }, { id: 'preto', name: 'Preto', hex: '#1D1D1F', soft: '#EAEAEB' } ],
+    { id: 'jbl-boombox-4', name: 'JBL Boombox 4', brand: 'JBL', cat: 'audio', sub: 'Caixas de som', ghost: 'BOOMBOX', rating: 4.9, reviews: 214, recent: 1, featured: true, stock: 'baixo', img: '',
+      colors: [ { id: 'marrom', name: 'Marrom' }, { id: 'laranja', name: 'Laranja' }, { id: 'preto', name: 'Preto' } ],
       imgs: { marrom: 'images/jbl-marrom-v2.png', laranja: 'images/jbl-laranja-v2.png', preto: 'images/jbl-preto-v2.png' },
       desc: 'Caixa de som portátil com graves profundos e visual robusto. Feita para acompanhar festas, viagens e qualquer ambiente ao ar livre.',
       features: ['Som potente com graves profundos', 'Resistente à água e à poeira', 'Bateria de longa duração', 'Conexão Bluetooth', 'Alça integrada para transporte'] },
-    { id: 'starlink', name: 'Starlink — Kit Internet via Satélite', brand: 'Starlink', cat: 'internet', sub: 'Internet via satélite', ghost: 'STARLINK', rating: 4.7, reviews: 98, recent: 4, featured: true, tint: '#F0F0F2', img: '',
+    { id: 'starlink', name: 'Starlink — Kit Internet via Satélite', brand: 'Starlink', cat: 'internet', sub: 'Internet via satélite', ghost: 'STARLINK', rating: 4.7, reviews: 98, recent: 4, featured: true, img: '',
       desc: 'Kit de internet via satélite para conectar casas, empresas e áreas remotas com alta velocidade e baixa latência.',
       features: ['Antena de internet via satélite', 'Roteador Wi-Fi incluso', 'Instalação simples', 'Ideal para áreas rurais e remotas', 'Gerenciamento pelo aplicativo'] },
-    { id: 'airpods-max', name: 'Apple AirPods Max', brand: 'Apple', cat: 'audio', sub: 'Fones de ouvido', ghost: 'MAX', rating: 4.8, reviews: 356, recent: 3, featured: true, stock: 'baixo', tint: '#EFEDF6', img: 'images/airpods-max.png',
+    { id: 'airpods-max', name: 'Apple AirPods Max', brand: 'Apple', cat: 'audio', sub: 'Fones de ouvido', ghost: 'MAX', rating: 4.8, reviews: 356, recent: 3, featured: true, stock: 'baixo', img: 'images/airpods-max.png',
       desc: 'O fone over-ear premium da Apple: cancelamento ativo de ruído, áudio espacial e acabamento em alumínio.',
       features: ['Cancelamento Ativo de Ruído', 'Modo Ambiente', 'Áudio espacial personalizado', 'Almofadas com espuma de memória', 'Digital Crown para controle preciso'] },
-    { id: 'samsung-h500f-32', name: 'Samsung HD TV H500F 32"', brand: 'Samsung', cat: 'tvs', sub: 'TVs HD', ghost: '32"', rating: 4.6, reviews: 402, recent: 7, tint: '#EFEFED', img: 'images/samsung-h500f-32.png',
+    { id: 'samsung-h500f-32', name: 'Samsung HD TV H500F 32"', brand: 'Samsung', cat: 'tvs', sub: 'TVs HD', ghost: '32"', rating: 4.6, reviews: 402, recent: 7, img: 'images/samsung-h500f-32.png',
       desc: 'TV HD de 32 polegadas da Samsung, compacta e ideal para quartos, cozinhas e ambientes menores.',
       features: ['Tela de 32 polegadas', 'Resolução HD', 'Design compacto', 'Entradas HDMI e USB'] },
-    { id: 'imac-roxo', name: 'iMac Roxo Claro', brand: 'Apple', cat: 'computadores', sub: 'All-in-one', ghost: 'iMAC', rating: 4.9, reviews: 128, recent: 2, featured: true, tint: '#EEEAF7', img: 'images/imac-roxo.png',
+    { id: 'imac-roxo', name: 'iMac Roxo Claro', brand: 'Apple', cat: 'computadores', sub: 'All-in-one', ghost: 'iMAC', rating: 4.9, reviews: 128, recent: 2, featured: true, img: 'images/imac-roxo.png',
       desc: 'Computador all-in-one da Apple com design ultrafino, tela de alta resolução e acabamento em roxo claro.',
       features: ['Design all-in-one ultrafino', 'Tela Retina de alta resolução', 'Chip Apple de alto desempenho', 'Acabamento em roxo claro'] },
-    { id: 'tcl-elite-gv', name: 'TCL Ar-Condicionado Inverter Série Elite GV', brand: 'TCL', cat: 'clima', sub: 'Ar-condicionado', ghost: 'ELITE', rating: 4.6, reviews: 187, recent: 6, stock: 'baixo', tint: '#EAF1F4', img: 'images/tcl-elite-gv.png',
+    { id: 'tcl-elite-gv', name: 'TCL Ar-Condicionado Inverter Série Elite GV', brand: 'TCL', cat: 'clima', sub: 'Ar-condicionado', ghost: 'ELITE', rating: 4.6, reviews: 187, recent: 6, stock: 'baixo', img: 'images/tcl-elite-gv.png',
       desc: 'Condicionador de ar Inverter TCL Série Elite GV, função frio. Unidade interna.',
       features: ['Tecnologia Inverter', 'Função frio', 'Unidade interna', 'Operação silenciosa', 'Controle remoto'] },
-    { id: 'xiaomi-s40', name: 'Xiaomi Robot Vacuum S40', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'S40', rating: 4.7, reviews: 263, recent: 5, featured: true, tint: '#F1F1F0', img: 'images/xiaomi-s40.png',
+    { id: 'xiaomi-s40', name: 'Xiaomi Robot Vacuum S40', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'S40', rating: 4.7, reviews: 263, recent: 5, featured: true, img: 'images/xiaomi-s40.png',
       desc: 'Robô aspirador com limpeza inteligente: mapeia a casa, aspira e passa pano de forma automática.',
       features: ['Navegação a laser com mapeamento', 'Aspira e passa pano', 'Controle pelo app Xiaomi Home', 'Retorno automático à base'] },
-    { id: 'gaabor-neo-4l', name: 'Gaabor Air Fryer NEO 4L', brand: 'Gaabor', cat: 'eletro', sub: 'Cozinha', ghost: 'NEO', rating: 4.5, reviews: 311, recent: 9, stock: 'baixo', tint: '#F4EFE8', img: 'images/gaabor-neo-4l.png',
+    { id: 'gaabor-neo-4l', name: 'Gaabor Air Fryer NEO 4L', brand: 'Gaabor', cat: 'eletro', sub: 'Cozinha', ghost: 'NEO', rating: 4.5, reviews: 311, recent: 9, stock: 'baixo', img: 'images/gaabor-neo-4l.png',
       desc: 'Air fryer de 4 litros para preparar refeições crocantes com pouco ou nenhum óleo.',
       features: ['Capacidade de 4 litros', 'Preparo com pouco ou nenhum óleo', 'Cesto antiaderente', 'Controle de tempo e temperatura'] },
-    { id: 'xiaomi-h50-pro', name: 'Xiaomi Robot Vacuum H50 Pro', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'H50 PRO', rating: 4.8, reviews: 76, recent: 8, featured: true, tint: '#F1F1F0', img: 'images/xiaomi-h50-pro.png',
+    { id: 'xiaomi-h50-pro', name: 'Xiaomi Robot Vacuum H50 Pro', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'H50 PRO', rating: 4.8, reviews: 76, recent: 8, featured: true, img: 'images/xiaomi-h50-pro.png',
       desc: 'Robô aspirador com recursos inteligentes e alta potência de sucção para uma limpeza completa.',
       features: ['Alta potência de sucção', 'Mapeamento inteligente dos ambientes', 'Controle por app', 'Limpeza programada'] },
-    { id: 'ninja-creami', name: 'Ninja Creami', brand: 'Ninja', cat: 'eletro', sub: 'Cozinha', ghost: 'CREAMI', rating: 4.8, reviews: 142, recent: 10, featured: true, tint: '#F4EFE8', img: 'images/ninja-creami.png',
+    { id: 'ninja-creami', name: 'Ninja Creami', brand: 'Ninja', cat: 'eletro', sub: 'Cozinha', ghost: 'CREAMI', rating: 4.8, reviews: 142, recent: 10, featured: true, img: 'images/ninja-creami.png',
       desc: 'Transforma ingredientes congelados em sorvetes, sobremesas cremosas, milkshakes e outras receitas.',
       features: ['Programas para sorvete, sorbet e milkshake', 'Potes para preparo individual', 'Receitas personalizáveis', 'Fácil de limpar'] },
-    { id: 'samsung-u8600f-85', name: 'Samsung Crystal UHD U8600F 85"', brand: 'Samsung', cat: 'tvs', sub: 'Smart TV 4K', ghost: '85"', rating: 4.8, reviews: 94, recent: 2.5, spotlight: true, tint: '#EFEFED', img: 'images/samsung-u8600f-85.png',
+    { id: 'samsung-u8600f-85', name: 'Samsung Crystal UHD U8600F 85"', brand: 'Samsung', cat: 'tvs', sub: 'Smart TV 4K', ghost: '85"', rating: 4.8, reviews: 94, recent: 2.5, spotlight: true, img: 'images/samsung-u8600f-85.png',
       desc: 'Uma tela de 85 polegadas com tecnologia Crystal UHD para transformar a sala em cinema.',
       features: ['Tela gigante de 85 polegadas', 'Resolução 4K Crystal UHD', 'Cores vivas e alto contraste', 'Design fino'] },
   ];
@@ -717,7 +721,7 @@ class Component extends DCLogic {
   //  ESTADO
   // ===================================================================
   state = {
-    w: typeof window !== 'undefined' ? window.innerWidth : 1280, // largura da janela (breakpoints)
+    w: typeof window !== 'undefined' ? window.innerWidth : 1280, // largura da janela (quantidade de cards por linha)
     cart: Component.loadList(Component.STORAGE_CART, (it) => it && Component.hasProduct(it.id)), // [{ key, id, color, qty }]
     favs: Component.loadList(Component.STORAGE_FAVS, (id) => Component.hasProduct(id)),         // [id]
     // Busca, filtros e ordenação do catálogo
@@ -774,32 +778,26 @@ class Component extends DCLogic {
     const s = this.state;
     if (this._savedCart !== s.cart) { this._savedCart = s.cart; this.saveList(Component.STORAGE_CART, s.cart); }
     if (this._savedFavs !== s.favs) { this._savedFavs = s.favs; this.saveList(Component.STORAGE_FAVS, s.favs); }
-    // Trava a rolagem da página enquanto uma gaveta ou o modal estiver aberto.
-    document.documentElement.style.overflow = s.modal || s.drawer ? 'hidden' : '';
+    // Trava a rolagem da página enquanto uma gaveta ou o modal estiver aberto (html.no-scroll no CSS).
+    document.documentElement.classList.toggle('no-scroll', !!(s.modal || s.drawer));
   }
 
   saveList(key, list) {
     try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
   }
 
-  // Seções com data-reveal abaixo da dobra entram com fade + subida ao aparecer na tela.
+  // Seções com data-reveal abaixo da dobra entram com fade + subida ao aparecer na tela (.reveal no CSS).
   setupReveal() {
     if (!('IntersectionObserver' in window)) return;
     const els = [...document.querySelectorAll('[data-reveal]')].filter((el) => el.getBoundingClientRect().top > window.innerHeight);
     this._io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (!en.isIntersecting) return;
-        en.target.style.opacity = '1';
-        en.target.style.transform = 'none';
+        en.target.classList.add('is-visible');
         this._io.unobserve(en.target);
       });
     }, { rootMargin: '0px 0px -8% 0px' });
-    els.forEach((el) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(28px)';
-      el.style.transition = 'opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1)';
-      this._io.observe(el);
-    });
+    els.forEach((el) => { el.classList.add('reveal'); this._io.observe(el); });
   }
 
   // ===================================================================
@@ -819,6 +817,8 @@ class Component extends DCLogic {
   // Cor efetiva de um produto: a informada, a escolhida no card ou a primeira.
   pickColor(p, color) { return p.colors ? (color || this.state.cardColor[p.id] || p.colors[0].id) : null; }
   cartCount() { return this.state.cart.reduce((a, b) => a + b.qty, 0); }
+  // Classe de estado para o template: 'is-active' (ou outra) quando ligado, '' quando desligado.
+  cls(flag, name = 'is-active') { return flag ? name : ''; }
 
   scrollToId(id) {
     const el = document.getElementById(id); if (!el) return;
@@ -884,19 +884,17 @@ class Component extends DCLogic {
     setTimeout(() => this.scrollToId('produtos'), 30);
   }
 
-  // Efeito 3D nas fotos: inclina [data-tilt] e desloca a sombra [data-tilt-shadow].
+  // Efeito 3D nas fotos: informa a posição do mouse ao CSS (.is-tilting em css/produtos.css).
   tiltMove = (e) => {
     if (e.nativeEvent && e.nativeEvent.pointerType === 'touch') return;
     const box = e.currentTarget, r = box.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-    const t = box.querySelector('[data-tilt]'); if (t) t.style.transform = `perspective(1000px) rotateY(${x * 20}deg) rotateX(${-y * 16}deg) scale(1.04)`;
-    const sh = box.querySelector('[data-tilt-shadow]'); if (sh) sh.style.transform = `translateX(${-x * 36}px) scaleX(${1 - Math.abs(x) * 0.18})`;
+    box.style.setProperty('--tilt-x', x);
+    box.style.setProperty('--tilt-y', y);
+    box.style.setProperty('--tilt-ax', Math.abs(x));
+    box.classList.add('is-tilting');
   };
-  tiltLeave = (e) => {
-    const box = e.currentTarget;
-    const t = box.querySelector('[data-tilt]'); if (t) t.style.transform = '';
-    const sh = box.querySelector('[data-tilt-shadow]'); if (sh) sh.style.transform = '';
-  };
+  tiltLeave = (e) => { e.currentTarget.classList.remove('is-tilting'); };
 
   // ===================================================================
   //  CATÁLOGO: busca + filtros + ordenação
@@ -931,23 +929,23 @@ class Component extends DCLogic {
   // ctx 'offer' = card da seção Ofertas (botão "Comprar" e aviso de estoque).
   vm(p, ctx) {
     const s = this.state, pr = this.price(p.id);
-    const cid = p.colors ? (s.cardColor[p.id] || p.colors[0].id) : null, col = this.colorOf(p, cid);
+    const cid = p.colors ? (s.cardColor[p.id] || p.colors[0].id) : null;
     const img = this.imgOf(p, cid), fav = s.favs.includes(p.id), added = !!s.added[p.id];
     const hasOld = this.hasDiscount(p.id);
     return {
       id: p.id, name: p.name, brand: p.brand, sub: p.sub, ghost: p.ghost, catName: this.cat(p.cat).name,
-      tint: col ? col.soft : p.tint, ghostColor: col ? col.hex + '33' : 'rgba(0,0,0,.08)',
-      hasImg: !!img, noImg: !img, img, imgBlend: p.blend ? 'multiply' : 'normal', imgFilter: p.blend ? 'none' : 'drop-shadow(0 18px 16px rgba(0,0,0,.16))',
+      colorId: cid || undefined, // data-color: sem cor, o atributo nem aparece
+      hasImg: !!img, noImg: !img, img, imgCls: this.cls(p.blend, 'is-blend'),
       priceTxt: this.fmt(pr.preco), oldTxt: hasOld ? this.fmt(pr.de) : '', hasOld, isOffer: hasOld,
       discTxt: hasOld ? `-${Math.round(this.discount(p.id) * 100)}%` : '',
       installTxt: this.install(pr.preco),
-      starPct: (p.rating / 5 * 100) + '%', ratingTxt: `${p.rating.toFixed(1).replace('.', ',')} (${p.reviews})`,
-      heartFill: fav ? '#E1261C' : 'none', heartStroke: fav ? '#E1261C' : '#111111', isFav: fav,
+      stars: Math.round(p.rating * 10), ratingTxt: `${p.rating.toFixed(1).replace('.', ',')} (${p.reviews})`,
+      favCls: this.cls(fav, 'is-fav'),
       hasColors: !!p.colors,
-      colors: (p.colors || []).map((c) => ({ ...c, ring: c.id === cid ? '#111111' : 'transparent', onPick: () => this.setState((st) => ({ cardColor: { ...st.cardColor, [p.id]: c.id } })) })),
+      colors: (p.colors || []).map((c) => ({ ...c, cls: this.cls(c.id === cid), onPick: () => this.setState((st) => ({ cardColor: { ...st.cardColor, [p.id]: c.id } })) })),
       showUrgency: ctx === 'offer' && p.stock === 'baixo',
       addLabel: added ? 'Adicionado ✓' : (ctx === 'offer' ? 'Comprar' : (s.w < 560 ? 'Adicionar' : 'Adicionar ao carrinho')),
-      addBg: added ? '#E1261C' : '#111111', spotAddBg: added ? '#ffffff33' : '#E1261C',
+      addCls: this.cls(added, 'is-added'),
       tiltMove: this.tiltMove, tiltLeave: this.tiltLeave, onAdd: () => this.add(p.id), onOpen: () => this.openModal(p.id), onFav: () => this.toggleFav(p.id),
     };
   }
@@ -955,20 +953,15 @@ class Component extends DCLogic {
   // Tudo o que o template usa ({{...}}), montado por seção da página.
   renderVals() {
     const w = this.state.w;
-    const layout = {
-      prodCols: w >= 1180 ? 4 : w >= 820 ? 3 : 2,          // Destaques e Ofertas
-      catCols: w >= 1080 ? 4 : w >= 620 ? 2 : 1,           // Categorias
-      allCols: w >= 1180 ? 3 : w >= 880 ? 2 : w >= 700 ? 3 : 2, // Todos os produtos
-      isCompact: w < 880,                                  // filtros recolhidos em botão
-    };
+    const prodCols = w >= 1180 ? 4 : w >= 820 ? 3 : 2; // cards por linha em Destaques/Ofertas (igual ao CSS)
     const results = this.filtered();
     return {
       tiltMove: this.tiltMove, tiltLeave: this.tiltLeave, closeAll: this.closeAll,
       ...this.headerVals(results),
       ...this.heroVals(),
-      ...this.categoryVals(layout),
-      ...this.featuredVals(layout),
-      ...this.catalogVals(layout, results),
+      ...this.categoryVals(),
+      ...this.featuredVals(prodCols),
+      ...this.catalogVals(results),
       ...this.drawerVals(),
       ...this.modalVals(),
       ...this.toastVals(),
@@ -981,12 +974,12 @@ class Component extends DCLogic {
     const cartCount = this.cartCount();
     const activeCat = s.fCats.length === 1 ? s.fCats[0] : null;
     const navItems = [
-      { label: 'Início', hot: false, color: '#111111', line: 'transparent', onClick: () => { this.setState({ drawer: null }); window.scrollTo({ top: 0, behavior: 'smooth' }); } },
-      { label: 'Ofertas', hot: true, color: '#E1261C', line: 'transparent', onClick: () => { this.setState({ drawer: null }); setTimeout(() => this.scrollToId('ofertas'), 30); } },
-      ...Component.NAV_CATS.map(([id, label]) => ({ label, hot: false, color: '#111111', line: activeCat === id ? '#E1261C' : 'transparent', onClick: () => this.goCat(id) })),
+      { label: 'Início', hot: false, cls: '', onClick: () => { this.setState({ drawer: null }); window.scrollTo({ top: 0, behavior: 'smooth' }); } },
+      { label: 'Ofertas', hot: true, cls: 'is-hot', onClick: () => { this.setState({ drawer: null }); setTimeout(() => this.scrollToId('ofertas'), 30); } },
+      ...Component.NAV_CATS.map(([id, label]) => ({ label, hot: false, cls: this.cls(activeCat === id), onClick: () => this.goCat(id) })),
     ];
     const suggestions = q ? results.slice(0, 5).map((p) => ({
-      name: p.name, ghost: p.ghost, tint: p.tint, catName: this.cat(p.cat).name, priceTxt: this.fmt(this.price(p.id).preco),
+      id: p.id, name: p.name, ghost: p.ghost, catName: this.cat(p.cat).name, priceTxt: this.fmt(this.price(p.id).preco),
       onPick: () => { this.setState({ searchFocus: false }); this.openModal(p.id); },
     })) : [];
     return {
@@ -1011,7 +1004,7 @@ class Component extends DCLogic {
       // Reabrir o carrinho depois de um pedido mostra o carrinho (vazio), não o "Pedido recebido!" antigo.
       openCart: () => this.setState({ drawer: 'cart', accountOpen: false, checkoutDone: false }),
       favCount: s.favs.length, hasFavs: s.favs.length > 0,
-      cartCount, cartCountTxt: cartCount === 1 ? '1 item' : `${cartCount} itens`, cartScale: s.bump ? 1.12 : 1,
+      cartCount, cartCountTxt: cartCount === 1 ? '1 item' : `${cartCount} itens`, cartBtnCls: this.cls(s.bump, 'is-bump'),
       navItems,
     };
   }
@@ -1020,18 +1013,11 @@ class Component extends DCLogic {
   heroVals() {
     const s = this.state, id = 'jbl-boombox-4';
     const p = this.prod(id), col = this.colorOf(p, s.heroColor), preco = this.price(id).preco;
-    // Cada cor tem uma imagem empilhada; só a ativa fica visível.
-    const layer = (cid) => (s.heroColor === cid ? { op: 1, sc: 1, pe: 'auto' } : { op: 0, sc: 0.94, pe: 'none' });
-    const marrom = layer('marrom'), laranja = layer('laranja'), preto = layer('preto');
     return {
-      heroColors: p.colors.map((c) => {
-        const on = s.heroColor === c.id;
-        return { ...c, ring: on ? '#111111' : 'rgba(0,0,0,.12)', bg: on ? '#ffffff' : 'rgba(255,255,255,.5)', onPick: () => this.setState({ heroColor: c.id }) };
-      }),
-      heroColorName: col.name, heroHex: col.hex,
-      heroOpMarrom: marrom.op, heroOpLaranja: laranja.op, heroOpPreto: preto.op,
-      heroScMarrom: marrom.sc, heroScLaranja: laranja.sc, heroScPreto: preto.sc,
-      heroPeMarrom: marrom.pe, heroPeLaranja: laranja.pe, heroPePreto: preto.pe,
+      heroColors: p.colors.map((c) => ({ ...c, cls: this.cls(s.heroColor === c.id), onPick: () => this.setState({ heroColor: c.id }) })),
+      heroColor: col.id, heroColorName: col.name,
+      // Uma camada de foto por cor; só a da cor escolhida fica visível.
+      heroLayer: { marrom: this.cls(s.heroColor === 'marrom'), laranja: this.cls(s.heroColor === 'laranja'), preto: this.cls(s.heroColor === 'preto') },
       heroBuy: () => this.add(id, s.heroColor),
       heroDetails: () => this.openModal(id, s.heroColor),
       heroPriceTxt: `${this.fmt(preco)} · ${this.install(preco).replace('ou ', '')}`,
@@ -1039,23 +1025,20 @@ class Component extends DCLogic {
   }
 
   // ---------- Categorias (e lista de categorias do rodapé) ----------
-  categoryVals({ catCols }) {
+  categoryVals() {
     const C = Component;
-    // Quantas colunas cada card ocupa, conforme o número de colunas da grade.
-    const spans = catCols === 4 ? [2, 1, 1, 1, 1, 2, 4] : catCols === 2 ? [2, 1, 1, 1, 1, 2, 2] : [1, 1, 1, 1, 1, 1, 1];
     return {
-      catCols,
-      categories: C.CATS.map((c, i) => {
+      categories: C.CATS.map((c) => {
         const ps = C.PRODUTOS.filter((p) => p.cat === c.id);
         const brands = ps.map((p) => p.brand).filter((b, j, a) => a.indexOf(b) === j);
-        return { ...c, span: spans[i], countTxt: ps.length === 1 ? '1 produto' : `${ps.length} produtos`, productsTxt: brands.join(' · '), onClick: () => this.goCat(c.id) };
+        return { ...c, countTxt: ps.length === 1 ? '1 produto' : `${ps.length} produtos`, productsTxt: brands.join(' · '), onClick: () => this.goCat(c.id) };
       }),
       footerCats: C.CATS.slice(0, 6).map((c) => ({ name: c.name, onClick: () => this.goCat(c.id) })),
     };
   }
 
   // ---------- Destaques (com spotlight), banner promocional e Ofertas ----------
-  featuredVals({ prodCols }) {
+  featuredVals(prodCols) {
     const C = Component;
     const featuredAll = C.PRODUTOS.filter((p) => p.featured);
     // O spotlight ocupa 2 colunas; ajusta a quantidade para completar a última linha.
@@ -1066,7 +1049,7 @@ class Component extends DCLogic {
       .sort((a, b) => this.discount(b.id) - this.discount(a.id))
       .slice(0, prodCols === 3 ? 6 : prodCols * 2);
     return {
-      prodCols, spotSpan: 2, spot: this.vm(C.PRODUTOS.find((p) => p.spotlight)),
+      spot: this.vm(C.PRODUTOS.find((p) => p.spotlight)),
       featured: featuredAll.slice(0, featCount).map((p) => this.vm(p)),
       goAll: () => { this.setState({ fCats: [], fBrands: [], fPrice: null, fRating: 0, query: '' }); setTimeout(() => this.scrollToId('produtos'), 20); },
       openAirpods: () => this.openModal('airpods-max'),
@@ -1076,56 +1059,51 @@ class Component extends DCLogic {
   }
 
   // ---------- Todos os produtos: filtros, ordenação e resultados ----------
-  catalogVals({ allCols, isCompact }, results) {
-    const s = this.state, C = Component;
+  catalogVals(results) {
+    const s = this.state, C = Component, isCompact = s.w < 880; // < 880px: filtros viram um botão
     const prices = C.PRODUTOS.map((p) => this.price(p.id).preco);
     const pMin = Math.floor(Math.min(...prices) / 100) * 100, pMax = Math.ceil(Math.max(...prices) / 1000) * 1000;
     const brands = [...new Set(C.PRODUTOS.map((p) => p.brand))];
     const activeFilterCount = s.fCats.length + s.fBrands.length + (s.fPrice != null ? 1 : 0) + (s.fRating ? 1 : 0);
-    // Estilo dos chips (marca e avaliação): preto quando ativo.
-    const chip = (on) => ({ bg: on ? '#111111' : '#ffffff', fg: on ? '#ffffff' : '#111111', border: on ? '#111111' : '#e2e2e2' });
     return {
       hasQuery: !!s.query.trim(), clearQuery: () => this.setState({ query: '' }),
       isCompact, showFilters: !isCompact || s.filtersOpen, toggleFilters: () => this.setState((st) => ({ filtersOpen: !st.filtersOpen })),
-      asideMax: isCompact ? '100%' : '280px', asidePos: isCompact ? 'relative' : 'sticky',
       hasActiveFilters: activeFilterCount > 0, activeFilterCount,
       sort: s.sort, onSort: (e) => this.setState({ sort: e.target.value }),
       catFilters: C.CATS.map((c) => {
         const on = s.fCats.includes(c.id);
         return {
-          label: c.name, count: C.PRODUTOS.filter((p) => p.cat === c.id).length,
-          boxBg: on ? '#E1261C' : '#ffffff', boxBorder: on ? '#E1261C' : '#cfcfd2',
+          label: c.name, count: C.PRODUTOS.filter((p) => p.cat === c.id).length, cls: this.cls(on, 'is-checked'),
           onToggle: () => this.setState((st) => ({ fCats: on ? st.fCats.filter((x) => x !== c.id) : [...st.fCats, c.id] })),
         };
       }),
       brandFilters: brands.map((b) => {
         const on = s.fBrands.includes(b);
-        return { label: b, ...chip(on), onToggle: () => this.setState((st) => ({ fBrands: on ? st.fBrands.filter((x) => x !== b) : [...st.fBrands, b] })) };
+        return { label: b, cls: this.cls(on), onToggle: () => this.setState((st) => ({ fBrands: on ? st.fBrands.filter((x) => x !== b) : [...st.fBrands, b] })) };
       }),
       priceMin: pMin, priceMax: pMax, priceVal: s.fPrice ?? pMax,
       priceLabel: s.fPrice == null ? 'Qualquer valor' : `Até ${this.fmt(s.fPrice)}`,
       priceMinTxt: this.fmt(pMin), priceMaxTxt: this.fmt(pMax),
       onPrice: (e) => { const v = +e.target.value; this.setState({ fPrice: v >= pMax ? null : v }); },
-      ratingFilters: [[0, 'Todas'], [4.7, '4,7 ★ ou mais'], [4.8, '4,8 ★ ou mais']].map(([v, label]) => ({ label, ...chip(s.fRating === v), onPick: () => this.setState({ fRating: v }) })),
+      ratingFilters: [[0, 'Todas'], [4.7, '4,7 ★ ou mais'], [4.8, '4,8 ★ ou mais']].map(([v, label]) => ({ label, cls: this.cls(s.fRating === v), onPick: () => this.setState({ fRating: v }) })),
       clearFilters: () => this.setState({ fCats: [], fBrands: [], fPrice: null, fRating: 0 }),
       clearAll: () => this.setState({ fCats: [], fBrands: [], fPrice: null, fRating: 0, query: '' }),
-      allCols, results: results.map((p) => this.vm(p)), hasResults: results.length > 0, noResults: results.length === 0,
+      results: results.map((p) => this.vm(p)), hasResults: results.length > 0, noResults: results.length === 0,
       resultLabel: results.length === 1 ? '1 produto encontrado' : `${results.length} produtos encontrados`,
     };
   }
 
   // ---------- Gavetas: menu mobile, carrinho e favoritos ----------
   drawerVals() {
-    const s = this.state, open = (name) => s.drawer === name;
+    const s = this.state, open = (name) => this.cls(s.drawer === name, 'is-open');
     const cartItems = s.cart.map((it) => {
       const p = this.prod(it.id); if (!p) return null;
       const col = this.colorOf(p, it.color), img = this.imgOf(p, it.color), sum = this.price(p.id).preco * it.qty;
       const update = (fn) => this.setState((st) => ({ cart: fn(st.cart) }));
       return {
-        key: it.key, name: p.name, qty: it.qty,
-        hasColor: !!col, colorName: col ? col.name : '', colorHex: col ? col.hex : '',
-        tint: col ? col.soft : p.tint, ghost: p.ghost, ghostColor: col ? col.hex + '66' : 'rgba(0,0,0,.25)',
-        hasImg: !!img, noImg: !img, img, imgBlend: p.blend ? 'multiply' : 'normal',
+        key: it.key, id: p.id, name: p.name, qty: it.qty,
+        hasColor: !!col, colorName: col ? col.name : '', colorId: col ? col.id : undefined, ghost: p.ghost,
+        hasImg: !!img, noImg: !img, img, imgCls: this.cls(p.blend, 'is-blend'),
         lineTxt: this.fmt(sum), sum,
         onMinus: () => update((cart) => cart.map((c) => (c.key === it.key ? { ...c, qty: Math.max(1, c.qty - 1) } : c))),
         onPlus: () => update((cart) => cart.map((c) => (c.key === it.key ? { ...c, qty: c.qty + 1 } : c))),
@@ -1134,13 +1112,10 @@ class Component extends DCLogic {
     }).filter(Boolean);
     const subtotal = cartItems.reduce((a, b) => a + b.sum, 0);
     const favItems = s.favs.map((id) => this.prod(id)).filter(Boolean).map((p) => ({
-      ...this.vm(p), ghostColor: 'rgba(0,0,0,.25)', addLabel: s.added[p.id] ? 'Adicionado ✓' : 'Adicionar ao carrinho',
+      ...this.vm(p), addLabel: s.added[p.id] ? 'Adicionado ✓' : 'Adicionar ao carrinho',
     }));
     return {
-      overlayOpacity: s.drawer ? 1 : 0, overlayPE: s.drawer ? 'auto' : 'none',
-      menuX: open('menu') ? '0%' : '-105%', menuVis: open('menu') ? 'visible' : 'hidden',
-      cartX: open('cart') ? '0%' : '105%', cartVis: open('cart') ? 'visible' : 'hidden',
-      favX: open('fav') ? '0%' : '105%', favVis: open('fav') ? 'visible' : 'hidden',
+      overlayCls: this.cls(!!s.drawer, 'is-open'), menuDrawerCls: open('menu'), cartDrawerCls: open('cart'), favDrawerCls: open('fav'),
       // Carrinho
       cartItems, cartEmpty: cartItems.length === 0 && !s.checkoutDone, cartHasItems: cartItems.length > 0, checkoutDone: s.checkoutDone,
       subtotalTxt: this.fmt(subtotal), totalTxt: this.fmt(subtotal), totalInstallTxt: this.install(subtotal),
@@ -1153,41 +1128,39 @@ class Component extends DCLogic {
 
   // ---------- Modal de produto ----------
   modalVals() {
-    const s = this.state, mobile = s.w < 640;
-    let m = null, mAddBg = '#111111', mAddLabel = 'Adicionar ao carrinho';
+    const s = this.state;
+    let m = null, added = false;
     if (s.modal) {
       const p = this.prod(s.modal.id), col = this.colorOf(p, s.modal.color), img = this.imgOf(p, s.modal.color);
       m = {
-        ...this.vm(p), qty: s.modal.qty, tint: col ? col.soft : p.tint, ghostColor: col ? col.hex + '40' : 'rgba(0,0,0,.08)',
+        ...this.vm(p), qty: s.modal.qty, colorId: col ? col.id : undefined,
         showImg: !!img, showPh: !img, mainImg: img, viewLabel: 'Foto do produto',
         colorNameUpper: col ? col.name.toUpperCase() : '',
         colors: (p.colors || []).map((c) => ({
-          ...c, upper: c.name.toUpperCase(), ring: c.id === s.modal.color ? '#111111' : '#e2e2e2',
+          ...c, upper: c.name.toUpperCase(), cls: this.cls(c.id === s.modal.color),
           onPick: () => c.id !== s.modal.color && this.fadeTo({ color: c.id, view: 0 }),
         })),
         desc: p.desc, features: p.features,
       };
-      if (s.added[p.id]) { mAddBg = '#E1261C'; mAddLabel = 'Adicionado ✓'; }
+      added = !!s.added[p.id];
     }
     const setQty = (fn) => this.setState((st) => ({ modal: { ...st.modal, qty: fn(st.modal.qty) } }));
     return {
-      hasModal: !!m, m: m || {}, modalOpacity: s.modalIn ? 1 : 0, modalY: s.modalIn ? '0px' : '28px',
-      // Em telas < 640px o modal ocupa a tela inteira.
-      modalMaxH: mobile ? '100%' : 'calc(100vh - 48px)', modalH: mobile ? '100%' : 'auto', modalRadius: mobile ? '0px' : '28px',
-      modalImgOpacity: s.imgFade ? 0 : 1, modalImgScale: s.imgFade ? 0.97 : 1,
+      hasModal: !!m, m: m || {},
+      modalCls: this.cls(s.modalIn, 'is-in'), modalFadeCls: this.cls(s.imgFade, 'is-fading'),
       closeModal: this.closeModal, stop: (e) => e.stopPropagation(),
       mMinus: () => setQty((q) => Math.max(1, q - 1)),
       mPlus: () => setQty((q) => q + 1),
       mAdd: () => this.add(s.modal.id, s.modal.color, s.modal.qty),
       mBuy: () => { this.add(s.modal.id, s.modal.color, s.modal.qty); this.closeModal(); setTimeout(() => this.setState({ drawer: 'cart' }), 200); },
-      mAddBg, mAddLabel,
+      mAddLabel: added ? 'Adicionado ✓' : 'Adicionar ao carrinho', mAddCls: this.cls(added, 'is-added'),
     };
   }
 
   // ---------- Toast ----------
   toastVals() {
     const s = this.state;
-    return { toastText: s.toast || '', toastOpacity: s.toastOn ? 1 : 0, toastY: s.toastOn ? '0px' : '20px' };
+    return { toastText: s.toast || '', toastCls: this.cls(s.toastOn, 'is-on') };
   }
 }
 </script>

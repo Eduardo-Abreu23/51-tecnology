@@ -1,6 +1,0 @@
-{
-  // Os .dc.html usam variáveis de template ({{...}}) dentro de style="...",
-  // que o validador de CSS do VS Code não entende e marca como erro.
-  // O CSS de verdade fica em css/*.css, que continua sendo validado.
-  "html.validate.styles": false
-}
