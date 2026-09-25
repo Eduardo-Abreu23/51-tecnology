@@ -7,59 +7,62 @@
 </head>
 <body>
 <x-dc>
-<div style="position:relative;display:flex;flex-direction:column;height:100%;background:#ffffff;border-radius:22px;border:1px solid #ececec;overflow:hidden;font-family:'Archivo',system-ui,sans-serif;color:#111111;transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 44px -24px rgba(17,17,17,.30)">
-  <div style="position:relative;aspect-ratio:1 / 0.9;background:{{p.tint}};overflow:hidden;transition:background .4s ease">
-    <div onClick="{{p.onOpen}}" onMouseMove="{{p.tiltMove}}" onMouseLeave="{{p.tiltLeave}}" style="position:absolute;inset:0;cursor:pointer;display:flex;align-items:center;justify-content:center">
+<helmet>
+<link rel="stylesheet" href="css/product-card.css">
+</helmet>
+<div class="product-card">
+  <div class="product-card__media" style="background:{{p.tint}}">
+    <div onClick="{{p.onOpen}}" onMouseMove="{{p.tiltMove}}" onMouseLeave="{{p.tiltLeave}}" class="product-card__open">
       <sc-if value="{{p.hasImg}}" hint-placeholder-val="{{false}}">
-        <div data-tilt="" role="img" aria-label="{{p.name}}" style="width:78%;height:78%;background-image:url({{p.img}});background-size:contain;background-position:center;background-repeat:no-repeat;mix-blend-mode:{{p.imgBlend}};filter:{{p.imgFilter}};transition:transform .3s ease-out"></div>
+        <div data-tilt="" role="img" aria-label="{{p.name}}" class="product-card__img" style="background-image:url({{p.img}});mix-blend-mode:{{p.imgBlend}};filter:{{p.imgFilter}}"></div>
       </sc-if>
       <sc-if value="{{p.noImg}}" hint-placeholder-val="{{true}}">
-        <div data-tilt="" style="display:flex;flex-direction:column;align-items:center;gap:10px;transition:transform .3s ease-out">
-          <span style="font-size:clamp(30px,5.2vw,58px);font-weight:900;font-stretch:125%;letter-spacing:-0.04em;line-height:1;white-space:nowrap;color:{{p.ghostColor}}">{{p.ghost}}</span>
-          <span style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9e;font-weight:600">Foto do produto</span>
+        <div data-tilt="" class="product-card__ph">
+          <span class="product-card__ghost" style="color:{{p.ghostColor}}">{{p.ghost}}</span>
+          <span class="product-card__ph-label">Foto do produto</span>
         </div>
       </sc-if>
     </div>
-    <div style="position:absolute;top:12px;left:12px;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none">
+    <div class="product-card__badges">
       <sc-if value="{{p.isOffer}}" hint-placeholder-val="{{false}}">
-        <span style="background:#E1261C;color:#ffffff;font-size:10px;font-weight:800;letter-spacing:.12em;padding:6px 9px;border-radius:999px">OFERTA</span>
-        <span style="background:#ffffff;color:#E1261C;font-size:10px;font-weight:800;letter-spacing:.04em;padding:6px 9px;border-radius:999px">{{p.discTxt}}</span>
+        <span class="product-card__badge product-card__badge--offer">OFERTA</span>
+        <span class="product-card__badge product-card__badge--disc">{{p.discTxt}}</span>
       </sc-if>
     </div>
-    <div style="position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:8px">
-      <button onClick="{{p.onFav}}" aria-label="Favoritar" style="width:40px;height:40px;border-radius:999px;border:0;background:#ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px -4px rgba(0,0,0,.18);transition:transform .2s" style-hover="transform:scale(1.08)">
+    <div class="product-card__tools">
+      <button onClick="{{p.onFav}}" aria-label="Favoritar" class="product-card__tool">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="{{p.heartFill}}" stroke="{{p.heartStroke}}" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg>
       </button>
-      <button onClick="{{p.onOpen}}" aria-label="Ver detalhes" style="width:40px;height:40px;border-radius:999px;border:0;background:#ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px -4px rgba(0,0,0,.18);transition:transform .2s" style-hover="transform:scale(1.08)">
+      <button onClick="{{p.onOpen}}" aria-label="Ver detalhes" class="product-card__tool">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
       </button>
     </div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:8px;padding:clamp(12px,2vw,20px);flex:1;min-width:0">
-    <div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#77777b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{p.brand}} · {{p.sub}}</div>
-    <button onClick="{{p.onOpen}}" style="all:unset;cursor:pointer;font-size:clamp(14px,1.6vw,17px);font-weight:700;line-height:1.25;min-height:2.5em;text-wrap:pretty;color:#111111">{{p.name}}</button>
-    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#6b6b6f">
-      <span style="position:relative;display:inline-block;font-size:12px;letter-spacing:1px;line-height:1;color:#d7d7da">★★★★★<span style="position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:#111111;width:{{p.starPct}}">★★★★★</span></span>
+  <div class="product-card__body">
+    <div class="product-card__kicker">{{p.brand}} · {{p.sub}}</div>
+    <button onClick="{{p.onOpen}}" class="product-card__name">{{p.name}}</button>
+    <div class="product-card__rating">
+      <span class="product-card__stars">★★★★★<span class="product-card__stars-fill" style="width:{{p.starPct}}">★★★★★</span></span>
       <span>{{p.ratingTxt}}</span>
     </div>
     <sc-if value="{{p.hasColors}}" hint-placeholder-val="{{false}}">
-      <div style="display:flex;gap:6px;align-items:center">
+      <div class="product-card__colors">
         <sc-for list="{{p.colors}}" as="c" hint-placeholder-count="3">
-          <button onClick="{{c.onPick}}" aria-label="{{c.name}}" title="{{c.name}}" style="width:22px;height:22px;border-radius:999px;border:2px solid {{c.ring}};background:#ffffff;padding:2px;cursor:pointer;display:flex"><span style="flex:1;border-radius:999px;background:{{c.hex}}"></span></button>
+          <button onClick="{{c.onPick}}" aria-label="{{c.name}}" title="{{c.name}}" class="product-card__color" style="border-color:{{c.ring}}"><span class="product-card__color-dot" style="background:{{c.hex}}"></span></button>
         </sc-for>
       </div>
     </sc-if>
     <sc-if value="{{p.showUrgency}}" hint-placeholder-val="{{false}}">
-      <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#C81E15"><span style="width:6px;height:6px;border-radius:999px;background:#E1261C"></span>Poucas unidades</div>
+      <div class="product-card__urgency"><span class="product-card__urgency-dot"></span>Poucas unidades</div>
     </sc-if>
-    <div style="margin-top:auto;display:flex;flex-direction:column;gap:2px;padding-top:6px">
+    <div class="product-card__prices">
       <sc-if value="{{p.hasOld}}" hint-placeholder-val="{{false}}">
-        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#8a8a8e"><span style="text-decoration:line-through">{{p.oldTxt}}</span><span style="color:#E1261C;font-weight:800">{{p.discTxt}}</span></div>
+        <div class="product-card__old-row"><span class="product-card__old">{{p.oldTxt}}</span><span class="product-card__disc">{{p.discTxt}}</span></div>
       </sc-if>
-      <div style="font-size:clamp(19px,2.2vw,24px);font-weight:800;letter-spacing:-0.02em;font-stretch:108%">{{p.priceTxt}}</div>
-      <div style="font-size:12px;color:#6b6b6f">{{p.installTxt}}</div>
+      <div class="product-card__price">{{p.priceTxt}}</div>
+      <div class="product-card__install">{{p.installTxt}}</div>
     </div>
-    <button onClick="{{p.onAdd}}" style="margin-top:8px;height:46px;border-radius:999px;border:0;background:{{p.addBg}};color:#ffffff;font-weight:700;font-size:13.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .25s, transform .15s" style-active="transform:scale(.97)">{{p.addLabel}}</button>
+    <button onClick="{{p.onAdd}}" class="product-card__add" style="background:{{p.addBg}}">{{p.addLabel}}</button>
   </div>
 </div>
 </x-dc>
