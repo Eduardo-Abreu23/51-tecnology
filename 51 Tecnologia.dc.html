@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,"><!-- sem ícone por enquanto: troque por um favicon da loja -->
 <script src="./support.js"></script>
 </head>
 <body>
@@ -14,221 +15,223 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
-<style>
-html,body{margin:0;padding:0;background:#ffffff;overflow-x:clip;max-width:100%}
-*{box-sizing:border-box}
-body{font-family:'Archivo',system-ui,sans-serif;color:#111111;-webkit-font-smoothing:antialiased}
-a{color:#111111;text-decoration:none}a:hover{color:#E1261C}
-button,input,select{font-family:inherit}
-input[type=range]{accent-color:#E1261C}
-::selection{background:#E1261C;color:#ffffff}
-@keyframes float51{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-@keyframes shadow51{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.86);opacity:.7}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important}}
-</style>
+<link rel="stylesheet" href="css/produtos.css">
+<link rel="stylesheet" href="css/51-tecnologia.css">
 </helmet>
-<div style="min-height:100vh;background:#ffffff;overflow-x:clip;font-family:'Archivo',system-ui,sans-serif">
+<div class="page">
 
-  <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid #ececec">
-    <div style="background:#111111;color:#ffffff;font-size:12px;letter-spacing:.02em;text-align:center;padding:8px 16px;line-height:1.4"><span style="color:#ff8a82">Preços ilustrativos (ambiente de demonstração)</span></div>
-    <div style="max-width:1320px;margin:0 auto;padding:12px clamp(16px,4vw,40px);display:flex;align-items:center;gap:clamp(12px,2.4vw,28px)">
+  <!-- ================= HEADER ================= -->
+
+  <header class="site-header">
+    <div class="topbar"><span class="topbar__note">Preços ilustrativos (ambiente de demonstração)</span></div>
+    <div class="header-bar">
+      <!-- Menu (telas pequenas) + logo -->
       <sc-if value="{{showHamburger}}" hint-placeholder-val="{{false}}">
-        <button onClick="{{openMenu}}" aria-label="Menu" style="width:44px;height:44px;flex:none;border-radius:999px;border:1px solid #ececec;background:#ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <button onClick="{{openMenu}}" aria-label="Menu" class="icon-btn menu-toggle">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"></path></svg>
         </button>
       </sc-if>
-      <button onClick="{{goTop}}" aria-label="51 Tecnologia — início" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;flex:none">
-        <span style="font-size:34px;font-weight:900;font-stretch:125%;letter-spacing:-0.06em;line-height:.9;color:#111111">5<span style="color:#E1261C">1</span></span>
-        <span style="display:flex;flex-direction:column;gap:2px;border-left:1.5px solid #111111;padding-left:8px">
-          <span style="font-size:10.5px;font-weight:800;letter-spacing:.28em;line-height:1">TECNO</span>
-          <span style="font-size:10.5px;font-weight:800;letter-spacing:.28em;line-height:1">LOGIA</span>
+      <button onClick="{{goTop}}" aria-label="51 Tecnologia — início" class="logo">
+        <span class="logo-mark">5<span class="logo-mark__one">1</span></span>
+        <span class="logo-word">
+          <span class="logo-word__line">TECNO</span>
+          <span class="logo-word__line">LOGIA</span>
         </span>
       </button>
+      <!-- Busca (desktop) -->
       <sc-if value="{{searchInline}}" hint-placeholder-val="{{true}}">
-        <div style="position:relative;flex:1 1 auto;max-width:660px;min-width:0;margin:0 auto">
-          <div style="display:flex;align-items:center;gap:10px;height:50px;padding:0 6px 0 18px;background:#f4f4f3;border:1px solid #ececec;border-radius:999px">
+        <div class="search">
+          <div class="search-box search-box--inline">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6b6f" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-            <input value="{{query}}" onChange="{{onQuery}}" onFocus="{{onSearchFocus}}" onBlur="{{onSearchBlur}}" onKeyDown="{{onSearchKey}}" placeholder="O que você está procurando?" aria-label="Pesquisar produtos" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:15px;color:#111111;height:100%">
-            <button onClick="{{goResults}}" style="height:38px;padding:0 18px;border-radius:999px;border:0;background:#111111;color:#ffffff;font-weight:700;font-size:13px;cursor:pointer;flex:none">Buscar</button>
+            <input value="{{query}}" onChange="{{onQuery}}" onFocus="{{onSearchFocus}}" onBlur="{{onSearchBlur}}" onKeyDown="{{onSearchKey}}" placeholder="O que você está procurando?" aria-label="Pesquisar produtos" class="search-input">
+            <button onClick="{{goResults}}" class="search-submit">Buscar</button>
           </div>
           <sc-if value="{{showSuggest}}" hint-placeholder-val="{{false}}">
-            <div style="position:absolute;top:calc(100% + 8px);left:0;right:0;background:#ffffff;border:1px solid #ececec;border-radius:20px;box-shadow:0 24px 48px -20px rgba(0,0,0,.22);padding:8px;z-index:5">
+            <div class="suggest suggest--inline">
               <sc-for list="{{suggestions}}" as="s" hint-placeholder-count="0">
-                <button onMouseDown="{{s.onPick}}" style="width:100%;display:flex;align-items:center;gap:12px;padding:10px;border:0;background:transparent;border-radius:14px;cursor:pointer;text-align:left" style-hover="background:#f4f4f3">
-                  <span style="width:44px;height:44px;flex:none;border-radius:12px;background:{{s.tint}};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;font-stretch:125%;color:rgba(0,0,0,.35);overflow:hidden;white-space:nowrap">{{s.ghost}}</span>
-                  <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:700;color:#111111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{s.name}}</span><span style="font-size:12px;color:#77777b">{{s.catName}}</span></span>
-                  <span style="font-size:14px;font-weight:800;color:#111111;flex:none">{{s.priceTxt}}</span>
+                <button onMouseDown="{{s.onPick}}" class="suggest__item">
+                  <span class="suggest__thumb" data-product="{{s.id}}">{{s.ghost}}</span>
+                  <span class="suggest__text"><span class="suggest__name">{{s.name}}</span><span class="suggest__cat">{{s.catName}}</span></span>
+                  <span class="suggest__price">{{s.priceTxt}}</span>
                 </button>
               </sc-for>
               <sc-if value="{{suggestEmpty}}" hint-placeholder-val="{{false}}">
-                <div style="padding:16px;font-size:14px;color:#6b6b6f">Nenhum produto encontrado para “{{query}}”.</div>
+                <div class="suggest__empty">Nenhum produto encontrado para “{{query}}”.</div>
               </sc-if>
-              <button onMouseDown="{{goResults}}" style="width:100%;margin-top:4px;padding:12px;border:0;border-top:1px solid #ececec;background:transparent;font-size:13px;font-weight:700;color:#E1261C;cursor:pointer;text-align:left">Ver todos os resultados ({{resultCount}}) →</button>
+              <button onMouseDown="{{goResults}}" class="suggest__all">Ver todos os resultados ({{resultCount}}) →</button>
             </div>
           </sc-if>
         </div>
       </sc-if>
-      <div style="display:flex;align-items:center;gap:4px;margin-left:auto;flex:none">
+      <!-- Conta, favoritos e carrinho -->
+      <div class="header-actions">
         <sc-if value="{{searchInline}}" hint-placeholder-val="{{true}}">
-          <div style="position:relative">
-            <button onClick="{{toggleAccount}}" style="height:44px;padding:0 12px;border:0;background:transparent;border-radius:999px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#111111" style-hover="background:#f4f4f3">
+          <div class="account" data-account="">
+            <button onClick="{{toggleAccount}}" aria-label="Minha conta" aria-expanded="{{accountOpen}}" class="header-action">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
-              <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span style="font-size:13px;font-weight:600">Minha conta</span></sc-if>
+              <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span class="header-action__label">Minha conta</span></sc-if>
             </button>
             <sc-if value="{{accountOpen}}" hint-placeholder-val="{{false}}">
-              <div style="position:absolute;right:0;top:calc(100% + 10px);width:280px;background:#ffffff;border:1px solid #ececec;border-radius:20px;box-shadow:0 24px 48px -20px rgba(0,0,0,.22);padding:18px;display:flex;flex-direction:column;gap:10px;z-index:6">
-                <div style="font-size:15px;font-weight:800">Olá! Acesse sua conta</div>
-                <div style="font-size:13px;color:#6b6b6f;line-height:1.45">Acompanhe pedidos, favoritos e garantias em um só lugar.</div>
-                <button onClick="{{onLogin}}" style="height:44px;border-radius:999px;border:0;background:#E1261C;color:#ffffff;font-weight:700;font-size:14px;cursor:pointer">Entrar</button>
-                <button onClick="{{onLogin}}" style="height:44px;border-radius:999px;border:1px solid #111111;background:#ffffff;color:#111111;font-weight:700;font-size:14px;cursor:pointer">Criar conta</button>
+              <div class="account__menu">
+                <div class="account__title">Olá! Acesse sua conta</div>
+                <div class="account__text">Acompanhe pedidos, favoritos e garantias em um só lugar.</div>
+                <button onClick="{{onLogin}}" class="account__btn account__btn--primary">Entrar</button>
+                <button onClick="{{onLogin}}" class="account__btn account__btn--outline">Criar conta</button>
               </div>
             </sc-if>
           </div>
         </sc-if>
-        <button onClick="{{openFav}}" aria-label="Favoritos" style="position:relative;height:44px;padding:0 12px;border:0;background:transparent;border-radius:999px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#111111" style-hover="background:#f4f4f3">
+        <button onClick="{{openFav}}" aria-label="Favoritos" class="header-action header-action--fav">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg>
-          <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span style="font-size:13px;font-weight:600">Favoritos</span></sc-if>
-          <sc-if value="{{hasFavs}}" hint-placeholder-val="{{false}}"><span style="position:absolute;top:4px;left:26px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#111111;color:#ffffff;font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center">{{favCount}}</span></sc-if>
+          <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span class="header-action__label">Favoritos</span></sc-if>
+          <sc-if value="{{hasFavs}}" hint-placeholder-val="{{false}}"><span class="fav-badge">{{favCount}}</span></sc-if>
         </button>
-        <button onClick="{{openCart}}" aria-label="Carrinho" style="position:relative;height:44px;padding:0 14px;border:0;background:#111111;border-radius:999px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#ffffff;transition:transform .3s cubic-bezier(.3,1.6,.5,1);transform:scale({{cartScale}})">
+        <button onClick="{{openCart}}" aria-label="Carrinho" class="cart-btn {{cartBtnCls}}">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path></svg>
-          <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span style="font-size:13px;font-weight:700">Carrinho</span></sc-if>
-          <span style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#E1261C;color:#ffffff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">{{cartCount}}</span>
+          <sc-if value="{{showLabels}}" hint-placeholder-val="{{true}}"><span class="cart-btn__label">Carrinho</span></sc-if>
+          <span class="count-badge">{{cartCount}}</span>
         </button>
       </div>
     </div>
+    <!-- Busca (mobile, abaixo do header) -->
     <sc-if value="{{searchBelow}}" hint-placeholder-val="{{false}}">
-      <div style="position:relative;padding:0 16px 12px">
-        <div style="display:flex;align-items:center;gap:10px;height:48px;padding:0 5px 0 16px;background:#f4f4f3;border:1px solid #ececec;border-radius:999px">
+      <div class="search-mobile">
+        <div class="search-box search-box--below">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6b6f" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-          <input value="{{query}}" onChange="{{onQuery}}" onFocus="{{onSearchFocus}}" onBlur="{{onSearchBlur}}" onKeyDown="{{onSearchKey}}" placeholder="O que você está procurando?" aria-label="Pesquisar produtos" style="flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:16px;color:#111111;height:100%">
-          <button onClick="{{goResults}}" aria-label="Buscar" style="width:38px;height:38px;border-radius:999px;border:0;background:#111111;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+          <input value="{{query}}" onChange="{{onQuery}}" onFocus="{{onSearchFocus}}" onBlur="{{onSearchBlur}}" onKeyDown="{{onSearchKey}}" placeholder="O que você está procurando?" aria-label="Pesquisar produtos" class="search-input">
+          <button onClick="{{goResults}}" aria-label="Buscar" class="search-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
         </div>
         <sc-if value="{{showSuggest}}" hint-placeholder-val="{{false}}">
-          <div style="position:absolute;top:calc(100% - 4px);left:16px;right:16px;background:#ffffff;border:1px solid #ececec;border-radius:20px;box-shadow:0 24px 48px -20px rgba(0,0,0,.22);padding:8px;z-index:5">
+          <div class="suggest suggest--below">
             <sc-for list="{{suggestions}}" as="s" hint-placeholder-count="0">
-              <button onMouseDown="{{s.onPick}}" style="width:100%;display:flex;align-items:center;gap:12px;padding:10px;border:0;background:transparent;border-radius:14px;cursor:pointer;text-align:left">
-                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:700;color:#111111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{s.name}}</span><span style="font-size:12px;color:#77777b">{{s.catName}}</span></span>
-                <span style="font-size:13px;font-weight:800;color:#111111;flex:none">{{s.priceTxt}}</span>
+              <button onMouseDown="{{s.onPick}}" class="suggest__item">
+                <span class="suggest__text"><span class="suggest__name">{{s.name}}</span><span class="suggest__cat">{{s.catName}}</span></span>
+                <span class="suggest__price">{{s.priceTxt}}</span>
               </button>
             </sc-for>
             <sc-if value="{{suggestEmpty}}" hint-placeholder-val="{{false}}">
-              <div style="padding:14px;font-size:14px;color:#6b6b6f">Nenhum produto encontrado para “{{query}}”.</div>
+              <div class="suggest__empty">Nenhum produto encontrado para “{{query}}”.</div>
             </sc-if>
-            <button onMouseDown="{{goResults}}" style="width:100%;margin-top:4px;padding:12px;border:0;border-top:1px solid #ececec;background:transparent;font-size:13px;font-weight:700;color:#E1261C;cursor:pointer;text-align:left">Ver todos os resultados ({{resultCount}}) →</button>
+            <button onMouseDown="{{goResults}}" class="suggest__all">Ver todos os resultados ({{resultCount}}) →</button>
           </div>
         </sc-if>
       </div>
     </sc-if>
+    <!-- Navegação por categorias (desktop) -->
     <sc-if value="{{showNav}}" hint-placeholder-val="{{true}}">
-      <nav style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,40px);display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none">
+      <nav class="main-nav">
         <sc-for list="{{navItems}}" as="n" hint-placeholder-count="9">
-          <button onClick="{{n.onClick}}" style="position:relative;flex:none;height:44px;padding:0 14px;border:0;background:transparent;font-size:14px;font-weight:600;color:{{n.color}};cursor:pointer;display:flex;align-items:center;gap:6px;border-bottom:2px solid {{n.line}}" style-hover="color:#E1261C">{{n.label}}<sc-if value="{{n.hot}}" hint-placeholder-val="{{false}}"><span style="width:6px;height:6px;border-radius:999px;background:#E1261C"></span></sc-if></button>
+          <button onClick="{{n.onClick}}" class="main-nav__link {{n.cls}}">{{n.label}}<sc-if value="{{n.hot}}" hint-placeholder-val="{{false}}"><span class="main-nav__dot"></span></sc-if></button>
         </sc-for>
       </nav>
     </sc-if>
   </header>
 
-  <section id="inicio" data-screen-label="Hero" style="max-width:1320px;margin:0 auto;padding:clamp(12px,2vw,24px) clamp(12px,3vw,40px) 0">
-    <div style="position:relative;overflow:hidden;border-radius:clamp(24px,3vw,36px);background:radial-gradient(110% 90% at 72% 42%, #fbfbfb 0%, #eeeeed 50%, #e3e3e2 100%);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));align-items:center;gap:clamp(8px,2vw,24px);padding:clamp(28px,5vw,72px) clamp(22px,5vw,72px)">
-      <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:clamp(8px,3vw,34px);text-align:center;font-size:clamp(84px,17vw,250px);font-weight:900;font-stretch:125%;letter-spacing:-0.05em;line-height:.8;color:#ffffff;white-space:nowrap;pointer-events:none;user-select:none">BOOMBOX</div>
-      <div style="position:relative;z-index:2;display:flex;flex-direction:column;gap:clamp(14px,2vw,22px);min-width:0">
-        <div style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.2em;color:#E1261C"><span style="width:28px;height:2px;background:#E1261C"></span>NOVO NA 51 TECNOLOGIA</div>
-        <h1 style="margin:0;font-size:clamp(46px,7.4vw,108px);font-weight:900;font-stretch:112%;letter-spacing:-0.045em;line-height:.88;color:#111111">JBL<br>BOOMBOX 4</h1>
-        <p style="margin:0;max-width:30ch;font-size:clamp(15px,1.4vw,18px);line-height:1.5;color:#4a4a4e;text-wrap:pretty">Som potente. Design marcante. Escolha sua cor e leve sua música para qualquer lugar.</p>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b6b6f">Cor: <span style="color:#111111">{{heroColorName}}</span></div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px">
+  <!-- ================= HERO: JBL Boombox 4 ================= -->
+  <section id="inicio" data-screen-label="Hero" class="section hero">
+    <div class="hero__banner">
+      <div aria-hidden="true" class="hero__ghost">BOOMBOX</div>
+      <div class="hero__content">
+        <div class="eyebrow-line eyebrow-line--red"><span class="eyebrow-line__bar"></span>NOVO NA 51 TECNOLOGIA</div>
+        <h1 class="hero__title">JBL<br>BOOMBOX 4</h1>
+        <p class="hero__lead">Som potente. Design marcante. Escolha sua cor e leve sua música para qualquer lugar.</p>
+        <div class="hero__colors">
+          <div class="hero__color-label">Cor: <span class="hero__color-name">{{heroColorName}}</span></div>
+          <div class="hero__swatches">
             <sc-for list="{{heroColors}}" as="c" hint-placeholder-count="3">
-              <button onClick="{{c.onPick}}" style="height:44px;padding:0 16px 0 8px;border-radius:999px;border:1.5px solid {{c.ring}};background:{{c.bg}};display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:600;color:#111111;transition:border-color .2s, background .2s">
-                <span style="width:28px;height:28px;border-radius:999px;background:{{c.hex}};box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)"></span>{{c.name}}
+              <button onClick="{{c.onPick}}" class="hero__swatch {{c.cls}}">
+                <span class="hero__swatch-dot" data-color="{{c.id}}"></span>{{c.name}}
               </button>
             </sc-for>
           </div>
         </div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:4px">
-          <button onClick="{{heroBuy}}" style="height:54px;padding:0 30px;border-radius:999px;border:0;background:#E1261C;color:#ffffff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 14px 28px -14px rgba(225,38,28,.7);transition:transform .2s, background .2s" style-hover="background:#C81E15;transform:translateY(-2px)">Comprar agora</button>
-          <button onClick="{{heroDetails}}" style="height:54px;padding:0 24px;border-radius:999px;border:1.5px solid #111111;background:transparent;color:#111111;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#111111;color:#ffffff">Ver detalhes</button>
+        <div class="hero__actions">
+          <button onClick="{{heroBuy}}" class="btn-lg btn-lg--red">Comprar agora</button>
+          <button onClick="{{heroDetails}}" class="btn-lg btn-lg--outline">Ver detalhes</button>
         </div>
-        <div style="font-size:13px;color:#6b6b6f">{{heroPriceTxt}}</div>
+        <div class="hero__price">{{heroPriceTxt}}</div>
       </div>
-      <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" style="position:relative;z-index:1;height:clamp(300px,42vw,540px);min-width:0">
-        <div style="position:absolute;left:50%;top:48%;width:min(78%,440px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:999px;background:{{heroHex}};opacity:.14;transition:background .6s ease"></div>
-        <div data-tilt-shadow="" style="position:absolute;left:14%;right:14%;bottom:2%;height:34px;transition:transform .3s ease-out"><div style="width:100%;height:100%;border-radius:50%;background:radial-gradient(closest-side, rgba(0,0,0,.30), rgba(0,0,0,0));filter:blur(5px);animation:shadow51 5s ease-in-out infinite"></div></div>
-        <div style="position:absolute;inset:-6% -4% 10% -4%;animation:float51 5s ease-in-out infinite">
-        <div data-tilt="" style="position:absolute;inset:0;transition:transform .3s ease-out;transform-style:preserve-3d">
-        <div style="position:absolute;inset:0;opacity:{{heroOpMarrom}};transform:scale({{heroScMarrom}});transition:opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:{{heroPeMarrom}}">
-          <image-slot id="hero-jbl-marrom" src="images/jbl-marrom-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Marrom (PNG sem fundo)"></image-slot>
-        </div>
-        <div style="position:absolute;inset:0;opacity:{{heroOpLaranja}};transform:scale({{heroScLaranja}});transition:opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:{{heroPeLaranja}}">
-          <image-slot id="hero-jbl-laranja" src="images/jbl-laranja-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Laranja (PNG sem fundo)"></image-slot>
-        </div>
-        <div style="position:absolute;inset:0;opacity:{{heroOpPreto}};transform:scale({{heroScPreto}});transition:opacity .5s ease, transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:{{heroPePreto}}">
-          <image-slot id="hero-jbl-preto" src="images/jbl-preto-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Preto (PNG sem fundo)"></image-slot>
-        </div>
-        </div>
+      <!-- Foto: uma camada por cor, com efeito 3D e flutuação -->
+      <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" class="hero__stage">
+        <div class="hero__halo" data-color="{{heroColor}}"></div>
+        <div data-tilt-shadow="" class="hero__shadow"><div class="hero__shadow-blob"></div></div>
+        <div class="hero__float">
+          <div data-tilt="" class="hero__tilt">
+            <div class="hero__layer {{heroLayer.marrom}}">
+              <image-slot id="hero-jbl-marrom" src="images/jbl-marrom-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Marrom (PNG sem fundo)"></image-slot>
+            </div>
+            <div class="hero__layer {{heroLayer.laranja}}">
+              <image-slot id="hero-jbl-laranja" src="images/jbl-laranja-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Laranja (PNG sem fundo)"></image-slot>
+            </div>
+            <div class="hero__layer {{heroLayer.preto}}">
+              <image-slot id="hero-jbl-preto" src="images/jbl-preto-v2.png" fit="contain" shape="rect" placeholder="JBL Boombox 4 — Preto (PNG sem fundo)"></image-slot>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="categorias" data-reveal="" data-screen-label="Categorias" style="max-width:1320px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(16px,4vw,40px) 0">
-    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(22px,3vw,36px)">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="font-size:12px;font-weight:800;letter-spacing:.2em;color:#E1261C">CATEGORIAS</div>
-        <h2 style="margin:0;font-size:clamp(30px,4.4vw,56px);font-weight:900;font-stretch:112%;letter-spacing:-0.04em;line-height:.95">ENCONTRE O QUE<br>VOCÊ PRECISA</h2>
+  <!-- ================= CATEGORIAS ================= -->
+  <section id="categorias" data-reveal="" data-screen-label="Categorias" class="section categories">
+    <div class="section-head">
+      <div class="section-head__titles">
+        <div class="eyebrow">CATEGORIAS</div>
+        <h2 class="section-title">ENCONTRE O QUE<br>VOCÊ PRECISA</h2>
       </div>
-      <p style="margin:0;max-width:36ch;font-size:15px;line-height:1.5;color:#6b6b6f">Sete categorias, uma curadoria enxuta: só produtos que valem a pena.</p>
+      <p class="section-intro">Sete categorias, uma curadoria enxuta: só produtos que valem a pena.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat({{catCols}},minmax(0,1fr));gap:clamp(12px,1.4vw,18px)">
+    <div class="categories__grid">
       <sc-for list="{{categories}}" as="c" hint-placeholder-count="7">
-        <div onClick="{{c.onClick}}" style="grid-column:span {{c.span}};position:relative;overflow:hidden;min-height:clamp(240px,24vw,300px);border-radius:clamp(22px,2.4vw,30px);background:{{c.bg}};color:{{c.fg}};padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;cursor:pointer;transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s" style-hover="transform:translateY(-4px);box-shadow:0 26px 50px -28px rgba(0,0,0,.45)">
-          <div aria-hidden="true" style="position:absolute;right:-0.04em;bottom:-0.12em;font-size:clamp(76px,9vw,140px);font-weight:900;font-stretch:125%;letter-spacing:-0.05em;line-height:1;color:{{c.ghostColor}};white-space:nowrap;pointer-events:none">{{c.ghost}}</div>
-          <div style="position:relative;display:flex;flex-direction:column;gap:8px;max-width:30ch">
-            <div style="font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:{{c.muted}}">{{c.countTxt}}</div>
-            <h3 style="margin:0;font-size:clamp(24px,2.4vw,32px);font-weight:900;font-stretch:108%;letter-spacing:-0.03em;line-height:1">{{c.name}}</h3>
-            <p style="margin:0;font-size:14px;line-height:1.45;color:{{c.muted}};text-wrap:pretty">{{c.desc}}</p>
+        <div onClick="{{c.onClick}}" class="cat-card" data-cat="{{c.id}}">
+          <div aria-hidden="true" class="cat-card__ghost">{{c.ghost}}</div>
+          <div class="cat-card__body">
+            <div class="cat-card__count">{{c.countTxt}}</div>
+            <h3 class="cat-card__name">{{c.name}}</h3>
+            <p class="cat-card__desc">{{c.desc}}</p>
           </div>
-          <div style="position:relative;margin-top:auto;padding-top:22px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-            <span style="height:40px;padding:0 18px;border-radius:999px;background:{{c.btnBg}};color:{{c.btnFg}};font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:8px">Ver produtos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
-            <span style="font-size:12.5px;color:{{c.muted}}">{{c.productsTxt}}</span>
+          <div class="cat-card__footer">
+            <span class="cat-card__cta">Ver produtos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+            <span class="cat-card__brands">{{c.productsTxt}}</span>
           </div>
         </div>
       </sc-for>
     </div>
   </section>
 
-  <section id="destaques" data-reveal="" data-screen-label="Destaques" style="max-width:1320px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(16px,4vw,40px) 0">
-    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(22px,3vw,36px)">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="font-size:12px;font-weight:800;letter-spacing:.2em;color:#E1261C">SELEÇÃO DA CASA</div>
-        <h2 style="margin:0;font-size:clamp(30px,4.4vw,56px);font-weight:900;font-stretch:112%;letter-spacing:-0.04em;line-height:.95">PRODUTOS EM DESTAQUE</h2>
+  <!-- ================= PRODUTOS EM DESTAQUE ================= -->
+  <section id="destaques" data-reveal="" data-screen-label="Destaques" class="section featured">
+    <div class="section-head">
+      <div class="section-head__titles">
+        <div class="eyebrow">SELEÇÃO DA CASA</div>
+        <h2 class="section-title">PRODUTOS EM DESTAQUE</h2>
       </div>
-      <button onClick="{{goAll}}" style="height:44px;padding:0 20px;border-radius:999px;border:1.5px solid #111111;background:transparent;font-size:14px;font-weight:700;cursor:pointer;color:#111111" style-hover="background:#111111;color:#ffffff">Ver todos os produtos</button>
+      <button onClick="{{goAll}}" class="btn-outline">Ver todos os produtos</button>
     </div>
-    <div style="display:grid;grid-template-columns:repeat({{prodCols}},minmax(0,1fr));gap:clamp(10px,1.4vw,18px)">
-      <div style="grid-column:span {{spotSpan}};position:relative;overflow:hidden;border-radius:22px;background:#111111;color:#ffffff;min-height:clamp(420px,40vw,560px);display:flex;flex-direction:column;padding:clamp(22px,3vw,36px)">
-        <div aria-hidden="true" style="position:absolute;right:-0.04em;top:-0.08em;font-size:clamp(150px,20vw,300px);font-weight:900;font-stretch:125%;letter-spacing:-0.06em;line-height:1;color:rgba(255,255,255,.06);white-space:nowrap;pointer-events:none">85”</div>
-        <div style="position:relative;display:flex;flex-wrap:wrap;gap:8px">
-          <span style="background:#E1261C;color:#ffffff;font-size:10.5px;font-weight:800;letter-spacing:.14em;padding:7px 11px;border-radius:999px">TELA GIGANTE</span>
-          <span style="background:rgba(255,255,255,.12);color:#ffffff;font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:7px 11px;border-radius:999px">{{spot.discTxt}}</span>
+    <div class="product-grid product-grid--main">
+      <!-- Spotlight: TV 85" ocupando 2 colunas -->
+      <div class="spotlight">
+        <div aria-hidden="true" class="spotlight__ghost">85”</div>
+        <div class="spotlight__badges">
+          <span class="spotlight__badge spotlight__badge--red">TELA GIGANTE</span>
+          <span class="spotlight__badge spotlight__badge--soft">{{spot.discTxt}}</span>
         </div>
-        <div onClick="{{spot.onOpen}}" style="position:relative;flex:1;min-height:170px;margin:18px 0;cursor:pointer;display:flex;align-items:center;justify-content:center">
-          <sc-if value="{{spot.hasImg}}" hint-placeholder-val="{{false}}"><div role="img" aria-label="{{spot.name}}" style="position:absolute;inset:0;background-image:url({{spot.img}});background-size:contain;background-position:center;background-repeat:no-repeat"></div></sc-if>
+        <div onClick="{{spot.onOpen}}" class="spotlight__media">
+          <sc-if value="{{spot.hasImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" src="{{spot.img}}" alt="{{spot.name}}" class="spotlight__img"></sc-if>
           <sc-if value="{{spot.noImg}}" hint-placeholder-val="{{true}}">
-            <div style="width:min(100%,520px);aspect-ratio:16 / 9;border-radius:10px;background:linear-gradient(135deg,#2b2b30,#16161a);box-shadow:0 0 0 6px #232327, 0 40px 60px -30px rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.4);font-weight:700">FOTO DO PRODUTO</div>
+            <div class="spotlight__placeholder">FOTO DO PRODUTO</div>
           </sc-if>
         </div>
-        <div style="position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px">
-          <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)">Samsung · Crystal UHD 4K</div>
-            <div style="font-size:clamp(22px,2.6vw,32px);font-weight:900;font-stretch:108%;letter-spacing:-0.03em;line-height:1.05">{{spot.name}}</div>
-            <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-size:13px;color:rgba(255,255,255,.55);text-decoration:line-through">{{spot.oldTxt}}</span><span style="font-size:clamp(22px,2.4vw,28px);font-weight:800">{{spot.priceTxt}}</span></div>
-            <div style="font-size:12.5px;color:rgba(255,255,255,.65)">{{spot.installTxt}}</div>
+        <div class="spotlight__footer">
+          <div class="spotlight__info">
+            <div class="spotlight__kicker">Samsung · Crystal UHD 4K</div>
+            <div class="spotlight__name">{{spot.name}}</div>
+            <div class="spotlight__prices"><span class="spotlight__old">{{spot.oldTxt}}</span><span class="spotlight__price">{{spot.priceTxt}}</span></div>
+            <div class="spotlight__install">{{spot.installTxt}}</div>
           </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button onClick="{{spot.onOpen}}" style="height:48px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#ffffff;font-weight:700;font-size:14px;cursor:pointer">Detalhes</button>
-            <button onClick="{{spot.onAdd}}" style="height:48px;padding:0 22px;border-radius:999px;border:0;background:{{spot.spotAddBg}};color:#ffffff;font-weight:800;font-size:14px;cursor:pointer;transition:background .25s">{{spot.addLabel}}</button>
+          <div class="spotlight__actions">
+            <button onClick="{{spot.onOpen}}" class="spotlight__details">Detalhes</button>
+            <button onClick="{{spot.onAdd}}" class="spotlight__add {{spot.addCls}}">{{spot.addLabel}}</button>
           </div>
         </div>
       </div>
@@ -238,69 +241,73 @@ input[type=range]{accent-color:#E1261C}
     </div>
   </section>
 
-  <section data-reveal="" data-screen-label="Benefícios" style="max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,40px) 0">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(18px,2vw,28px);padding:clamp(22px,3vw,34px) 0;border-top:1px solid #ececec;border-bottom:1px solid #ececec">
-      <div style="display:flex;align-items:center;gap:14px">
-        <span style="width:52px;height:52px;flex:none;border-radius:999px;border:1.5px solid #E1261C;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></span>
-        <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:13px;font-weight:800;letter-spacing:.08em">COMPRA SEGURA</span><span style="font-size:13px;color:#6b6b6f">Pagamento protegido</span></span>
+  <!-- ================= BENEFÍCIOS ================= -->
+  <section data-reveal="" data-screen-label="Benefícios" class="section benefits-section">
+    <div class="benefits">
+      <div class="benefit">
+        <span class="benefit__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></span>
+        <span class="benefit__text"><span class="benefit__title">COMPRA SEGURA</span><span class="benefit__sub">Pagamento protegido</span></span>
       </div>
-      <div style="display:flex;align-items:center;gap:14px">
-        <span style="width:52px;height:52px;flex:none;border-radius:999px;border:1.5px solid #E1261C;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"></path><rect x="3" y="14" width="4" height="6" rx="1.5"></rect><rect x="17" y="14" width="4" height="6" rx="1.5"></rect></svg></span>
-        <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:13px;font-weight:800;letter-spacing:.08em">SUPORTE ONLINE</span><span style="font-size:13px;color:#6b6b6f">Atendimento especializado</span></span>
+      <div class="benefit">
+        <span class="benefit__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"></path><rect x="3" y="14" width="4" height="6" rx="1.5"></rect><rect x="17" y="14" width="4" height="6" rx="1.5"></rect></svg></span>
+        <span class="benefit__text"><span class="benefit__title">SUPORTE ONLINE</span><span class="benefit__sub">Atendimento especializado</span></span>
       </div>
-      <div style="display:flex;align-items:center;gap:14px">
-        <span style="width:52px;height:52px;flex:none;border-radius:999px;border:1.5px solid #E1261C;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
-        <span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:13px;font-weight:800;letter-spacing:.08em">PRODUTOS COM GARANTIA</span><span style="font-size:13px;color:#6b6b6f">Mais segurança para sua compra</span></span>
+      <div class="benefit">
+        <span class="benefit__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+        <span class="benefit__text"><span class="benefit__title">PRODUTOS COM GARANTIA</span><span class="benefit__sub">Mais segurança para sua compra</span></span>
       </div>
     </div>
   </section>
 
-  <section data-reveal="" data-screen-label="Banner promocional" style="max-width:1320px;margin:0 auto;padding:clamp(120px,14vw,180px) clamp(12px,3vw,40px) 0">
-    <div style="position:relative;border-radius:clamp(24px,3vw,36px);background:#E1261C;color:#ffffff;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));align-items:center;gap:clamp(8px,2vw,24px);padding:0 clamp(22px,5vw,72px) clamp(32px,5vw,64px)">
-      <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none"><div style="position:absolute;left:-0.03em;bottom:-0.16em;font-size:clamp(120px,22vw,330px);font-weight:900;font-stretch:125%;letter-spacing:-0.06em;line-height:1;color:rgba(255,255,255,.09);white-space:nowrap">MAX</div></div>
-      <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" style="position:relative;height:clamp(300px,36vw,480px);margin-top:clamp(-150px,-11vw,-90px);min-width:0">
-        <div data-tilt-shadow="" style="position:absolute;left:18%;right:18%;bottom:0;height:30px;transition:transform .3s ease-out"><div style="width:100%;height:100%;border-radius:50%;background:radial-gradient(closest-side, rgba(80,0,0,.5), rgba(80,0,0,0));filter:blur(5px);animation:shadow51 5.6s ease-in-out infinite"></div></div>
-        <div style="position:absolute;inset:0 0 8% 0;animation:float51 5.6s ease-in-out infinite"><div data-tilt="" style="position:absolute;inset:0;transition:transform .3s ease-out"><image-slot id="promo-airpods-max" src="images/airpods-max.png" fit="contain" shape="rect" placeholder="Apple AirPods Max (PNG sem fundo)"></image-slot></div></div>
+  <!-- ================= BANNER PROMOCIONAL: AirPods Max ================= -->
+  <section data-reveal="" data-screen-label="Banner promocional" class="section promo-section">
+    <div class="promo">
+      <div aria-hidden="true" class="promo__ghost-wrap"><div class="promo__ghost">MAX</div></div>
+      <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" class="promo__stage">
+        <div data-tilt-shadow="" class="promo__shadow"><div class="promo__shadow-blob"></div></div>
+        <div class="promo__float"><div data-tilt="" class="promo__tilt"><image-slot id="promo-airpods-max" src="images/airpods-max.png" fit="contain" shape="rect" placeholder="Apple AirPods Max (PNG sem fundo)"></image-slot></div></div>
       </div>
-      <div style="position:relative;display:flex;flex-direction:column;gap:16px;padding-top:clamp(0px,3vw,48px);min-width:0">
-        <div style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.2em"><span style="width:28px;height:2px;background:#ffffff"></span>TECNOLOGIA QUE IMPRESSIONA</div>
-        <h2 style="margin:0;font-size:clamp(38px,5.6vw,80px);font-weight:900;font-stretch:112%;letter-spacing:-0.045em;line-height:.9">ENCONTRE SEU PRÓXIMO PRODUTO</h2>
-        <p style="margin:0;max-width:34ch;font-size:clamp(15px,1.4vw,18px);line-height:1.5;color:#ffffff">Produtos selecionados para transformar sua experiência. Em destaque: Apple AirPods Max.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
-          <button onClick="{{goAll}}" style="height:54px;padding:0 30px;border-radius:999px;border:0;background:#ffffff;color:#111111;font-size:15px;font-weight:800;cursor:pointer;transition:transform .2s" style-hover="transform:translateY(-2px)">Ver produtos</button>
-          <button onClick="{{openAirpods}}" style="height:54px;padding:0 24px;border-radius:999px;border:1.5px solid #ffffff;background:transparent;color:#ffffff;font-size:15px;font-weight:700;cursor:pointer">AirPods Max</button>
+      <div class="promo__content">
+        <div class="eyebrow-line"><span class="eyebrow-line__bar eyebrow-line__bar--white"></span>TECNOLOGIA QUE IMPRESSIONA</div>
+        <h2 class="promo__title">ENCONTRE SEU PRÓXIMO PRODUTO</h2>
+        <p class="promo__lead">Produtos selecionados para transformar sua experiência. Em destaque: Apple AirPods Max.</p>
+        <div class="promo__actions">
+          <button onClick="{{goAll}}" class="btn-lg btn-lg--white">Ver produtos</button>
+          <button onClick="{{openAirpods}}" class="btn-lg btn-lg--outline-white">AirPods Max</button>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="ofertas" data-reveal="" data-screen-label="Ofertas" style="max-width:1320px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(16px,4vw,40px) 0">
-    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(22px,3vw,36px)">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="font-size:12px;font-weight:800;letter-spacing:.2em;color:#E1261C">PREÇO BAIXO, ESTOQUE CURTO</div>
-        <h2 style="margin:0;font-size:clamp(30px,4.4vw,56px);font-weight:900;font-stretch:112%;letter-spacing:-0.04em;line-height:.95">OFERTAS DA<br>51 TECNOLOGIA</h2>
+  <!-- ================= OFERTAS ================= -->
+  <section id="ofertas" data-reveal="" data-screen-label="Ofertas" class="section offers">
+    <div class="section-head">
+      <div class="section-head__titles">
+        <div class="eyebrow">PREÇO BAIXO, ESTOQUE CURTO</div>
+        <h2 class="section-title">OFERTAS DA<br>51 TECNOLOGIA</h2>
       </div>
-      <p style="margin:0;max-width:36ch;font-size:15px;line-height:1.5;color:#6b6b6f">{{offerCount}} produtos com desconto, em até 10x sem juros.</p>
+      <p class="section-intro">{{offerCount}} produtos com desconto, em até 10x sem juros.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat({{prodCols}},minmax(0,1fr));gap:clamp(10px,1.4vw,18px)">
+    <div class="product-grid product-grid--main">
       <sc-for list="{{offers}}" as="p" hint-placeholder-count="4">
         <dc-import name="ProductCard" p="{{p}}" hint-size="100%,480px"></dc-import>
       </sc-for>
     </div>
   </section>
 
-  <section id="produtos" data-screen-label="Todos os produtos" style="max-width:1320px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(16px,4vw,40px) 0">
-    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(20px,3vw,30px)">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="font-size:12px;font-weight:800;letter-spacing:.2em;color:#E1261C">CATÁLOGO</div>
-        <h2 style="margin:0;font-size:clamp(30px,4.4vw,56px);font-weight:900;font-stretch:112%;letter-spacing:-0.04em;line-height:.95">TODOS OS PRODUTOS</h2>
+  <!-- ================= TODOS OS PRODUTOS (busca, filtros, ordenação) ================= -->
+  <section id="produtos" data-screen-label="Todos os produtos" class="section catalog">
+    <div class="section-head section-head--catalog">
+      <div class="section-head__titles">
+        <div class="eyebrow">CATÁLOGO</div>
+        <h2 class="section-title">TODOS OS PRODUTOS</h2>
       </div>
-      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+      <div class="catalog__tools">
         <sc-if value="{{isCompact}}" hint-placeholder-val="{{false}}">
-          <button onClick="{{toggleFilters}}" style="height:44px;padding:0 18px;border-radius:999px;border:1.5px solid #111111;background:#ffffff;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;color:#111111"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>Filtros<sc-if value="{{hasActiveFilters}}" hint-placeholder-val="{{false}}"><span style="min-width:20px;height:20px;border-radius:999px;background:#E1261C;color:#ffffff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 6px">{{activeFilterCount}}</span></sc-if></button>
+          <button onClick="{{toggleFilters}}" class="filters-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>Filtros<sc-if value="{{hasActiveFilters}}" hint-placeholder-val="{{false}}"><span class="count-badge">{{activeFilterCount}}</span></sc-if></button>
         </sc-if>
-        <label style="height:44px;padding:0 6px 0 16px;border-radius:999px;border:1px solid #e2e2e2;background:#f4f4f3;display:flex;align-items:center;gap:8px;font-size:13px;color:#6b6b6f">Ordenar
-          <select value="{{sort}}" onChange="{{onSort}}" style="height:34px;border:0;background:#ffffff;border-radius:999px;padding:0 10px;font-size:13px;font-weight:700;color:#111111;cursor:pointer;outline:0">
+        <label class="sort">Ordenar
+          <select value="{{sort}}" onChange="{{onSort}}" class="sort__select">
             <option value="relevancia">Mais relevantes</option>
             <option value="menor">Menor preço</option>
             <option value="maior">Maior preço</option>
@@ -310,184 +317,190 @@ input[type=range]{accent-color:#E1261C}
       </div>
     </div>
     <sc-if value="{{hasQuery}}" hint-placeholder-val="{{false}}">
-      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:18px;font-size:14px;color:#4a4a4e">
+      <div class="query-row">
         <span>Resultados para</span>
-        <button onClick="{{clearQuery}}" style="height:36px;padding:0 8px 0 14px;border-radius:999px;border:0;background:#111111;color:#ffffff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px">“{{query}}”<span style="width:22px;height:22px;border-radius:999px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center">×</span></button>
+        <button onClick="{{clearQuery}}" class="query-chip">“{{query}}”<span class="query-chip__x">×</span></button>
       </div>
     </sc-if>
-    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(18px,2.4vw,32px)">
+    <div class="catalog__layout">
+      <!-- Filtros -->
       <sc-if value="{{showFilters}}" hint-placeholder-val="{{true}}">
-        <aside style="flex:1 1 250px;max-width:{{asideMax}};position:{{asidePos}};top:150px;display:flex;flex-direction:column;gap:22px;padding:22px;border:1px solid #ececec;border-radius:22px;background:#ffffff">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-            <span style="font-size:15px;font-weight:800">Filtros</span>
-            <button onClick="{{clearFilters}}" style="border:0;background:transparent;font-size:13px;font-weight:700;color:#E1261C;cursor:pointer;padding:6px 0">Limpar</button>
+        <aside class="filters">
+          <div class="filters__head">
+            <span class="filters__title">Filtros</span>
+            <button onClick="{{clearFilters}}" class="filters__clear">Limpar</button>
           </div>
-          <div style="display:flex;flex-direction:column;gap:4px">
-            <div style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#77777b;margin-bottom:6px">CATEGORIA</div>
+          <div class="filter-group filter-group--list">
+            <div class="filter-label filter-label--spaced">CATEGORIA</div>
             <sc-for list="{{catFilters}}" as="f" hint-placeholder-count="7">
-              <button onClick="{{f.onToggle}}" style="display:flex;align-items:center;gap:10px;min-height:38px;border:0;background:transparent;padding:0;cursor:pointer;text-align:left;font-size:14px;color:#111111">
-                <span style="width:20px;height:20px;flex:none;border-radius:6px;border:1.5px solid {{f.boxBorder}};background:{{f.boxBg}};display:flex;align-items:center;justify-content:center;transition:background .2s"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
-                <span style="flex:1">{{f.label}}</span><span style="font-size:12px;color:#9a9a9e">{{f.count}}</span>
+              <button onClick="{{f.onToggle}}" class="check-row">
+                <span class="check-row__box {{f.cls}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+                <span class="check-row__label">{{f.label}}</span><span class="check-row__count">{{f.count}}</span>
               </button>
             </sc-for>
           </div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#77777b">MARCA</div>
-            <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <div class="filter-group">
+            <div class="filter-label">MARCA</div>
+            <div class="chip-list">
               <sc-for list="{{brandFilters}}" as="b" hint-placeholder-count="8">
-                <button onClick="{{b.onToggle}}" style="height:36px;padding:0 14px;border-radius:999px;border:1.5px solid {{b.border}};background:{{b.bg}};color:{{b.fg}};font-size:13px;font-weight:600;cursor:pointer;transition:all .2s">{{b.label}}</button>
+                <button onClick="{{b.onToggle}}" class="chip chip--animated {{b.cls}}">{{b.label}}</button>
               </sc-for>
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;justify-content:space-between;gap:8px"><span style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#77777b">FAIXA DE PREÇO</span><span style="font-size:13px;font-weight:700">{{priceLabel}}</span></div>
-            <input type="range" min="{{priceMin}}" max="{{priceMax}}" step="100" value="{{priceVal}}" onChange="{{onPrice}}" aria-label="Preço máximo" style="width:100%;height:28px;cursor:pointer">
-            <div style="display:flex;justify-content:space-between;font-size:12px;color:#9a9a9e"><span>{{priceMinTxt}}</span><span>{{priceMaxTxt}}</span></div>
+          <div class="filter-group">
+            <div class="price-filter__head"><span class="filter-label">FAIXA DE PREÇO</span><span class="price-filter__value">{{priceLabel}}</span></div>
+            <input type="range" min="{{priceMin}}" max="{{priceMax}}" step="100" value="{{priceVal}}" onChange="{{onPrice}}" aria-label="Preço máximo" class="price-filter__range">
+            <div class="price-filter__limits"><span>{{priceMinTxt}}</span><span>{{priceMaxTxt}}</span></div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#77777b">AVALIAÇÃO</div>
-            <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <div class="filter-group filter-group--rating">
+            <div class="filter-label">AVALIAÇÃO</div>
+            <div class="chip-list">
               <sc-for list="{{ratingFilters}}" as="r" hint-placeholder-count="3">
-                <button onClick="{{r.onPick}}" style="height:36px;padding:0 14px;border-radius:999px;border:1.5px solid {{r.border}};background:{{r.bg}};color:{{r.fg}};font-size:13px;font-weight:600;cursor:pointer">{{r.label}}</button>
+                <button onClick="{{r.onPick}}" class="chip {{r.cls}}">{{r.label}}</button>
               </sc-for>
             </div>
           </div>
         </aside>
       </sc-if>
-      <div style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
-        <div style="font-size:13px;color:#6b6b6f">{{resultLabel}}</div>
+      <!-- Resultados -->
+      <div class="catalog__results">
+        <div class="catalog__count">{{resultLabel}}</div>
         <sc-if value="{{hasResults}}" hint-placeholder-val="{{true}}">
-          <div style="display:grid;grid-template-columns:repeat({{allCols}},minmax(0,1fr));gap:clamp(10px,1.4vw,18px)">
+          <div class="product-grid product-grid--catalog">
             <sc-for list="{{results}}" as="p" hint-placeholder-count="6">
               <dc-import name="ProductCard" p="{{p}}" hint-size="100%,460px"></dc-import>
             </sc-for>
           </div>
         </sc-if>
         <sc-if value="{{noResults}}" hint-placeholder-val="{{false}}">
-          <div style="border:1px dashed #d8d8da;border-radius:24px;padding:clamp(32px,6vw,64px) 24px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
-            <div style="font-size:clamp(40px,6vw,64px);font-weight:900;font-stretch:125%;letter-spacing:-0.05em;color:#ececec;line-height:1">0</div>
-            <div style="font-size:18px;font-weight:800">Nenhum produto encontrado</div>
-            <div style="font-size:14px;color:#6b6b6f;max-width:40ch">Tente outro termo de busca ou remova alguns filtros.</div>
-            <button onClick="{{clearAll}}" style="margin-top:6px;height:46px;padding:0 22px;border-radius:999px;border:0;background:#111111;color:#ffffff;font-weight:700;font-size:14px;cursor:pointer">Limpar busca e filtros</button>
+          <div class="empty-results">
+            <div class="empty-results__zero">0</div>
+            <div class="empty-results__title">Nenhum produto encontrado</div>
+            <div class="empty-results__text">Tente outro termo de busca ou remova alguns filtros.</div>
+            <button onClick="{{clearAll}}" class="empty-results__btn">Limpar busca e filtros</button>
           </div>
         </sc-if>
       </div>
     </div>
   </section>
 
-  <footer data-screen-label="Rodapé" style="margin-top:clamp(80px,10vw,140px);background:#111111;color:#ffffff">
-    <div style="max-width:1320px;margin:0 auto;padding:clamp(48px,6vw,80px) clamp(16px,4vw,40px) 28px;display:flex;flex-direction:column;gap:clamp(36px,5vw,56px)">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:32px">
-        <div style="display:flex;flex-direction:column;gap:16px;grid-column:span 1;min-width:0">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:40px;font-weight:900;font-stretch:125%;letter-spacing:-0.06em;line-height:.9">5<span style="color:#E1261C">1</span></span>
-            <span style="display:flex;flex-direction:column;gap:2px;border-left:1.5px solid #ffffff;padding-left:8px"><span style="font-size:11px;font-weight:800;letter-spacing:.28em;line-height:1">TECNO</span><span style="font-size:11px;font-weight:800;letter-spacing:.28em;line-height:1">LOGIA</span></span>
+  <!-- ================= RODAPÉ ================= -->
+  <footer data-screen-label="Rodapé" class="site-footer">
+    <div class="site-footer__inner">
+      <div class="footer-cols">
+        <div class="footer-brand">
+          <div class="footer-brand__logo">
+            <span class="logo-mark">5<span class="logo-mark__one">1</span></span>
+            <span class="logo-word"><span class="logo-word__line">TECNO</span><span class="logo-word__line">LOGIA</span></span>
           </div>
-          <p style="margin:0;font-size:14px;line-height:1.55;color:#b4b4b8;max-width:30ch">Tecnologia, inovação e produtos selecionados para você.</p>
-          <div style="display:flex;gap:8px">
-            <a href="#" aria-label="Instagram" style="width:40px;height:40px;border-radius:999px;border:1px solid #3a3a3e;display:flex;align-items:center;justify-content:center;color:#ffffff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"></circle></svg></a>
-            <a href="#" aria-label="Facebook" style="width:40px;height:40px;border-radius:999px;border:1px solid #3a3a3e;display:flex;align-items:center;justify-content:center;color:#ffffff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V21M6 11h8"></path></svg></a>
-            <a href="#" aria-label="YouTube" style="width:40px;height:40px;border-radius:999px;border:1px solid #3a3a3e;display:flex;align-items:center;justify-content:center;color:#ffffff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"></path></svg></a>
-            <a href="#" aria-label="TikTok" style="width:40px;height:40px;border-radius:999px;border:1px solid #3a3a3e;display:flex;align-items:center;justify-content:center;color:#ffffff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 2.5 2.3 4.2 5 4.5"></path></svg></a>
+          <p class="footer-brand__text">Tecnologia, inovação e produtos selecionados para você.</p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram" class="social"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"></circle></svg></a>
+            <a href="#" aria-label="Facebook" class="social"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V21M6 11h8"></path></svg></a>
+            <a href="#" aria-label="YouTube" class="social"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"></path></svg></a>
+            <a href="#" aria-label="TikTok" class="social"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 2.5 2.3 4.2 5 4.5"></path></svg></a>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
-          <div style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#ffffff;margin-bottom:4px">SOBRE A 51 TECNOLOGIA</div>
-          <a href="#" style="color:#b4b4b8">Sobre nós</a><a href="#" style="color:#b4b4b8">Nossa loja</a><a href="#" style="color:#b4b4b8">Contato</a>
+        <div class="footer-col">
+          <div class="footer-col__title">SOBRE A 51 TECNOLOGIA</div>
+          <a href="#" class="footer-link">Sobre nós</a><a href="#" class="footer-link">Nossa loja</a><a href="#" class="footer-link">Contato</a>
         </div>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
-          <div style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#ffffff;margin-bottom:4px">ATENDIMENTO</div>
-          <a href="#" style="color:#b4b4b8">Central de ajuda</a><a href="#" style="color:#b4b4b8">Trocas e devoluções</a><a href="#" style="color:#b4b4b8">Garantia</a><a href="#" style="color:#b4b4b8">Fale conosco</a>
+        <div class="footer-col">
+          <div class="footer-col__title">ATENDIMENTO</div>
+          <a href="#" class="footer-link">Central de ajuda</a><a href="#" class="footer-link">Trocas e devoluções</a><a href="#" class="footer-link">Garantia</a><a href="#" class="footer-link">Fale conosco</a>
         </div>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
-          <div style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#ffffff;margin-bottom:4px">CATEGORIAS</div>
+        <div class="footer-col">
+          <div class="footer-col__title">CATEGORIAS</div>
           <sc-for list="{{footerCats}}" as="c" hint-placeholder-count="6">
-            <button onClick="{{c.onClick}}" style="all:unset;cursor:pointer;color:#b4b4b8" style-hover="color:#ffffff">{{c.name}}</button>
+            <button onClick="{{c.onClick}}" class="footer-cat">{{c.name}}</button>
           </sc-for>
         </div>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
-          <div style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#ffffff;margin-bottom:4px">INSTITUCIONAL</div>
-          <a href="#" style="color:#b4b4b8">Política de privacidade</a><a href="#" style="color:#b4b4b8">Termos de uso</a><a href="#" style="color:#b4b4b8">Política de troca</a>
+        <div class="footer-col">
+          <div class="footer-col__title">INSTITUCIONAL</div>
+          <a href="#" class="footer-link">Política de privacidade</a><a href="#" class="footer-link">Termos de uso</a><a href="#" class="footer-link">Política de troca</a>
         </div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding-top:24px;border-top:1px solid #2a2a2e">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
-          <span style="font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#77777b;margin-right:6px">PAGAMENTO</span>
-          <span style="height:32px;padding:0 12px;border-radius:8px;background:#1e1e22;border:1px solid #2e2e32;display:flex;align-items:center;font-size:12px;font-weight:800;color:#ffffff">Pix</span>
-          <span style="height:32px;padding:0 12px;border-radius:8px;background:#1e1e22;border:1px solid #2e2e32;display:flex;align-items:center;font-size:12px;font-weight:800;font-style:italic;color:#ffffff">VISA</span>
-          <span style="height:32px;padding:0 12px;border-radius:8px;background:#1e1e22;border:1px solid #2e2e32;display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#ffffff"><span style="width:12px;height:12px;border-radius:999px;background:#E1261C"></span><span style="width:12px;height:12px;border-radius:999px;background:#f2a33a;margin-left:-7px"></span>Mastercard</span>
-          <span style="height:32px;padding:0 12px;border-radius:8px;background:#1e1e22;border:1px solid #2e2e32;display:flex;align-items:center;font-size:12px;font-weight:800;color:#ffffff">elo</span>
-          <span style="height:32px;padding:0 12px;border-radius:8px;background:#1e1e22;border:1px solid #2e2e32;display:flex;align-items:center;font-size:12px;font-weight:800;color:#ffffff">AMEX</span>
-          <span style="height:32px;padding:0 12px;border-radius:8px;background:#1e1e22;border:1px solid #2e2e32;display:flex;align-items:center;font-size:12px;font-weight:700;color:#ffffff">Boleto</span>
+      <div class="footer-bottom">
+        <div class="payments">
+          <span class="payments__label">PAGAMENTO</span>
+          <span class="pay">Pix</span>
+          <span class="pay pay--italic">VISA</span>
+          <span class="pay pay--mastercard"><span class="pay__dot"></span><span class="pay__dot pay__dot--amber"></span>Mastercard</span>
+          <span class="pay">elo</span>
+          <span class="pay">AMEX</span>
+          <span class="pay pay--regular">Boleto</span>
         </div>
-        <div style="font-size:13px;color:#8a8a8e">© 2026 51 Tecnologia. Todos os direitos reservados.</div>
+        <div class="copyright">© 2026 51 Tecnologia. Todos os direitos reservados.</div>
       </div>
     </div>
   </footer>
 
-  <div onClick="{{closeAll}}" style="position:fixed;inset:0;z-index:65;background:rgba(10,10,10,.45);opacity:{{overlayOpacity}};pointer-events:{{overlayPE}};transition:opacity .35s ease"></div>
+  <!-- ================= GAVETAS: fundo escuro, menu mobile, carrinho, favoritos ================= -->
+  <div onClick="{{closeAll}}" class="overlay {{overlayCls}}"></div>
 
-  <aside aria-label="Menu" style="position:fixed;top:0;left:0;bottom:0;z-index:70;width:min(88vw,360px);background:#ffffff;transform:translateX({{menuX}});transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:24px 0 60px -30px rgba(0,0,0,.4);visibility:{{menuVis}}">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #ececec">
-      <span style="font-size:30px;font-weight:900;font-stretch:125%;letter-spacing:-0.06em;line-height:1">5<span style="color:#E1261C">1</span> <span style="font-size:11px;letter-spacing:.24em;font-weight:800;font-stretch:100%">TECNOLOGIA</span></span>
-      <button onClick="{{closeAll}}" aria-label="Fechar menu" style="width:44px;height:44px;border-radius:999px;border:1px solid #ececec;background:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+  <!-- Menu mobile -->
+  <aside aria-label="Menu" class="drawer drawer--left {{menuDrawerCls}}">
+    <div class="drawer__head drawer__head--menu">
+      <span class="drawer-logo">5<span class="logo-mark__one">1</span> <span class="drawer-logo__word">TECNOLOGIA</span></span>
+      <button onClick="{{closeAll}}" aria-label="Fechar menu" class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
     </div>
-    <nav style="flex:1;overflow-y:auto;padding:10px 10px 20px;display:flex;flex-direction:column">
+    <nav class="drawer-nav">
       <sc-for list="{{navItems}}" as="n" hint-placeholder-count="9">
-        <button onClick="{{n.onClick}}" style="min-height:54px;padding:0 14px;border:0;background:transparent;border-radius:14px;display:flex;align-items:center;justify-content:space-between;font-size:17px;font-weight:700;color:#111111;cursor:pointer;text-align:left" style-active="background:#f4f4f3">
-          <span style="display:flex;align-items:center;gap:8px">{{n.label}}<sc-if value="{{n.hot}}" hint-placeholder-val="{{false}}"><span style="font-size:10px;font-weight:800;letter-spacing:.1em;color:#ffffff;background:#E1261C;padding:4px 7px;border-radius:999px">OFERTAS</span></sc-if></span>
+        <button onClick="{{n.onClick}}" class="drawer-nav__link">
+          <span class="drawer-nav__label">{{n.label}}<sc-if value="{{n.hot}}" hint-placeholder-val="{{false}}"><span class="drawer-nav__badge">OFERTAS</span></sc-if></span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9a9a9e" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg>
         </button>
       </sc-for>
     </nav>
-    <div style="padding:16px 18px 24px;border-top:1px solid #ececec;display:flex;flex-direction:column;gap:10px">
-      <button onClick="{{onLogin}}" style="height:50px;border-radius:999px;border:0;background:#111111;color:#ffffff;font-weight:700;font-size:15px;cursor:pointer">Minha conta</button>
-      <button onClick="{{openFav}}" style="height:50px;border-radius:999px;border:1.5px solid #111111;background:#ffffff;color:#111111;font-weight:700;font-size:15px;cursor:pointer">Favoritos ({{favCount}})</button>
+    <div class="drawer__foot">
+      <button onClick="{{onLogin}}" class="drawer-btn drawer-btn--dark">Minha conta</button>
+      <button onClick="{{openFav}}" class="drawer-btn drawer-btn--outline">Favoritos ({{favCount}})</button>
     </div>
   </aside>
 
-  <aside aria-label="Carrinho" style="position:fixed;top:0;right:0;bottom:0;z-index:70;width:min(100vw,440px);background:#ffffff;transform:translateX({{cartX}});transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-24px 0 60px -30px rgba(0,0,0,.4);visibility:{{cartVis}}">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #ececec">
-      <div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:20px;font-weight:900;font-stretch:108%;letter-spacing:-0.02em">Seu carrinho</span><span style="font-size:13px;color:#6b6b6f">{{cartCountTxt}}</span></div>
-      <button onClick="{{closeAll}}" aria-label="Fechar carrinho" style="width:44px;height:44px;border-radius:999px;border:1px solid #ececec;background:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+  <!-- Carrinho -->
+  <aside aria-label="Carrinho" class="drawer drawer--right {{cartDrawerCls}}">
+    <div class="drawer__head">
+      <div class="drawer__title-row"><span class="drawer__title">Seu carrinho</span><span class="drawer__count">{{cartCountTxt}}</span></div>
+      <button onClick="{{closeAll}}" aria-label="Fechar carrinho" class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
     </div>
-    <div style="flex:1;overflow-y:auto;padding:12px 20px">
+    <div class="drawer__body">
       <sc-if value="{{checkoutDone}}" hint-placeholder-val="{{false}}">
-        <div style="padding:48px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px">
-          <span style="width:64px;height:64px;border-radius:999px;background:#E1261C;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
-          <div style="font-size:20px;font-weight:900">Pedido recebido!</div>
-          <div style="font-size:14px;color:#6b6b6f;line-height:1.5;max-width:30ch">Esta é uma simulação de compra. Na loja real, aqui entraria a etapa de pagamento.</div>
-          <button onClick="{{closeAll}}" style="margin-top:8px;height:48px;padding:0 24px;border-radius:999px;border:0;background:#111111;color:#ffffff;font-weight:700;font-size:14px;cursor:pointer">Continuar comprando</button>
+        <div class="drawer-state drawer-state--done">
+          <span class="drawer-state__icon drawer-state__icon--red"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+          <div class="drawer-state__title drawer-state__title--done">Pedido recebido!</div>
+          <div class="drawer-state__text drawer-state__text--narrow">Esta é uma simulação de compra. Na loja real, aqui entraria a etapa de pagamento.</div>
+          <button onClick="{{closeAll}}" class="drawer-state__btn drawer-state__btn--dark">Continuar comprando</button>
         </div>
       </sc-if>
       <sc-if value="{{cartEmpty}}" hint-placeholder-val="{{true}}">
-        <div style="padding:56px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px">
-          <span style="width:64px;height:64px;border-radius:999px;background:#f4f4f3;display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path></svg></span>
-          <div style="font-size:18px;font-weight:800">Seu carrinho está vazio</div>
-          <div style="font-size:14px;color:#6b6b6f">Explore a seleção e adicione seus favoritos.</div>
-          <button onClick="{{goAllClose}}" style="margin-top:8px;height:48px;padding:0 24px;border-radius:999px;border:0;background:#E1261C;color:#ffffff;font-weight:700;font-size:14px;cursor:pointer">Explorar produtos</button>
+        <div class="drawer-state">
+          <span class="drawer-state__icon drawer-state__icon--soft"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path></svg></span>
+          <div class="drawer-state__title">Seu carrinho está vazio</div>
+          <div class="drawer-state__text">Explore a seleção e adicione seus favoritos.</div>
+          <button onClick="{{goAllClose}}" class="drawer-state__btn drawer-state__btn--red">Explorar produtos</button>
         </div>
       </sc-if>
-      <div style="display:flex;flex-direction:column">
+      <div class="cart-list">
         <sc-for list="{{cartItems}}" as="it" hint-placeholder-count="0">
-          <div style="display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid #f0f0f0">
-            <div style="width:84px;height:84px;border-radius:16px;background:{{it.tint}};display:flex;align-items:center;justify-content:center;overflow:hidden">
-              <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><div style="width:80%;height:80%;background-image:url({{it.img}});background-size:contain;background-position:center;background-repeat:no-repeat;mix-blend-mode:{{it.imgBlend}}"></div></sc-if>
-              <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span style="font-size:12px;font-weight:900;font-stretch:125%;letter-spacing:-0.03em;color:{{it.ghostColor}};white-space:nowrap">{{it.ghost}}</span></sc-if>
+          <div class="line-item">
+            <div class="line-item__thumb" data-product="{{it.id}}" data-color="{{it.colorId}}">
+              <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" src="{{it.img}}" alt="" class="line-item__img {{it.imgCls}}"></sc-if>
+              <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span class="line-item__ghost" data-color="{{it.colorId}}">{{it.ghost}}</span></sc-if>
             </div>
-            <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
-              <div style="display:flex;justify-content:space-between;gap:10px">
-                <span style="font-size:14.5px;font-weight:700;line-height:1.3">{{it.name}}</span>
-                <button onClick="{{it.onRemove}}" aria-label="Remover" style="width:32px;height:32px;flex:none;border-radius:999px;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#f4f4f3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b6b6f" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg></button>
+            <div class="line-item__info">
+              <div class="line-item__top">
+                <span class="line-item__name">{{it.name}}</span>
+                <button onClick="{{it.onRemove}}" aria-label="Remover" class="line-item__remove"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b6b6f" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"></path></svg></button>
               </div>
-              <sc-if value="{{it.hasColor}}" hint-placeholder-val="{{false}}"><span style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:#6b6b6f"><span style="width:12px;height:12px;border-radius:999px;background:{{it.colorHex}}"></span>{{it.colorName}}</span></sc-if>
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px">
-                <div style="display:flex;align-items:center;border:1px solid #e2e2e2;border-radius:999px;height:40px">
-                  <button onClick="{{it.onMinus}}" aria-label="Diminuir" style="width:40px;height:38px;border:0;background:transparent;cursor:pointer;font-size:18px;color:#111111">−</button>
-                  <span style="min-width:24px;text-align:center;font-size:14px;font-weight:700">{{it.qty}}</span>
-                  <button onClick="{{it.onPlus}}" aria-label="Aumentar" style="width:40px;height:38px;border:0;background:transparent;cursor:pointer;font-size:18px;color:#111111">+</button>
+              <sc-if value="{{it.hasColor}}" hint-placeholder-val="{{false}}"><span class="line-item__color"><span class="line-item__dot" data-color="{{it.colorId}}"></span>{{it.colorName}}</span></sc-if>
+              <div class="line-item__bottom">
+                <div class="qty">
+                  <button onClick="{{it.onMinus}}" aria-label="Diminuir" class="qty__btn">−</button>
+                  <span class="qty__value">{{it.qty}}</span>
+                  <button onClick="{{it.onPlus}}" aria-label="Aumentar" class="qty__btn">+</button>
                 </div>
-                <span style="font-size:15px;font-weight:800">{{it.lineTxt}}</span>
+                <span class="line-item__amount">{{it.lineTxt}}</span>
               </div>
             </div>
           </div>
@@ -495,40 +508,41 @@ input[type=range]{accent-color:#E1261C}
       </div>
     </div>
     <sc-if value="{{cartHasItems}}" hint-placeholder-val="{{false}}">
-      <div style="padding:18px 20px 22px;border-top:1px solid #ececec;display:flex;flex-direction:column;gap:10px;background:#fafafa">
-        <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4a4e"><span>Subtotal</span><span>{{subtotalTxt}}</span></div>
-                <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:8px;border-top:1px solid #ececec"><span style="font-size:15px;font-weight:800">Total</span><span style="display:flex;flex-direction:column;align-items:flex-end"><span style="font-size:24px;font-weight:900;letter-spacing:-0.02em">{{totalTxt}}</span><span style="font-size:12px;color:#6b6b6f">{{totalInstallTxt}}</span></span></div>
-        <button onClick="{{checkout}}" style="margin-top:6px;height:54px;border-radius:999px;border:0;background:#E1261C;color:#ffffff;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#C81E15">Finalizar compra</button>
-        <button onClick="{{closeAll}}" style="height:48px;border-radius:999px;border:1.5px solid #111111;background:#ffffff;color:#111111;font-weight:700;font-size:14px;cursor:pointer">Continuar comprando</button>
+      <div class="cart-summary">
+        <div class="cart-summary__row"><span>Subtotal</span><span>{{subtotalTxt}}</span></div>
+        <div class="cart-summary__total"><span class="cart-summary__label">Total</span><span class="cart-summary__values"><span class="cart-summary__amount">{{totalTxt}}</span><span class="cart-summary__install">{{totalInstallTxt}}</span></span></div>
+        <button onClick="{{checkout}}" class="checkout-btn">Finalizar compra</button>
+        <button onClick="{{closeAll}}" class="continue-btn">Continuar comprando</button>
       </div>
     </sc-if>
   </aside>
 
-  <aside aria-label="Favoritos" style="position:fixed;top:0;right:0;bottom:0;z-index:70;width:min(100vw,440px);background:#ffffff;transform:translateX({{favX}});transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-24px 0 60px -30px rgba(0,0,0,.4);visibility:{{favVis}}">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #ececec">
-      <div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:20px;font-weight:900;font-stretch:108%;letter-spacing:-0.02em">Favoritos</span><span style="font-size:13px;color:#6b6b6f">{{favCount}}</span></div>
-      <button onClick="{{closeAll}}" aria-label="Fechar favoritos" style="width:44px;height:44px;border-radius:999px;border:1px solid #ececec;background:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+  <!-- Favoritos -->
+  <aside aria-label="Favoritos" class="drawer drawer--right {{favDrawerCls}}">
+    <div class="drawer__head">
+      <div class="drawer__title-row"><span class="drawer__title">Favoritos</span><span class="drawer__count">{{favCount}}</span></div>
+      <button onClick="{{closeAll}}" aria-label="Fechar favoritos" class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
     </div>
-    <div style="flex:1;overflow-y:auto;padding:12px 20px">
+    <div class="drawer__body">
       <sc-if value="{{favEmpty}}" hint-placeholder-val="{{true}}">
-        <div style="padding:56px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px">
-          <span style="width:64px;height:64px;border-radius:999px;background:#f4f4f3;display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg></span>
-          <div style="font-size:18px;font-weight:800">Nenhum favorito ainda</div>
-          <div style="font-size:14px;color:#6b6b6f">Toque no coração de um produto para salvá-lo aqui.</div>
+        <div class="drawer-state">
+          <span class="drawer-state__icon drawer-state__icon--soft"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg></span>
+          <div class="drawer-state__title">Nenhum favorito ainda</div>
+          <div class="drawer-state__text">Toque no coração de um produto para salvá-lo aqui.</div>
         </div>
       </sc-if>
       <sc-for list="{{favItems}}" as="it" hint-placeholder-count="0">
-        <div style="display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid #f0f0f0">
-          <div onClick="{{it.onOpen}}" style="width:84px;height:84px;border-radius:16px;background:{{it.tint}};display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer">
-            <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><div style="width:80%;height:80%;background-image:url({{it.img}});background-size:contain;background-position:center;background-repeat:no-repeat;mix-blend-mode:{{it.imgBlend}}"></div></sc-if>
-            <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span style="font-size:12px;font-weight:900;font-stretch:125%;letter-spacing:-0.03em;color:{{it.ghostColor}};white-space:nowrap">{{it.ghost}}</span></sc-if>
+        <div class="line-item">
+          <div onClick="{{it.onOpen}}" class="line-item__thumb line-item__thumb--link" data-product="{{it.id}}" data-color="{{it.colorId}}">
+            <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" src="{{it.img}}" alt="" class="line-item__img {{it.imgCls}}"></sc-if>
+            <sc-if value="{{it.noImg}}" hint-placeholder-val="{{true}}"><span class="line-item__ghost">{{it.ghost}}</span></sc-if>
           </div>
-          <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
-            <span style="font-size:14.5px;font-weight:700;line-height:1.3">{{it.name}}</span>
-            <span style="font-size:15px;font-weight:800">{{it.priceTxt}}</span>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px">
-              <button onClick="{{it.onAdd}}" style="height:38px;padding:0 16px;border-radius:999px;border:0;background:{{it.addBg}};color:#ffffff;font-size:13px;font-weight:700;cursor:pointer">{{it.addLabel}}</button>
-              <button onClick="{{it.onFav}}" style="height:38px;padding:0 14px;border-radius:999px;border:1px solid #e2e2e2;background:#ffffff;color:#6b6b6f;font-size:13px;font-weight:600;cursor:pointer">Remover</button>
+          <div class="line-item__info">
+            <span class="line-item__name">{{it.name}}</span>
+            <span class="line-item__amount">{{it.priceTxt}}</span>
+            <div class="line-item__actions">
+              <button onClick="{{it.onAdd}}" class="fav-add {{it.addCls}}">{{it.addLabel}}</button>
+              <button onClick="{{it.onFav}}" class="fav-remove">Remover</button>
             </div>
           </div>
         </div>
@@ -536,68 +550,71 @@ input[type=range]{accent-color:#E1261C}
     </div>
   </aside>
 
+  <!-- ================= MODAL DE PRODUTO ================= -->
   <sc-if value="{{hasModal}}" hint-placeholder-val="{{false}}">
-    <div onClick="{{closeModal}}" style="position:fixed;inset:0;z-index:80;background:rgba(10,10,10,.5);opacity:{{modalOpacity}};transition:opacity .3s ease;display:flex;align-items:center;justify-content:center;padding:clamp(0px,2vw,24px)">
-      <div onClick="{{stop}}" role="dialog" aria-label="{{m.name}}" style="position:relative;width:100%;max-width:1120px;max-height:{{modalMaxH}};height:{{modalH}};overflow-y:auto;background:#ffffff;border-radius:{{modalRadius}};transform:translateY({{modalY}});transition:transform .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 40px 90px -40px rgba(0,0,0,.6)">
-        <button onClick="{{closeModal}}" aria-label="Fechar" style="position:sticky;top:14px;float:right;margin:14px 14px 0 0;z-index:3;width:44px;height:44px;border-radius:999px;border:0;background:#111111;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))">
-          <div style="padding:clamp(16px,2.4vw,28px);display:flex;flex-direction:column;gap:12px;min-width:0">
-            <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" style="position:relative;aspect-ratio:1;border-radius:22px;background:{{m.tint}};overflow:hidden;display:flex;align-items:center;justify-content:center;transition:background .4s">
-              <div style="opacity:{{modalImgOpacity}};transform:scale({{modalImgScale}});transition:opacity .22s ease, transform .4s cubic-bezier(.2,.7,.2,1);width:100%;height:100%;display:flex;align-items:center;justify-content:center">
-                <sc-if value="{{m.showImg}}" hint-placeholder-val="{{false}}"><div data-tilt="" role="img" aria-label="{{m.name}}" style="transition:transform .3s ease-out;width:80%;height:80%;background-image:url({{m.mainImg}});background-size:contain;background-position:center;background-repeat:no-repeat;mix-blend-mode:{{m.imgBlend}};filter:{{m.imgFilter}}"></div></sc-if>
+    <div onClick="{{closeModal}}" class="modal-backdrop {{modalCls}}">
+      <div onClick="{{stop}}" role="dialog" aria-modal="true" aria-label="{{m.name}}" class="modal {{modalCls}}">
+        <button onClick="{{closeModal}}" aria-label="Fechar" class="modal__close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        <div class="modal__grid">
+          <!-- Foto -->
+          <div class="modal__media-col">
+            <div onMouseMove="{{tiltMove}}" onMouseLeave="{{tiltLeave}}" class="modal__media" data-product="{{m.id}}" data-color="{{m.colorId}}">
+              <div class="modal__fade {{modalFadeCls}}">
+                <sc-if value="{{m.showImg}}" hint-placeholder-val="{{false}}"><img loading="lazy" data-tilt="" src="{{m.mainImg}}" alt="{{m.name}}" class="modal__img {{m.imgCls}}"></sc-if>
                 <sc-if value="{{m.showPh}}" hint-placeholder-val="{{true}}">
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
-                    <span style="font-size:clamp(48px,8vw,104px);font-weight:900;font-stretch:125%;letter-spacing:-0.05em;line-height:1;color:{{m.ghostColor}};white-space:nowrap">{{m.ghost}}</span>
-                    <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9e;font-weight:700">{{m.viewLabel}}</span>
+                  <div class="modal__ph">
+                    <span class="modal__ph-ghost" data-color="{{m.colorId}}">{{m.ghost}}</span>
+                    <span class="modal__ph-label">{{m.viewLabel}}</span>
                   </div>
                 </sc-if>
               </div>
-              <sc-if value="{{m.isOffer}}" hint-placeholder-val="{{false}}"><span style="position:absolute;top:16px;left:16px;background:#E1261C;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:.12em;padding:7px 11px;border-radius:999px">OFERTA {{m.discTxt}}</span></sc-if>
+              <sc-if value="{{m.isOffer}}" hint-placeholder-val="{{false}}"><span class="modal__offer">OFERTA {{m.discTxt}}</span></sc-if>
             </div>
           </div>
-          <div style="padding:clamp(20px,3vw,44px) clamp(20px,3vw,44px) clamp(28px,3vw,44px);display:flex;flex-direction:column;gap:16px;min-width:0">
-            <div style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#77777b">{{m.brand}} · {{m.catName}} · {{m.sub}}</div>
-            <h2 style="margin:0;font-size:clamp(28px,3.4vw,44px);font-weight:900;font-stretch:108%;letter-spacing:-0.035em;line-height:1;text-wrap:pretty">{{m.name}}</h2>
-            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#6b6b6f">
-              <span style="position:relative;display:inline-block;font-size:15px;letter-spacing:1px;line-height:1;color:#d7d7da">★★★★★<span style="position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:#111111;width:{{m.starPct}}">★★★★★</span></span>
+          <!-- Informações e compra -->
+          <div class="modal__info">
+            <div class="modal__kicker">{{m.brand}} · {{m.catName}} · {{m.sub}}</div>
+            <h2 class="modal__title">{{m.name}}</h2>
+            <div class="modal__rating">
+              <span class="modal__stars">★★★★★<span class="modal__stars-fill" data-stars="{{m.stars}}">★★★★★</span></span>
               <span>{{m.ratingTxt}}</span>
             </div>
-            <div style="display:flex;flex-direction:column;gap:4px;padding:16px 0;border-top:1px solid #ececec;border-bottom:1px solid #ececec">
-              <sc-if value="{{m.hasOld}}" hint-placeholder-val="{{false}}"><div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#8a8a8e"><span style="text-decoration:line-through">{{m.oldTxt}}</span><span style="background:#E1261C;color:#ffffff;font-weight:800;font-size:11.5px;padding:4px 8px;border-radius:999px">{{m.discTxt}}</span></div></sc-if>
-              <div style="font-size:clamp(28px,3vw,38px);font-weight:900;letter-spacing:-0.03em;font-stretch:108%">{{m.priceTxt}}</div>
-              <div style="font-size:13.5px;color:#4a4a4e">{{m.installTxt}}</div>
-              <div style="font-size:11.5px;color:#9a9a9e">Valores ilustrativos</div>
+            <div class="modal__pricebox">
+              <sc-if value="{{m.hasOld}}" hint-placeholder-val="{{false}}"><div class="modal__old-row"><span class="modal__old">{{m.oldTxt}}</span><span class="modal__disc">{{m.discTxt}}</span></div></sc-if>
+              <div class="modal__price">{{m.priceTxt}}</div>
+              <div class="modal__install">{{m.installTxt}}</div>
+              <div class="modal__note">Valores ilustrativos</div>
             </div>
-            <p style="margin:0;font-size:15px;line-height:1.6;color:#4a4a4e;text-wrap:pretty">{{m.desc}}</p>
+            <p class="modal__desc">{{m.desc}}</p>
             <sc-if value="{{m.hasColors}}" hint-placeholder-val="{{false}}">
-              <div style="display:flex;flex-direction:column;gap:10px">
-                <div style="font-size:12px;font-weight:800;letter-spacing:.14em;color:#77777b">COR: <span style="color:#111111">{{m.colorNameUpper}}</span></div>
-                <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <div class="modal__colors">
+                <div class="modal__label">COR: <span class="modal__color-name">{{m.colorNameUpper}}</span></div>
+                <div class="modal__swatches">
                   <sc-for list="{{m.colors}}" as="c" hint-placeholder-count="3">
-                    <button onClick="{{c.onPick}}" style="height:46px;padding:0 16px 0 8px;border-radius:999px;border:1.5px solid {{c.ring}};background:#ffffff;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;font-weight:800;letter-spacing:.06em;color:#111111"><span style="width:30px;height:30px;border-radius:999px;background:{{c.hex}};box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)"></span>{{c.upper}}</button>
+                    <button onClick="{{c.onPick}}" class="modal__swatch {{c.cls}}"><span class="modal__swatch-dot" data-color="{{c.id}}"></span>{{c.upper}}</button>
                   </sc-for>
                 </div>
               </div>
             </sc-if>
-            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
-              <div style="display:flex;align-items:center;border:1.5px solid #e2e2e2;border-radius:999px;height:54px">
-                <button onClick="{{mMinus}}" aria-label="Diminuir quantidade" style="width:48px;height:50px;border:0;background:transparent;cursor:pointer;font-size:20px;color:#111111">−</button>
-                <span style="min-width:28px;text-align:center;font-size:16px;font-weight:800">{{m.qty}}</span>
-                <button onClick="{{mPlus}}" aria-label="Aumentar quantidade" style="width:48px;height:50px;border:0;background:transparent;cursor:pointer;font-size:20px;color:#111111">+</button>
+            <div class="modal__buy-row">
+              <div class="qty qty--lg">
+                <button onClick="{{mMinus}}" aria-label="Diminuir quantidade" class="qty__btn">−</button>
+                <span class="qty__value">{{m.qty}}</span>
+                <button onClick="{{mPlus}}" aria-label="Aumentar quantidade" class="qty__btn">+</button>
               </div>
-              <button onClick="{{m.onFav}}" aria-label="Favoritar" style="width:54px;height:54px;border-radius:999px;border:1.5px solid #e2e2e2;background:#ffffff;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="{{m.heartFill}}" stroke="{{m.heartStroke}}" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg></button>
+              <button onClick="{{m.onFav}}" aria-label="Favoritar" class="modal__fav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" stroke-width="1.8" stroke-linejoin="round" class="modal__heart {{m.favCls}}"><path d="M12 20.5s-7.5-4.4-9.6-9.2C1 7.9 3.1 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3 1.5-1.8 3.2-3 5.4-3 3.5 0 5.6 3.4 4.2 6.8-2.1 4.8-9.6 9.2-9.6 9.2z"></path></svg></button>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px">
-              <button onClick="{{mBuy}}" style="height:56px;border-radius:999px;border:0;background:#E1261C;color:#ffffff;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#C81E15">Comprar agora</button>
-              <button onClick="{{mAdd}}" style="height:56px;border-radius:999px;border:0;background:{{mAddBg}};color:#ffffff;font-weight:800;font-size:15px;cursor:pointer;transition:background .25s">{{mAddLabel}}</button>
+            <div class="modal__ctas">
+              <button onClick="{{mBuy}}" class="modal__cta modal__cta--buy">Comprar agora</button>
+              <button onClick="{{mAdd}}" class="modal__cta modal__cta--add {{mAddCls}}">{{mAddLabel}}</button>
             </div>
-            <div style="display:flex;flex-direction:column;gap:10px;padding-top:6px">
-              <div style="font-size:12px;font-weight:800;letter-spacing:.14em;color:#77777b">CARACTERÍSTICAS</div>
+            <div class="modal__features">
+              <div class="modal__label">CARACTERÍSTICAS</div>
               <sc-for list="{{m.features}}" as="f" hint-placeholder-count="4">
-                <div style="display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.45;color:#2a2a2e"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><path d="M5 12l5 5 9-10"></path></svg>{{f}}</div>
+                <div class="modal__feature"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E1261C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="modal__feature-icon"><path d="M5 12l5 5 9-10"></path></svg>{{f}}</div>
               </sc-for>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:#6b6b6f;padding-top:10px;border-top:1px solid #ececec">
+            <div class="modal__seals">
               <span>✓ Compra segura</span><span>✓ Produto com garantia</span>
             </div>
           </div>
@@ -606,15 +623,21 @@ input[type=range]{accent-color:#E1261C}
     </div>
   </sc-if>
 
-  <div role="status" style="position:fixed;left:50%;bottom:24px;z-index:90;transform:translate(-50%,{{toastY}});opacity:{{toastOpacity}};transition:transform .4s cubic-bezier(.2,.8,.2,1), opacity .3s;pointer-events:none;background:#111111;color:#ffffff;border-radius:999px;padding:12px 20px 12px 12px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;box-shadow:0 18px 40px -16px rgba(0,0,0,.5);max-width:calc(100vw - 32px)">
-    <span style="width:28px;height:28px;flex:none;border-radius:999px;background:#E1261C;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
-    <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{toastText}}</span>
+  <!-- ================= TOAST (avisos rápidos) ================= -->
+  <div role="status" class="toast {{toastCls}}">
+    <span class="toast__icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+    <span class="toast__text">{{toastText}}</span>
   </div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  // ============ PREÇOS — VALORES DE EXEMPLO (MOCK) ============
+  // ===================================================================
+  //  DADOS DA LOJA
+  //  (cores de produtos e categorias ficam no CSS: css/produtos.css e css/51-tecnologia.css)
+  // ===================================================================
+
+  // ---------- Preços — valores de exemplo (MOCK) ----------
   // Único lugar para alterar preços. preco = preço atual; de = preço anterior (opcional, gera "OFERTA").
   static PRECOS = {
     'jbl-boombox-4':     { preco: 2999.90, de: 3499.90 },
@@ -629,337 +652,515 @@ class Component extends DCLogic {
     'ninja-creami':      { preco: 1499.00, de: 1799.00 },
     'samsung-u8600f-85': { preco: 8999.00, de: 10999.00 },
   };
+
+  // Parcelamento sem juros exibido nos cards, no modal e no carrinho.
   static PARCELAS = 10;
 
+  // ---------- Categorias ----------
+  // ghost: palavra gigante de fundo do card. Cores: .cat-card[data-cat="..."] em css/51-tecnologia.css.
   static CATS = [
-    { id: 'audio', name: 'Áudio', desc: 'Caixas de som potentes e fones premium.', ghost: 'SOM', bg: '#141414', fg: '#ffffff', muted: 'rgba(255,255,255,.66)', ghostColor: 'rgba(255,255,255,.07)', btnBg: '#E1261C', btnFg: '#ffffff' },
-    { id: 'tvs', name: 'TVs', desc: 'Telas de 32" a 85" para cada ambiente.', ghost: 'TELA', bg: '#EFEFED', fg: '#111111', muted: '#5f5f63', ghostColor: 'rgba(0,0,0,.05)', btnBg: '#111111', btnFg: '#ffffff' },
-    { id: 'computadores', name: 'Computadores', desc: 'All-in-one com design e desempenho.', ghost: 'DESKTOP', bg: '#DCD3F2', fg: '#1B1530', muted: '#4a4163', ghostColor: 'rgba(27,21,48,.07)', btnBg: '#ffffff', btnFg: '#1B1530' },
-    { id: 'casa', name: 'Casa Inteligente', desc: 'Robôs que limpam enquanto você vive.', ghost: 'SMART', bg: '#E1261C', fg: '#ffffff', muted: 'rgba(255,255,255,.88)', ghostColor: 'rgba(255,255,255,.12)', btnBg: '#ffffff', btnFg: '#C81E15' },
-    { id: 'eletro', name: 'Eletrodomésticos', desc: 'Praticidade na cozinha, todos os dias.', ghost: 'COZINHA', bg: '#F1E9DE', fg: '#2A1F14', muted: '#6a5a48', ghostColor: 'rgba(42,31,20,.06)', btnBg: '#2A1F14', btnFg: '#ffffff' },
-    { id: 'clima', name: 'Climatização', desc: 'Conforto térmico com eficiência Inverter.', ghost: 'CLIMA', bg: '#DDE9EF', fg: '#0F2530', muted: '#45606c', ghostColor: 'rgba(15,37,48,.06)', btnBg: '#0F2530', btnFg: '#ffffff' },
-    { id: 'internet', name: 'Internet e Conectividade', desc: 'Internet via satélite de alta velocidade, onde você estiver.', ghost: 'CONEXÃO', bg: '#26262A', fg: '#ffffff', muted: 'rgba(255,255,255,.66)', ghostColor: 'rgba(255,255,255,.05)', btnBg: '#ffffff', btnFg: '#111111' },
+    { id: 'audio', name: 'Áudio', desc: 'Caixas de som potentes e fones premium.', ghost: 'SOM' },
+    { id: 'tvs', name: 'TVs', desc: 'Telas de 32" a 85" para cada ambiente.', ghost: 'TELA' },
+    { id: 'computadores', name: 'Computadores', desc: 'All-in-one com design e desempenho.', ghost: 'DESKTOP' },
+    { id: 'casa', name: 'Casa Inteligente', desc: 'Robôs que limpam enquanto você vive.', ghost: 'SMART' },
+    { id: 'eletro', name: 'Eletrodomésticos', desc: 'Praticidade na cozinha, todos os dias.', ghost: 'COZINHA' },
+    { id: 'clima', name: 'Climatização', desc: 'Conforto térmico com eficiência Inverter.', ghost: 'CLIMA' },
+    { id: 'internet', name: 'Internet e Conectividade', desc: 'Internet via satélite de alta velocidade, onde você estiver.', ghost: 'CONEXÃO' },
   ];
 
-  // ============ PRODUTOS — estrutura única ============
-  // img: URL da foto (PNG sem fundo recomendado). imgs: fotos por cor.
+  // ---------- Produtos ----------
+  // img: foto (PNG sem fundo recomendado). imgs: fotos por cor. colors: variações de cor.
+  // featured: aparece em "Destaques". spotlight: card grande (TV 85"). stock 'baixo': "Poucas unidades".
+  // blend: foto com fundo branco (mistura com o fundo). Cor de fundo da foto: css/produtos.css.
   static PRODUTOS = [
-    { id: 'jbl-boombox-4', name: 'JBL Boombox 4', brand: 'JBL', cat: 'audio', sub: 'Caixas de som', ghost: 'BOOMBOX', rating: 4.9, reviews: 214, recent: 1, featured: true, stock: 'baixo', tint: '#F1F1F0', img: '',
-      colors: [ { id: 'marrom', name: 'Marrom', hex: '#6B4A36', soft: '#EFE8E2' }, { id: 'laranja', name: 'Laranja', hex: '#E8742A', soft: '#FBECE0' }, { id: 'preto', name: 'Preto', hex: '#1D1D1F', soft: '#EAEAEB' } ],
+    { id: 'jbl-boombox-4', name: 'JBL Boombox 4', brand: 'JBL', cat: 'audio', sub: 'Caixas de som', ghost: 'BOOMBOX', rating: 4.9, reviews: 214, recent: 1, featured: true, stock: 'baixo', img: '',
+      colors: [ { id: 'marrom', name: 'Marrom' }, { id: 'laranja', name: 'Laranja' }, { id: 'preto', name: 'Preto' } ],
       imgs: { marrom: 'images/jbl-marrom-v2.png', laranja: 'images/jbl-laranja-v2.png', preto: 'images/jbl-preto-v2.png' },
       desc: 'Caixa de som portátil com graves profundos e visual robusto. Feita para acompanhar festas, viagens e qualquer ambiente ao ar livre.',
       features: ['Som potente com graves profundos', 'Resistente à água e à poeira', 'Bateria de longa duração', 'Conexão Bluetooth', 'Alça integrada para transporte'] },
-    { id: 'starlink', name: 'Starlink — Kit Internet via Satélite', brand: 'Starlink', cat: 'internet', sub: 'Internet via satélite', ghost: 'STARLINK', rating: 4.7, reviews: 98, recent: 4, featured: true, tint: '#F0F0F2', img: '',
+    { id: 'starlink', name: 'Starlink — Kit Internet via Satélite', brand: 'Starlink', cat: 'internet', sub: 'Internet via satélite', ghost: 'STARLINK', rating: 4.7, reviews: 98, recent: 4, featured: true, img: '',
       desc: 'Kit de internet via satélite para conectar casas, empresas e áreas remotas com alta velocidade e baixa latência.',
       features: ['Antena de internet via satélite', 'Roteador Wi-Fi incluso', 'Instalação simples', 'Ideal para áreas rurais e remotas', 'Gerenciamento pelo aplicativo'] },
-    { id: 'airpods-max', name: 'Apple AirPods Max', brand: 'Apple', cat: 'audio', sub: 'Fones de ouvido', ghost: 'MAX', rating: 4.8, reviews: 356, recent: 3, featured: true, stock: 'baixo', tint: '#EFEDF6', img: 'images/airpods-max.png',
+    { id: 'airpods-max', name: 'Apple AirPods Max', brand: 'Apple', cat: 'audio', sub: 'Fones de ouvido', ghost: 'MAX', rating: 4.8, reviews: 356, recent: 3, featured: true, stock: 'baixo', img: 'images/airpods-max.png',
       desc: 'O fone over-ear premium da Apple: cancelamento ativo de ruído, áudio espacial e acabamento em alumínio.',
       features: ['Cancelamento Ativo de Ruído', 'Modo Ambiente', 'Áudio espacial personalizado', 'Almofadas com espuma de memória', 'Digital Crown para controle preciso'] },
-    { id: 'samsung-h500f-32', name: 'Samsung HD TV H500F 32"', brand: 'Samsung', cat: 'tvs', sub: 'TVs HD', ghost: '32"', rating: 4.6, reviews: 402, recent: 7, tint: '#EFEFED', img: 'images/samsung-h500f-32.png',
+    { id: 'samsung-h500f-32', name: 'Samsung HD TV H500F 32"', brand: 'Samsung', cat: 'tvs', sub: 'TVs HD', ghost: '32"', rating: 4.6, reviews: 402, recent: 7, img: 'images/samsung-h500f-32.png',
       desc: 'TV HD de 32 polegadas da Samsung, compacta e ideal para quartos, cozinhas e ambientes menores.',
       features: ['Tela de 32 polegadas', 'Resolução HD', 'Design compacto', 'Entradas HDMI e USB'] },
-    { id: 'imac-roxo', name: 'iMac Roxo Claro', brand: 'Apple', cat: 'computadores', sub: 'All-in-one', ghost: 'iMAC', rating: 4.9, reviews: 128, recent: 2, featured: true, tint: '#EEEAF7', img: 'images/imac-roxo.png',
+    { id: 'imac-roxo', name: 'iMac Roxo Claro', brand: 'Apple', cat: 'computadores', sub: 'All-in-one', ghost: 'iMAC', rating: 4.9, reviews: 128, recent: 2, featured: true, img: 'images/imac-roxo.png',
       desc: 'Computador all-in-one da Apple com design ultrafino, tela de alta resolução e acabamento em roxo claro.',
       features: ['Design all-in-one ultrafino', 'Tela Retina de alta resolução', 'Chip Apple de alto desempenho', 'Acabamento em roxo claro'] },
-    { id: 'tcl-elite-gv', name: 'TCL Ar-Condicionado Inverter Série Elite GV', brand: 'TCL', cat: 'clima', sub: 'Ar-condicionado', ghost: 'ELITE', rating: 4.6, reviews: 187, recent: 6, stock: 'baixo', tint: '#EAF1F4', img: 'images/tcl-elite-gv.png',
+    { id: 'tcl-elite-gv', name: 'TCL Ar-Condicionado Inverter Série Elite GV', brand: 'TCL', cat: 'clima', sub: 'Ar-condicionado', ghost: 'ELITE', rating: 4.6, reviews: 187, recent: 6, stock: 'baixo', img: 'images/tcl-elite-gv.png',
       desc: 'Condicionador de ar Inverter TCL Série Elite GV, função frio. Unidade interna.',
       features: ['Tecnologia Inverter', 'Função frio', 'Unidade interna', 'Operação silenciosa', 'Controle remoto'] },
-    { id: 'xiaomi-s40', name: 'Xiaomi Robot Vacuum S40', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'S40', rating: 4.7, reviews: 263, recent: 5, featured: true, tint: '#F1F1F0', img: 'images/xiaomi-s40.png',
+    { id: 'xiaomi-s40', name: 'Xiaomi Robot Vacuum S40', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'S40', rating: 4.7, reviews: 263, recent: 5, featured: true, img: 'images/xiaomi-s40.png',
       desc: 'Robô aspirador com limpeza inteligente: mapeia a casa, aspira e passa pano de forma automática.',
       features: ['Navegação a laser com mapeamento', 'Aspira e passa pano', 'Controle pelo app Xiaomi Home', 'Retorno automático à base'] },
-    { id: 'gaabor-neo-4l', name: 'Gaabor Air Fryer NEO 4L', brand: 'Gaabor', cat: 'eletro', sub: 'Cozinha', ghost: 'NEO', rating: 4.5, reviews: 311, recent: 9, stock: 'baixo', tint: '#F4EFE8', img: 'images/gaabor-neo-4l.png',
+    { id: 'gaabor-neo-4l', name: 'Gaabor Air Fryer NEO 4L', brand: 'Gaabor', cat: 'eletro', sub: 'Cozinha', ghost: 'NEO', rating: 4.5, reviews: 311, recent: 9, stock: 'baixo', img: 'images/gaabor-neo-4l.png',
       desc: 'Air fryer de 4 litros para preparar refeições crocantes com pouco ou nenhum óleo.',
       features: ['Capacidade de 4 litros', 'Preparo com pouco ou nenhum óleo', 'Cesto antiaderente', 'Controle de tempo e temperatura'] },
-    { id: 'xiaomi-h50-pro', name: 'Xiaomi Robot Vacuum H50 Pro', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'H50 PRO', rating: 4.8, reviews: 76, recent: 8, featured: true, tint: '#F1F1F0', img: 'images/xiaomi-h50-pro.png',
+    { id: 'xiaomi-h50-pro', name: 'Xiaomi Robot Vacuum H50 Pro', brand: 'Xiaomi', cat: 'casa', sub: 'Robôs aspiradores', ghost: 'H50 PRO', rating: 4.8, reviews: 76, recent: 8, featured: true, img: 'images/xiaomi-h50-pro.png',
       desc: 'Robô aspirador com recursos inteligentes e alta potência de sucção para uma limpeza completa.',
       features: ['Alta potência de sucção', 'Mapeamento inteligente dos ambientes', 'Controle por app', 'Limpeza programada'] },
-    { id: 'ninja-creami', name: 'Ninja Creami', brand: 'Ninja', cat: 'eletro', sub: 'Cozinha', ghost: 'CREAMI', rating: 4.8, reviews: 142, recent: 10, featured: true, tint: '#F4EFE8', img: 'images/ninja-creami.png',
+    { id: 'ninja-creami', name: 'Ninja Creami', brand: 'Ninja', cat: 'eletro', sub: 'Cozinha', ghost: 'CREAMI', rating: 4.8, reviews: 142, recent: 10, featured: true, img: 'images/ninja-creami.png',
       desc: 'Transforma ingredientes congelados em sorvetes, sobremesas cremosas, milkshakes e outras receitas.',
       features: ['Programas para sorvete, sorbet e milkshake', 'Potes para preparo individual', 'Receitas personalizáveis', 'Fácil de limpar'] },
-    { id: 'samsung-u8600f-85', name: 'Samsung Crystal UHD U8600F 85"', brand: 'Samsung', cat: 'tvs', sub: 'Smart TV 4K', ghost: '85"', rating: 4.8, reviews: 94, recent: 2.5, spotlight: true, tint: '#EFEFED', img: 'images/samsung-u8600f-85.png',
+    { id: 'samsung-u8600f-85', name: 'Samsung Crystal UHD U8600F 85"', brand: 'Samsung', cat: 'tvs', sub: 'Smart TV 4K', ghost: '85"', rating: 4.8, reviews: 94, recent: 2.5, spotlight: true, img: 'images/samsung-u8600f-85.png',
       desc: 'Uma tela de 85 polegadas com tecnologia Crystal UHD para transformar a sala em cinema.',
       features: ['Tela gigante de 85 polegadas', 'Resolução 4K Crystal UHD', 'Cores vivas e alto contraste', 'Design fino'] },
   ];
 
-  state = (() => {
-    let cart = [], favs = [];
-    try { cart = JSON.parse(localStorage.getItem('51tec-cart') || '[]'); favs = JSON.parse(localStorage.getItem('51tec-favs') || '[]'); } catch (e) {}
-    return { w: typeof window !== 'undefined' ? window.innerWidth : 1280, cart, favs, query: '', searchFocus: false,
-      fCats: [], fBrands: [], fPrice: null, fRating: 0, sort: 'relevancia', filtersOpen: false,
-      heroColor: 'marrom', cardColor: {}, modal: null, modalIn: false, imgFade: false,
-      drawer: null, accountOpen: false, added: {}, toast: null, toastOn: false, bump: false, checkoutDone: false };
-  })();
+  // Categorias da navegação (header e menu mobile), na ordem em que aparecem.
+  static NAV_CATS = [['audio', 'Áudio'], ['tvs', 'TVs'], ['computadores', 'Computadores'], ['casa', 'Casa Inteligente'], ['eletro', 'Eletrodomésticos'], ['clima', 'Climatização'], ['internet', 'Internet']];
 
+  // Chaves do localStorage.
+  static STORAGE_CART = '51tec-cart';
+  static STORAGE_FAVS = '51tec-favs';
+
+  // ===================================================================
+  //  ESTADO
+  // ===================================================================
+  state = {
+    w: typeof window !== 'undefined' ? window.innerWidth : 1280, // largura da janela (quantidade de cards por linha)
+    cart: Component.loadList(Component.STORAGE_CART, (it) => it && Component.hasProduct(it.id)), // [{ key, id, color, qty }]
+    favs: Component.loadList(Component.STORAGE_FAVS, (id) => Component.hasProduct(id)),         // [id]
+    // Busca, filtros e ordenação do catálogo
+    query: '', searchFocus: false,
+    fCats: [], fBrands: [], fPrice: null, fRating: 0, sort: 'relevancia', filtersOpen: false,
+    // Cor escolhida no hero e em cada card ({ id: cor })
+    heroColor: 'marrom', cardColor: {},
+    // Modal de produto: { id, color, qty, view } | null
+    modal: null, modalIn: false, imgFade: false,
+    // Gavetas ('menu' | 'cart' | 'fav' | null), popover da conta e feedbacks
+    drawer: null, accountOpen: false, added: {}, toast: null, toastOn: false, bump: false, checkoutDone: false,
+  };
+
+  // Lê uma lista salva no localStorage, descartando dados inválidos e produtos que não existem mais.
+  static loadList(key, isValid) {
+    try {
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      return Array.isArray(list) ? list.filter(isValid) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  static hasProduct(id) { return Component.PRODUTOS.some((p) => p.id === id); }
+
+  // ===================================================================
+  //  CICLO DE VIDA
+  // ===================================================================
   componentDidMount() {
     this._onResize = () => this.setState({ w: window.innerWidth });
-    this._onKey = (e) => { if (e.key === 'Escape') { if (this.state.modal) this.closeModal(); else this.closeAll(); } };
+    this._onKey = (e) => {
+      if (e.key !== 'Escape') return;
+      if (this.state.modal) this.closeModal(); else this.closeAll();
+    };
+    // Fecha o popover "Minha conta" ao clicar fora dele.
+    this._onPointerDown = (e) => {
+      if (this.state.accountOpen && !(e.target instanceof Element && e.target.closest('[data-account]'))) this.setState({ accountOpen: false });
+    };
     window.addEventListener('resize', this._onResize);
     window.addEventListener('keydown', this._onKey);
+    document.addEventListener('pointerdown', this._onPointerDown);
     this._onResize();
     setTimeout(() => this.setupReveal(), 60);
   }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('keydown', this._onKey);
+    document.removeEventListener('pointerdown', this._onPointerDown);
     if (this._io) this._io.disconnect();
   }
-  componentDidUpdate(pp, ps) {
+
+  // O runtime só repassa prevProps (sem prevState), então guardamos a última versão salva.
+  componentDidUpdate() {
     const s = this.state;
-    if (ps.cart !== s.cart) try { localStorage.setItem('51tec-cart', JSON.stringify(s.cart)); } catch (e) {}
-    if (ps.favs !== s.favs) try { localStorage.setItem('51tec-favs', JSON.stringify(s.favs)); } catch (e) {}
-    const lock = !!(s.modal || s.drawer);
-    document.documentElement.style.overflow = lock ? 'hidden' : '';
-  }
-  setupReveal() {
-    if (!('IntersectionObserver' in window)) return;
-    const els = [...document.querySelectorAll('[data-reveal]')].filter(el => el.getBoundingClientRect().top > window.innerHeight);
-    this._io = new IntersectionObserver((entries) => {
-      entries.forEach(en => { if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'none'; this._io.unobserve(en.target); } });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(28px)'; el.style.transition = 'opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1)'; this._io.observe(el); });
+    if (this._savedCart !== s.cart) { this._savedCart = s.cart; this.saveList(Component.STORAGE_CART, s.cart); }
+    if (this._savedFavs !== s.favs) { this._savedFavs = s.favs; this.saveList(Component.STORAGE_FAVS, s.favs); }
+    // Trava a rolagem da página enquanto uma gaveta ou o modal estiver aberto (html.no-scroll no CSS).
+    document.documentElement.classList.toggle('no-scroll', !!(s.modal || s.drawer));
   }
 
-  // ---------- helpers ----------
+  saveList(key, list) {
+    try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
+  }
+
+  // Seções com data-reveal abaixo da dobra entram com fade + subida ao aparecer na tela (.reveal no CSS).
+  setupReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    const els = [...document.querySelectorAll('[data-reveal]')].filter((el) => el.getBoundingClientRect().top > window.innerHeight);
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-visible');
+        this._io.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach((el) => { el.classList.add('reveal'); this._io.observe(el); });
+  }
+
+  // ===================================================================
+  //  HELPERS
+  // ===================================================================
   fmt(n) { return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
   price(id) { return Component.PRECOS[id] || { preco: 0 }; }
-  prod(id) { return Component.PRODUTOS.find(p => p.id === id); }
-  cat(id) { return Component.CATS.find(c => c.id === id); }
-  norm(s) { return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
-  colorOf(p, cid) { return p.colors ? (p.colors.find(c => c.id === cid) || p.colors[0]) : null; }
+  prod(id) { return Component.PRODUTOS.find((p) => p.id === id); }
+  cat(id) { return Component.CATS.find((c) => c.id === id); }
+  norm(s) { return (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  colorOf(p, cid) { return p.colors ? (p.colors.find((c) => c.id === cid) || p.colors[0]) : null; }
   imgOf(p, cid) { return (p.imgs && cid && p.imgs[cid]) || p.img || ''; }
   install(n) { const k = Component.PARCELAS; return `ou ${k}x de ${this.fmt(n / k)} sem juros`; }
+  // Produto em oferta = tem preço "de" maior que o atual.
+  hasDiscount(id) { const pr = this.price(id); return !!(pr.de && pr.de > pr.preco); }
+  discount(id) { const pr = this.price(id); return 1 - pr.preco / pr.de; }
+  // Cor efetiva de um produto: a informada, a escolhida no card ou a primeira.
+  pickColor(p, color) { return p.colors ? (color || this.state.cardColor[p.id] || p.colors[0].id) : null; }
+  cartCount() { return this.state.cart.reduce((a, b) => a + b.qty, 0); }
+  // Classe de estado para o template: 'is-active' (ou outra) quando ligado, '' quando desligado.
+  cls(flag, name = 'is-active') { return flag ? name : ''; }
 
   scrollToId(id) {
     const el = document.getElementById(id); if (!el) return;
     const head = document.querySelector('header'); const off = (head ? head.offsetHeight : 120) + 8;
     window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
   }
+
+  // ===================================================================
+  //  AÇÕES
+  // ===================================================================
   showToast(text) {
     clearTimeout(this._tt);
     this.setState({ toast: text, toastOn: true });
     this._tt = setTimeout(() => this.setState({ toastOn: false }), 2200);
   }
+
   add(id, color, qty = 1) {
     const p = this.prod(id);
-    const col = p.colors ? (color || this.state.cardColor[id] || p.colors[0].id) : null;
-    this.setState(s => {
+    const col = this.pickColor(p, color);
+    this.setState((s) => {
       const key = id + '|' + (col || '');
-      const cart = s.cart.some(i => i.key === key) ? s.cart.map(i => i.key === key ? { ...i, qty: i.qty + qty } : i) : [...s.cart, { key, id, color: col, qty }];
+      const cart = s.cart.some((i) => i.key === key)
+        ? s.cart.map((i) => (i.key === key ? { ...i, qty: i.qty + qty } : i))
+        : [...s.cart, { key, id, color: col, qty }];
       return { cart, added: { ...s.added, [id]: true }, bump: true, checkoutDone: false };
     });
+    // "Pulo" do botão do carrinho e selo "Adicionado ✓" temporários.
     clearTimeout(this._bt); this._bt = setTimeout(() => this.setState({ bump: false }), 260);
-    clearTimeout(this['_a' + id]); this['_a' + id] = setTimeout(() => this.setState(s => ({ added: { ...s.added, [id]: false } })), 1400);
+    clearTimeout(this['_a' + id]); this['_a' + id] = setTimeout(() => this.setState((s) => ({ added: { ...s.added, [id]: false } })), 1400);
     const c = col ? ' · ' + this.colorOf(p, col).name : '';
     this.showToast(`${p.name}${c} adicionado ao carrinho`);
   }
+
   toggleFav(id) {
     const on = this.state.favs.includes(id);
-    this.setState(s => ({ favs: on ? s.favs.filter(f => f !== id) : [...s.favs, id] }));
+    this.setState((s) => ({ favs: on ? s.favs.filter((f) => f !== id) : [...s.favs, id] }));
     this.showToast(on ? 'Removido dos favoritos' : 'Salvo nos favoritos');
   }
+
   openModal(id, color) {
     const p = this.prod(id);
-    const col = p.colors ? (color || this.state.cardColor[id] || p.colors[0].id) : null;
-    this.setState({ modal: { id, color: col, qty: 1, view: 0 }, modalIn: false, drawer: null });
+    clearTimeout(this._mt); // cancela um fechamento em andamento
+    this.setState({ modal: { id, color: this.pickColor(p, color), qty: 1, view: 0 }, modalIn: false, drawer: null });
     requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ modalIn: true })));
   }
-  closeModal = () => { this.setState({ modalIn: false }); clearTimeout(this._mt); this._mt = setTimeout(() => this.setState({ modal: null }), 280); };
+
+  closeModal = () => {
+    this.setState({ modalIn: false });
+    clearTimeout(this._mt); this._mt = setTimeout(() => this.setState({ modal: null }), 280);
+  };
+
+  // Troca a foto do modal com fade.
+  fadeTo(patch) {
+    this.setState({ imgFade: true });
+    clearTimeout(this._ft);
+    this._ft = setTimeout(() => this.setState((s) => (s.modal ? { modal: { ...s.modal, ...patch }, imgFade: false } : { imgFade: false })), 160);
+  }
+
+  closeAll = () => this.setState({ drawer: null, accountOpen: false });
+
+  goCat(catId) {
+    this.setState({ fCats: [catId], query: '', drawer: null });
+    setTimeout(() => this.scrollToId('produtos'), 30);
+  }
+
+  // Efeito 3D nas fotos: informa a posição do mouse ao CSS (.is-tilting em css/produtos.css).
   tiltMove = (e) => {
     if (e.nativeEvent && e.nativeEvent.pointerType === 'touch') return;
     const box = e.currentTarget, r = box.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-    const t = box.querySelector('[data-tilt]'); if (t) t.style.transform = `perspective(1000px) rotateY(${x * 20}deg) rotateX(${-y * 16}deg) scale(1.04)`;
-    const sh = box.querySelector('[data-tilt-shadow]'); if (sh) sh.style.transform = `translateX(${-x * 36}px) scaleX(${1 - Math.abs(x) * 0.18})`;
+    box.style.setProperty('--tilt-x', x);
+    box.style.setProperty('--tilt-y', y);
+    box.style.setProperty('--tilt-ax', Math.abs(x));
+    box.classList.add('is-tilting');
   };
-  tiltLeave = (e) => {
-    const box = e.currentTarget;
-    const t = box.querySelector('[data-tilt]'); if (t) t.style.transform = '';
-    const sh = box.querySelector('[data-tilt-shadow]'); if (sh) sh.style.transform = '';
-  };
-  closeAll = () => this.setState({ drawer: null, accountOpen: false });
-  fadeTo(patch) {
-    this.setState({ imgFade: true });
-    clearTimeout(this._ft); this._ft = setTimeout(() => this.setState(s => ({ modal: { ...s.modal, ...patch }, imgFade: false })), 160);
-  }
-  goCat(catId) { this.setState({ fCats: [catId], query: '', drawer: null }); setTimeout(() => this.scrollToId('produtos'), 30); }
+  tiltLeave = (e) => { e.currentTarget.classList.remove('is-tilting'); };
 
+  // ===================================================================
+  //  CATÁLOGO: busca + filtros + ordenação
+  // ===================================================================
   filtered() {
     const s = this.state, q = this.norm(s.query.trim());
-    let list = Component.PRODUTOS.filter(p => {
-      const pr = this.price(p.id).preco;
-      if (q) { const hay = this.norm([p.name, p.brand, p.sub, this.cat(p.cat).name].join(' ')); if (!q.split(/\s+/).every(t => hay.includes(t))) return false; }
+    const list = Component.PRODUTOS.filter((p) => {
+      if (q) {
+        const hay = this.norm([p.name, p.brand, p.sub, this.cat(p.cat).name].join(' '));
+        if (!q.split(/\s+/).every((t) => hay.includes(t))) return false;
+      }
       if (s.fCats.length && !s.fCats.includes(p.cat)) return false;
       if (s.fBrands.length && !s.fBrands.includes(p.brand)) return false;
-      if (s.fPrice != null && pr > s.fPrice) return false;
+      if (s.fPrice != null && this.price(p.id).preco > s.fPrice) return false;
       if (s.fRating && p.rating < s.fRating) return false;
       return true;
     });
-    const by = { menor: (a, b) => this.price(a.id).preco - this.price(b.id).preco, maior: (a, b) => this.price(b.id).preco - this.price(a.id).preco, recentes: (a, b) => a.recent - b.recent,
-      relevancia: (a, b) => ((b.featured ? 1 : 0) - (a.featured ? 1 : 0)) || (b.rating * b.reviews - a.rating * a.reviews) };
+    const by = {
+      menor: (a, b) => this.price(a.id).preco - this.price(b.id).preco,
+      maior: (a, b) => this.price(b.id).preco - this.price(a.id).preco,
+      recentes: (a, b) => a.recent - b.recent,
+      relevancia: (a, b) => ((b.featured ? 1 : 0) - (a.featured ? 1 : 0)) || (b.rating * b.reviews - a.rating * a.reviews),
+    };
     return list.slice().sort(by[s.sort] || by.relevancia);
   }
 
+  // ===================================================================
+  //  VIEW-MODELS (dados prontos para o template)
+  // ===================================================================
+
+  // Produto → dados do ProductCard (também usado no spotlight, favoritos e modal).
+  // ctx 'offer' = card da seção Ofertas (botão "Comprar" e aviso de estoque).
   vm(p, ctx) {
-    const s = this.state, pr = this.price(p.id), cid = p.colors ? (s.cardColor[p.id] || p.colors[0].id) : null, col = this.colorOf(p, cid);
+    const s = this.state, pr = this.price(p.id);
+    const cid = p.colors ? (s.cardColor[p.id] || p.colors[0].id) : null;
     const img = this.imgOf(p, cid), fav = s.favs.includes(p.id), added = !!s.added[p.id];
-    const hasOld = !!(pr.de && pr.de > pr.preco);
+    const hasOld = this.hasDiscount(p.id);
     return {
       id: p.id, name: p.name, brand: p.brand, sub: p.sub, ghost: p.ghost, catName: this.cat(p.cat).name,
-      tint: col ? col.soft : p.tint, ghostColor: col ? col.hex + '33' : 'rgba(0,0,0,.08)',
-      hasImg: !!img, noImg: !img, img, imgBlend: p.blend ? 'multiply' : 'normal', imgFilter: p.blend ? 'none' : 'drop-shadow(0 18px 16px rgba(0,0,0,.16))',
+      colorId: cid || undefined, // data-color: sem cor, o atributo nem aparece
+      hasImg: !!img, noImg: !img, img, imgCls: this.cls(p.blend, 'is-blend'),
       priceTxt: this.fmt(pr.preco), oldTxt: hasOld ? this.fmt(pr.de) : '', hasOld, isOffer: hasOld,
-      discTxt: hasOld ? `-${Math.round((1 - pr.preco / pr.de) * 100)}%` : '',
+      discTxt: hasOld ? `-${Math.round(this.discount(p.id) * 100)}%` : '',
       installTxt: this.install(pr.preco),
-      starPct: (p.rating / 5 * 100) + '%', ratingTxt: `${p.rating.toFixed(1).replace('.', ',')} (${p.reviews})`,
-      heartFill: fav ? '#E1261C' : 'none', heartStroke: fav ? '#E1261C' : '#111111', isFav: fav,
+      stars: Math.round(p.rating * 10), ratingTxt: `${p.rating.toFixed(1).replace('.', ',')} (${p.reviews})`,
+      favCls: this.cls(fav, 'is-fav'),
       hasColors: !!p.colors,
-      colors: (p.colors || []).map(c => ({ ...c, ring: c.id === cid ? '#111111' : 'transparent', onPick: () => this.setState(st => ({ cardColor: { ...st.cardColor, [p.id]: c.id } })) })),
+      colors: (p.colors || []).map((c) => ({ ...c, cls: this.cls(c.id === cid), onPick: () => this.setState((st) => ({ cardColor: { ...st.cardColor, [p.id]: c.id } })) })),
       showUrgency: ctx === 'offer' && p.stock === 'baixo',
       addLabel: added ? 'Adicionado ✓' : (ctx === 'offer' ? 'Comprar' : (s.w < 560 ? 'Adicionar' : 'Adicionar ao carrinho')),
-      addBg: added ? '#E1261C' : '#111111', spotAddBg: added ? '#ffffff33' : '#E1261C',
+      addCls: this.cls(added, 'is-added'),
       tiltMove: this.tiltMove, tiltLeave: this.tiltLeave, onAdd: () => this.add(p.id), onOpen: () => this.openModal(p.id), onFav: () => this.toggleFav(p.id),
     };
   }
 
+  // Tudo o que o template usa ({{...}}), montado por seção da página.
   renderVals() {
-    const s = this.state, w = s.w, C = Component;
-    const prodCols = w >= 1180 ? 4 : w >= 820 ? 3 : 2;
-    const catCols = w >= 1080 ? 4 : w >= 620 ? 2 : 1;
-    const spans = catCols === 4 ? [2, 1, 1, 1, 1, 2, 4] : catCols === 2 ? [2, 1, 1, 1, 1, 2, 2] : [1, 1, 1, 1, 1, 1, 1];
-    const isCompact = w < 880;
-    const allCols = w >= 1180 ? 3 : w >= 880 ? 2 : w >= 700 ? 3 : 2;
-
+    const w = this.state.w;
+    const prodCols = w >= 1180 ? 4 : w >= 820 ? 3 : 2; // cards por linha em Destaques/Ofertas (igual ao CSS)
     const results = this.filtered();
-    const q = s.query.trim();
-    const prices = C.PRODUTOS.map(p => this.price(p.id).preco);
-    const pMin = Math.floor(Math.min(...prices) / 100) * 100, pMax = Math.ceil(Math.max(...prices) / 1000) * 1000;
-    const priceVal = s.fPrice ?? pMax;
-    const brands = [...new Set(C.PRODUTOS.map(p => p.brand))];
-    const activeFilterCount = s.fCats.length + s.fBrands.length + (s.fPrice != null ? 1 : 0) + (s.fRating ? 1 : 0);
+    return {
+      tiltMove: this.tiltMove, tiltLeave: this.tiltLeave, closeAll: this.closeAll,
+      ...this.headerVals(results),
+      ...this.heroVals(),
+      ...this.categoryVals(),
+      ...this.featuredVals(prodCols),
+      ...this.catalogVals(results),
+      ...this.drawerVals(),
+      ...this.modalVals(),
+      ...this.toastVals(),
+    };
+  }
 
-    const spotP = C.PRODUTOS.find(p => p.spotlight);
-    const featAll = C.PRODUTOS.filter(p => p.featured).length; let featCount = Math.min(featAll, prodCols === 3 ? 7 : 6); while (featCount > 0 && (2 + featCount) % prodCols) featCount--;
-    const featured = C.PRODUTOS.filter(p => p.featured).slice(0, featCount).map(p => this.vm(p));
-    const offers = C.PRODUTOS.filter(p => { const pr = this.price(p.id); return pr.de && pr.de > pr.preco && !p.spotlight; })
-      .sort((a, b) => (1 - this.price(b.id).preco / this.price(b.id).de) - (1 - this.price(a.id).preco / this.price(a.id).de))
-      .slice(0, prodCols === 3 ? 6 : prodCols * 2).map(p => this.vm(p, 'offer'));
-
-    const heroP = this.prod('jbl-boombox-4'), heroCol = this.colorOf(heroP, s.heroColor);
-    const hv = (id) => s.heroColor === id;
-
-    const navCats = [['audio', 'Áudio'], ['tvs', 'TVs'], ['computadores', 'Computadores'], ['casa', 'Casa Inteligente'], ['eletro', 'Eletrodomésticos'], ['clima', 'Climatização'], ['internet', 'Internet']];
+  // ---------- Header: busca, conta, favoritos, carrinho, navegação ----------
+  headerVals(results) {
+    const s = this.state, w = s.w, q = s.query.trim();
+    const cartCount = this.cartCount();
     const activeCat = s.fCats.length === 1 ? s.fCats[0] : null;
     const navItems = [
-      { label: 'Início', hot: false, color: '#111111', line: 'transparent', onClick: () => { this.setState({ drawer: null }); window.scrollTo({ top: 0, behavior: 'smooth' }); } },
-      { label: 'Ofertas', hot: true, color: '#E1261C', line: 'transparent', onClick: () => { this.setState({ drawer: null }); setTimeout(() => this.scrollToId('ofertas'), 30); } },
-      ...navCats.map(([id, label]) => ({ label, hot: false, color: '#111111', line: activeCat === id ? '#E1261C' : 'transparent', onClick: () => this.goCat(id) })),
+      { label: 'Início', hot: false, cls: '', onClick: () => { this.setState({ drawer: null }); window.scrollTo({ top: 0, behavior: 'smooth' }); } },
+      { label: 'Ofertas', hot: true, cls: 'is-hot', onClick: () => { this.setState({ drawer: null }); setTimeout(() => this.scrollToId('ofertas'), 30); } },
+      ...Component.NAV_CATS.map(([id, label]) => ({ label, hot: false, cls: this.cls(activeCat === id), onClick: () => this.goCat(id) })),
     ];
-
-    const suggestions = q ? results.slice(0, 5).map(p => ({ name: p.name, ghost: p.ghost, tint: p.tint, catName: this.cat(p.cat).name, priceTxt: this.fmt(this.price(p.id).preco), onPick: () => { this.setState({ searchFocus: false }); this.openModal(p.id); } })) : [];
-
-    const cartItems = s.cart.map(it => {
-      const p = this.prod(it.id); if (!p) return null;
-      const col = this.colorOf(p, it.color), img = this.imgOf(p, it.color), pr = this.price(p.id).preco;
-      return { key: it.key, name: p.name, qty: it.qty, hasColor: !!col, colorName: col ? col.name : '', colorHex: col ? col.hex : '', tint: col ? col.soft : p.tint, ghost: p.ghost, ghostColor: col ? col.hex + '66' : 'rgba(0,0,0,.25)', hasImg: !!img, noImg: !img, img, imgBlend: p.blend ? 'multiply' : 'normal',
-        lineTxt: this.fmt(pr * it.qty), sum: pr * it.qty,
-        onMinus: () => this.setState(st => ({ cart: st.cart.map(c => c.key === it.key ? { ...c, qty: Math.max(1, c.qty - 1) } : c) })),
-        onPlus: () => this.setState(st => ({ cart: st.cart.map(c => c.key === it.key ? { ...c, qty: c.qty + 1 } : c) })),
-        onRemove: () => this.setState(st => ({ cart: st.cart.filter(c => c.key !== it.key) })) };
-    }).filter(Boolean);
-    const subtotal = cartItems.reduce((a, b) => a + b.sum, 0);
-    const cartCount = s.cart.reduce((a, b) => a + b.qty, 0);
-
-    const favItems = s.favs.map(id => this.prod(id)).filter(Boolean).map(p => { const v = this.vm(p); return { ...v, ghostColor: 'rgba(0,0,0,.25)', addLabel: s.added[p.id] ? 'Adicionado ✓' : 'Adicionar ao carrinho' }; });
-
-    let m = null, mAddBg = '#111111', mAddLabel = 'Adicionar ao carrinho';
-    if (s.modal) {
-      const p = this.prod(s.modal.id), base = this.vm(p), col = this.colorOf(p, s.modal.color);
-      const img = this.imgOf(p, s.modal.color);
-      m = { ...base, qty: s.modal.qty, tint: col ? col.soft : p.tint, ghostColor: col ? col.hex + '40' : 'rgba(0,0,0,.08)',
-        showImg: !!img, showPh: !img, mainImg: img, viewLabel: 'Foto do produto',
-        colorNameUpper: col ? col.name.toUpperCase() : '',
-        colors: (p.colors || []).map(c => ({ ...c, upper: c.name.toUpperCase(), ring: c.id === s.modal.color ? '#111111' : '#e2e2e2', onPick: () => c.id !== s.modal.color && this.fadeTo({ color: c.id, view: 0 }) })),
-        desc: p.desc, features: p.features };
-      if (s.added[p.id]) { mAddBg = '#E1261C'; mAddLabel = 'Adicionado ✓'; }
-    }
-    const mobileModal = w < 640;
-
+    const suggestions = q ? results.slice(0, 5).map((p) => ({
+      id: p.id, name: p.name, ghost: p.ghost, catName: this.cat(p.cat).name, priceTxt: this.fmt(this.price(p.id).preco),
+      onPick: () => { this.setState({ searchFocus: false }); this.openModal(p.id); },
+    })) : [];
     return {
+      // Breakpoints do header
       showHamburger: w < 1000, showNav: w >= 1000, searchInline: w >= 760, searchBelow: w < 760, showLabels: w >= 1180,
-      query: s.query, hasQuery: !!q,
+      // Busca
+      query: s.query,
       onQuery: (e) => this.setState({ query: e.target.value, searchFocus: true }),
       onSearchFocus: () => this.setState({ searchFocus: true }),
       onSearchBlur: () => setTimeout(() => this.setState({ searchFocus: false }), 150),
       onSearchKey: (e) => { if (e.key === 'Enter') { e.target.blur(); this.setState({ searchFocus: false }); this.scrollToId('produtos'); } },
       goResults: () => { this.setState({ searchFocus: false }); setTimeout(() => this.scrollToId('produtos'), 20); },
       showSuggest: s.searchFocus && !!q, suggestions, suggestEmpty: !!q && results.length === 0, resultCount: results.length,
-      clearQuery: () => this.setState({ query: '' }),
+      // Logo, menu e conta
       goTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
       openMenu: () => this.setState({ drawer: 'menu' }),
-      toggleAccount: () => this.setState(st => ({ accountOpen: !st.accountOpen })),
+      toggleAccount: () => this.setState((st) => ({ accountOpen: !st.accountOpen })),
       accountOpen: s.accountOpen,
       onLogin: () => { this.setState({ accountOpen: false, drawer: null }); this.showToast('Área do cliente disponível em breve'); },
+      // Favoritos e carrinho
       openFav: () => this.setState({ drawer: 'fav', accountOpen: false }),
-      openCart: () => this.setState({ drawer: 'cart', accountOpen: false }),
+      // Reabrir o carrinho depois de um pedido mostra o carrinho (vazio), não o "Pedido recebido!" antigo.
+      openCart: () => this.setState({ drawer: 'cart', accountOpen: false, checkoutDone: false }),
       favCount: s.favs.length, hasFavs: s.favs.length > 0,
-      cartCount, cartCountTxt: cartCount === 1 ? '1 item' : `${cartCount} itens`, cartScale: s.bump ? 1.12 : 1,
+      cartCount, cartCountTxt: cartCount === 1 ? '1 item' : `${cartCount} itens`, cartBtnCls: this.cls(s.bump, 'is-bump'),
       navItems,
+    };
+  }
 
-      heroColors: heroP.colors.map(c => ({ ...c, ring: hv(c.id) ? '#111111' : 'rgba(0,0,0,.12)', bg: hv(c.id) ? '#ffffff' : 'rgba(255,255,255,.5)', onPick: () => this.setState({ heroColor: c.id }) })),
-      heroColorName: heroCol.name, heroHex: heroCol.hex,
-      heroOpMarrom: hv('marrom') ? 1 : 0, heroOpLaranja: hv('laranja') ? 1 : 0, heroOpPreto: hv('preto') ? 1 : 0,
-      heroScMarrom: hv('marrom') ? 1 : 0.94, heroScLaranja: hv('laranja') ? 1 : 0.94, heroScPreto: hv('preto') ? 1 : 0.94,
-      heroPeMarrom: hv('marrom') ? 'auto' : 'none', heroPeLaranja: hv('laranja') ? 'auto' : 'none', heroPePreto: hv('preto') ? 'auto' : 'none',
-      heroBuy: () => { this.add('jbl-boombox-4', s.heroColor); },
-      heroDetails: () => this.openModal('jbl-boombox-4', s.heroColor),
-      heroPriceTxt: `${this.fmt(this.price('jbl-boombox-4').preco)} · ${this.install(this.price('jbl-boombox-4').preco).replace('ou ', '')}`,
+  // ---------- Hero: JBL Boombox 4 com troca de cor ----------
+  heroVals() {
+    const s = this.state, id = 'jbl-boombox-4';
+    const p = this.prod(id), col = this.colorOf(p, s.heroColor), preco = this.price(id).preco;
+    return {
+      heroColors: p.colors.map((c) => ({ ...c, cls: this.cls(s.heroColor === c.id), onPick: () => this.setState({ heroColor: c.id }) })),
+      heroColor: col.id, heroColorName: col.name,
+      // Uma camada de foto por cor; só a da cor escolhida fica visível.
+      heroLayer: { marrom: this.cls(s.heroColor === 'marrom'), laranja: this.cls(s.heroColor === 'laranja'), preto: this.cls(s.heroColor === 'preto') },
+      heroBuy: () => this.add(id, s.heroColor),
+      heroDetails: () => this.openModal(id, s.heroColor),
+      heroPriceTxt: `${this.fmt(preco)} · ${this.install(preco).replace('ou ', '')}`,
+    };
+  }
 
-      catCols,
-      categories: C.CATS.map((c, i) => { const ps = C.PRODUTOS.filter(p => p.cat === c.id); return { ...c, span: spans[i], countTxt: ps.length === 1 ? '1 produto' : `${ps.length} produtos`, productsTxt: ps.map(p => p.brand).filter((b, j, a) => a.indexOf(b) === j).join(' · '), onClick: () => this.goCat(c.id) }; }),
-      footerCats: C.CATS.slice(0, 6).map(c => ({ name: c.name, onClick: () => this.goCat(c.id) })),
+  // ---------- Categorias (e lista de categorias do rodapé) ----------
+  categoryVals() {
+    const C = Component;
+    return {
+      categories: C.CATS.map((c) => {
+        const ps = C.PRODUTOS.filter((p) => p.cat === c.id);
+        const brands = ps.map((p) => p.brand).filter((b, j, a) => a.indexOf(b) === j);
+        return { ...c, countTxt: ps.length === 1 ? '1 produto' : `${ps.length} produtos`, productsTxt: brands.join(' · '), onClick: () => this.goCat(c.id) };
+      }),
+      footerCats: C.CATS.slice(0, 6).map((c) => ({ name: c.name, onClick: () => this.goCat(c.id) })),
+    };
+  }
 
-      prodCols, spotSpan: 2, spot: this.vm(spotP), featured,
+  // ---------- Destaques (com spotlight), banner promocional e Ofertas ----------
+  featuredVals(prodCols) {
+    const C = Component;
+    const featuredAll = C.PRODUTOS.filter((p) => p.featured);
+    // O spotlight ocupa 2 colunas; ajusta a quantidade para completar a última linha.
+    let featCount = Math.min(featuredAll.length, prodCols === 3 ? 7 : 6);
+    while (featCount > 0 && (2 + featCount) % prodCols) featCount--;
+    // Ofertas: produtos com desconto (exceto o spotlight), do maior para o menor desconto.
+    const offers = C.PRODUTOS.filter((p) => this.hasDiscount(p.id) && !p.spotlight)
+      .sort((a, b) => this.discount(b.id) - this.discount(a.id))
+      .slice(0, prodCols === 3 ? 6 : prodCols * 2);
+    return {
+      spot: this.vm(C.PRODUTOS.find((p) => p.spotlight)),
+      featured: featuredAll.slice(0, featCount).map((p) => this.vm(p)),
       goAll: () => { this.setState({ fCats: [], fBrands: [], fPrice: null, fRating: 0, query: '' }); setTimeout(() => this.scrollToId('produtos'), 20); },
-      goAllClose: () => { this.setState({ drawer: null }); setTimeout(() => this.scrollToId('produtos'), 20); },
       openAirpods: () => this.openModal('airpods-max'),
-      offers, offerCount: C.PRODUTOS.filter(p => { const pr = this.price(p.id); return pr.de && pr.de > pr.preco; }).length,
+      offers: offers.map((p) => this.vm(p, 'offer')),
+      offerCount: C.PRODUTOS.filter((p) => this.hasDiscount(p.id)).length,
+    };
+  }
 
-      isCompact, showFilters: !isCompact || s.filtersOpen, toggleFilters: () => this.setState(st => ({ filtersOpen: !st.filtersOpen })),
-      asideMax: isCompact ? '100%' : '280px', asidePos: isCompact ? 'relative' : 'sticky',
+  // ---------- Todos os produtos: filtros, ordenação e resultados ----------
+  catalogVals(results) {
+    const s = this.state, C = Component, isCompact = s.w < 880; // < 880px: filtros viram um botão
+    const prices = C.PRODUTOS.map((p) => this.price(p.id).preco);
+    const pMin = Math.floor(Math.min(...prices) / 100) * 100, pMax = Math.ceil(Math.max(...prices) / 1000) * 1000;
+    const brands = [...new Set(C.PRODUTOS.map((p) => p.brand))];
+    const activeFilterCount = s.fCats.length + s.fBrands.length + (s.fPrice != null ? 1 : 0) + (s.fRating ? 1 : 0);
+    return {
+      hasQuery: !!s.query.trim(), clearQuery: () => this.setState({ query: '' }),
+      isCompact, showFilters: !isCompact || s.filtersOpen, toggleFilters: () => this.setState((st) => ({ filtersOpen: !st.filtersOpen })),
       hasActiveFilters: activeFilterCount > 0, activeFilterCount,
       sort: s.sort, onSort: (e) => this.setState({ sort: e.target.value }),
-      catFilters: C.CATS.map(c => { const on = s.fCats.includes(c.id); return { label: c.name, count: C.PRODUTOS.filter(p => p.cat === c.id).length, boxBg: on ? '#E1261C' : '#ffffff', boxBorder: on ? '#E1261C' : '#cfcfd2', onToggle: () => this.setState(st => ({ fCats: on ? st.fCats.filter(x => x !== c.id) : [...st.fCats, c.id] })) }; }),
-      brandFilters: brands.map(b => { const on = s.fBrands.includes(b); return { label: b, bg: on ? '#111111' : '#ffffff', fg: on ? '#ffffff' : '#111111', border: on ? '#111111' : '#e2e2e2', onToggle: () => this.setState(st => ({ fBrands: on ? st.fBrands.filter(x => x !== b) : [...st.fBrands, b] })) }; }),
-      priceMin: pMin, priceMax: pMax, priceVal, priceLabel: s.fPrice == null ? 'Qualquer valor' : `Até ${this.fmt(s.fPrice)}`,
+      catFilters: C.CATS.map((c) => {
+        const on = s.fCats.includes(c.id);
+        return {
+          label: c.name, count: C.PRODUTOS.filter((p) => p.cat === c.id).length, cls: this.cls(on, 'is-checked'),
+          onToggle: () => this.setState((st) => ({ fCats: on ? st.fCats.filter((x) => x !== c.id) : [...st.fCats, c.id] })),
+        };
+      }),
+      brandFilters: brands.map((b) => {
+        const on = s.fBrands.includes(b);
+        return { label: b, cls: this.cls(on), onToggle: () => this.setState((st) => ({ fBrands: on ? st.fBrands.filter((x) => x !== b) : [...st.fBrands, b] })) };
+      }),
+      priceMin: pMin, priceMax: pMax, priceVal: s.fPrice ?? pMax,
+      priceLabel: s.fPrice == null ? 'Qualquer valor' : `Até ${this.fmt(s.fPrice)}`,
       priceMinTxt: this.fmt(pMin), priceMaxTxt: this.fmt(pMax),
       onPrice: (e) => { const v = +e.target.value; this.setState({ fPrice: v >= pMax ? null : v }); },
-      ratingFilters: [[0, 'Todas'], [4.7, '4,7 ★ ou mais'], [4.8, '4,8 ★ ou mais']].map(([v, label]) => { const on = s.fRating === v; return { label, bg: on ? '#111111' : '#ffffff', fg: on ? '#ffffff' : '#111111', border: on ? '#111111' : '#e2e2e2', onPick: () => this.setState({ fRating: v }) }; }),
+      ratingFilters: [[0, 'Todas'], [4.7, '4,7 ★ ou mais'], [4.8, '4,8 ★ ou mais']].map(([v, label]) => ({ label, cls: this.cls(s.fRating === v), onPick: () => this.setState({ fRating: v }) })),
       clearFilters: () => this.setState({ fCats: [], fBrands: [], fPrice: null, fRating: 0 }),
       clearAll: () => this.setState({ fCats: [], fBrands: [], fPrice: null, fRating: 0, query: '' }),
-      allCols, results: results.map(p => this.vm(p)), hasResults: results.length > 0, noResults: results.length === 0,
+      results: results.map((p) => this.vm(p)), hasResults: results.length > 0, noResults: results.length === 0,
       resultLabel: results.length === 1 ? '1 produto encontrado' : `${results.length} produtos encontrados`,
+    };
+  }
 
-      overlayOpacity: s.drawer ? 1 : 0, overlayPE: s.drawer ? 'auto' : 'none', closeAll: this.closeAll,
-      menuX: s.drawer === 'menu' ? '0%' : '-105%', menuVis: s.drawer === 'menu' ? 'visible' : 'hidden',
-      cartX: s.drawer === 'cart' ? '0%' : '105%', cartVis: s.drawer === 'cart' ? 'visible' : 'hidden',
-      favX: s.drawer === 'fav' ? '0%' : '105%', favVis: s.drawer === 'fav' ? 'visible' : 'hidden',
+  // ---------- Gavetas: menu mobile, carrinho e favoritos ----------
+  drawerVals() {
+    const s = this.state, open = (name) => this.cls(s.drawer === name, 'is-open');
+    const cartItems = s.cart.map((it) => {
+      const p = this.prod(it.id); if (!p) return null;
+      const col = this.colorOf(p, it.color), img = this.imgOf(p, it.color), sum = this.price(p.id).preco * it.qty;
+      const update = (fn) => this.setState((st) => ({ cart: fn(st.cart) }));
+      return {
+        key: it.key, id: p.id, name: p.name, qty: it.qty,
+        hasColor: !!col, colorName: col ? col.name : '', colorId: col ? col.id : undefined, ghost: p.ghost,
+        hasImg: !!img, noImg: !img, img, imgCls: this.cls(p.blend, 'is-blend'),
+        lineTxt: this.fmt(sum), sum,
+        onMinus: () => update((cart) => cart.map((c) => (c.key === it.key ? { ...c, qty: Math.max(1, c.qty - 1) } : c))),
+        onPlus: () => update((cart) => cart.map((c) => (c.key === it.key ? { ...c, qty: c.qty + 1 } : c))),
+        onRemove: () => update((cart) => cart.filter((c) => c.key !== it.key)),
+      };
+    }).filter(Boolean);
+    const subtotal = cartItems.reduce((a, b) => a + b.sum, 0);
+    const favItems = s.favs.map((id) => this.prod(id)).filter(Boolean).map((p) => ({
+      ...this.vm(p), addLabel: s.added[p.id] ? 'Adicionado ✓' : 'Adicionar ao carrinho',
+    }));
+    return {
+      overlayCls: this.cls(!!s.drawer, 'is-open'), menuDrawerCls: open('menu'), cartDrawerCls: open('cart'), favDrawerCls: open('fav'),
+      // Carrinho
       cartItems, cartEmpty: cartItems.length === 0 && !s.checkoutDone, cartHasItems: cartItems.length > 0, checkoutDone: s.checkoutDone,
       subtotalTxt: this.fmt(subtotal), totalTxt: this.fmt(subtotal), totalInstallTxt: this.install(subtotal),
       checkout: () => this.setState({ cart: [], checkoutDone: true }),
+      goAllClose: () => { this.setState({ drawer: null }); setTimeout(() => this.scrollToId('produtos'), 20); },
+      // Favoritos
       favItems, favEmpty: favItems.length === 0,
+    };
+  }
 
-      hasModal: !!m, m: m || {}, modalOpacity: s.modalIn ? 1 : 0, modalY: s.modalIn ? '0px' : '28px',
-      modalMaxH: mobileModal ? '100%' : 'calc(100vh - 48px)', modalH: mobileModal ? '100%' : 'auto', modalRadius: mobileModal ? '0px' : '28px',
-      modalImgOpacity: s.imgFade ? 0 : 1, modalImgScale: s.imgFade ? 0.97 : 1,
-      tiltMove: this.tiltMove, tiltLeave: this.tiltLeave, closeModal: this.closeModal, stop: (e) => e.stopPropagation(),
-      mMinus: () => this.setState(st => ({ modal: { ...st.modal, qty: Math.max(1, st.modal.qty - 1) } })),
-      mPlus: () => this.setState(st => ({ modal: { ...st.modal, qty: st.modal.qty + 1 } })),
+  // ---------- Modal de produto ----------
+  modalVals() {
+    const s = this.state;
+    let m = null, added = false;
+    if (s.modal) {
+      const p = this.prod(s.modal.id), col = this.colorOf(p, s.modal.color), img = this.imgOf(p, s.modal.color);
+      m = {
+        ...this.vm(p), qty: s.modal.qty, colorId: col ? col.id : undefined,
+        showImg: !!img, showPh: !img, mainImg: img, viewLabel: 'Foto do produto',
+        colorNameUpper: col ? col.name.toUpperCase() : '',
+        colors: (p.colors || []).map((c) => ({
+          ...c, upper: c.name.toUpperCase(), cls: this.cls(c.id === s.modal.color),
+          onPick: () => c.id !== s.modal.color && this.fadeTo({ color: c.id, view: 0 }),
+        })),
+        desc: p.desc, features: p.features,
+      };
+      added = !!s.added[p.id];
+    }
+    const setQty = (fn) => this.setState((st) => ({ modal: { ...st.modal, qty: fn(st.modal.qty) } }));
+    return {
+      hasModal: !!m, m: m || {},
+      modalCls: this.cls(s.modalIn, 'is-in'), modalFadeCls: this.cls(s.imgFade, 'is-fading'),
+      closeModal: this.closeModal, stop: (e) => e.stopPropagation(),
+      mMinus: () => setQty((q) => Math.max(1, q - 1)),
+      mPlus: () => setQty((q) => q + 1),
       mAdd: () => this.add(s.modal.id, s.modal.color, s.modal.qty),
       mBuy: () => { this.add(s.modal.id, s.modal.color, s.modal.qty); this.closeModal(); setTimeout(() => this.setState({ drawer: 'cart' }), 200); },
-      mAddBg, mAddLabel,
-
-      toastText: s.toast || '', toastOpacity: s.toastOn ? 1 : 0, toastY: s.toastOn ? '0px' : '20px',
+      mAddLabel: added ? 'Adicionado ✓' : 'Adicionar ao carrinho', mAddCls: this.cls(added, 'is-added'),
     };
+  }
+
+  // ---------- Toast ----------
+  toastVals() {
+    const s = this.state;
+    return { toastText: s.toast || '', toastCls: this.cls(s.toastOn, 'is-on') };
   }
 }
 </script>
